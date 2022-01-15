@@ -33,7 +33,7 @@ int main()
 
     int lo = 1;
     int hi = 1e9;
-    int ans = 1;
+    int ans = 1e9;
     while (lo <= hi)
     {
         int mid = (lo + hi) / 2;
