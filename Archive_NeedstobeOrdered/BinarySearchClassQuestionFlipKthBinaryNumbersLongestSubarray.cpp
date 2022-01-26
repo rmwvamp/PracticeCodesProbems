@@ -96,3 +96,13 @@ int main()
     cout << ans << endl;
     return 0;
 }
+
+
+/* code 
+
+map<int,int>m;
+
+marr[i]
+
+
+*/

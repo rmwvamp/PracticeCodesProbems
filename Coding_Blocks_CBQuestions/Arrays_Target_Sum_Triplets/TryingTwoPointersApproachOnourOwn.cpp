@@ -60,17 +60,18 @@ void solve()
     // vector<pair<pair<int, int>, int>> ans;
 
     /* Creating a Vector of Vector */
+
     vector<vector<int>> ans;
 
     for (int i = 0; i < n - 2; i++)
     {
         // map<int, int> temp;
-        vector<int> temp;
         int RequiredSum = t - arr[i];
         int start = i + 1;
         int end = n - 1;
         while (start < end)
         {
+            vector<int> temp;
             int PairSum = arr[start] + arr[end];
             if (PairSum == RequiredSum)
             {
@@ -81,9 +82,9 @@ void solve()
                 // temp[arr[i]]++;
                 // temp[arr[start]]++;
                 // temp[arr[end]]++;
-
                 start++;
                 end--;
+                ans.push_back(temp);
             }
             else if (PairSum > RequiredSum)
             {
@@ -94,9 +95,8 @@ void solve()
                 start++;
             }
         }
-        ans.push_back(temp);
     }
-    cout << ans.size() << endl;
+    // cout << ans.size() << endl;
 
     /* My vector  of vector has the answers in my answer vector */
     for (int i = 0; i < ans.size(); i++)
