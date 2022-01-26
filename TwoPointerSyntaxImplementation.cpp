@@ -9,7 +9,7 @@ int main()
 
     int head = -1;
     int tail = 0;
-    int cnt = 0;
+    int cnt0 = 0;
     while (tail < head)
     {
         while (head + 1 < n && cnt0 + (1 - arr[head + 1]) <= k)

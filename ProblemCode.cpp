@@ -38,13 +38,34 @@ const int md = 0;
 void solve()
 {
     // SOLUTION STARTS
+    scii(n, k);
+    vector<int> arr(n);
+    vector<int> prefix(n);
+    int ans;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        prefix[i] = 1 - arr[i];
+        if (i)
+            prefix[i] += prefix[i - 1];
+    }
+    for (int i = 0; i < n; i++)
+    {
+        /* code */
+        int temp = distance(prefix.begin() + i, upper_bound(prefix.begin() + i, prefix.end(), k + (i > 0 ? prefix[i - 1] : 0)));
+        ans = max(ans, temp);
+    }
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
-
+    int t;
+    // cin >> t;
+    t = 1;
+    while (t--)
+    {
+        solve();
+    }
     return 0;
 }

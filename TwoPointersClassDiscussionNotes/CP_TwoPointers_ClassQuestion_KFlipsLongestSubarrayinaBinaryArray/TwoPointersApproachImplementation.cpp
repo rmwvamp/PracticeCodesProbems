@@ -35,16 +35,57 @@ const int md = 0;
     string s;  \
     cin >> s
 
+/* Approach
+
+we try to find the maximum corresponding head for the tail by using the given required condition.
+
+
+ */
+
 void solve()
 {
     // SOLUTION STARTS
+    scii(n, k);
+    vector<int> arr(n);
+    int ans;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+
+    int tail = 0;
+    int head = -1;
+    int cnt0 = 0;
+    while (tail < n)
+    {
+        while ((head + 1) < n && (cnt0 + (1 - arr[head + 1])) <= k)
+        {
+            head++;
+            cnt0 += 1 - arr[head];
+        }
+        ans = max(ans, head - tail + 1);
+        if (head >= tail)
+        {
+            cnt0 -= 1 - arr[tail];
+            tail++;
+        }
+        else
+        {
+            tail++;
+            head = tail - 1;
+        }
+    }
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
-
+    int t;
+    // cin >> t;
+    t = 1;
+    while (t--)
+    {
+        solve();
+    }
     return 0;
 }

@@ -35,16 +35,58 @@ const int md = 0;
     string s;  \
     cin >> s
 
+#define PRINT(a, n)   \
+    do                \
+    {                 \
+        int i;        \
+    for (i = 0; ?; ?) \
+        {             \
+            ?         \
+        }             \
+    } while (0)
+
 void solve()
 {
     // SOLUTION STARTS
+    sci(n);
+    vector<int> arr(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    sort(all(arr));
+    sci(t);
+
+    for (int i = 0; i < n; i++)
+    {
+        int tail = i + 1;
+        int head = tail-1;
+        while (tail < n)
+        {
+            while(head+1<n && (arr[i]+arr[tail]+arr[head])<=t){
+
+            }
+            if(head>=tail){
+
+            }
+            else{
+                
+            }
+        }
+
+    }
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
-
+    int t;
+    // cin >> t;
+    t = 1;
+    while (t--)
+    {
+        solve();
+    }
     return 0;
 }

@@ -35,6 +35,7 @@ const int md = 0;
     string s;  \
     cin >> s
 
+
 void solve()
 {
     // SOLUTION STARTS
@@ -43,8 +44,12 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
-
+    int t;
+    // cin >> t;
+    t = 1;
+    while (t--)
+    {
+        solve();
+    }
     return 0;
 }
