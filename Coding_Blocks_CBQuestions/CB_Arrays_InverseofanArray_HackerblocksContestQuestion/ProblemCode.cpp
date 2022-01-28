@@ -38,6 +38,22 @@ const int md = 0;
 void solve()
 {
     // SOLUTION STARTS
+    sci(n);
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    vector<int> InverseofAnArray(n);
+    for (int i = 0; i < n; i++)
+    {
+        InverseofAnArray[arr[i]] = i;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cout << InverseofAnArray[i] << " ";
+    }
+    cout << endl;
 }
 int main()
 {

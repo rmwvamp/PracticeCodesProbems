@@ -35,50 +35,44 @@ const int md = 0;
     string s;  \
     cin >> s
 
-int check(int &x, vector<int> &arr, int &m)
-{
-    return arr[x] >= m;
-}
-
 void solve()
 {
     // SOLUTION STARTS
     sci(n);
+    ll target;
+    cin >> target;
     vector<int> arr(n);
     for (int i = 0; i < n; i++)
     {
         cin >> arr[i];
     }
-    sci(m);
-    int lo = 0;
-    int hi = n - 1;
-    int ans = -1;
-    while (lo <= hi)
+    vector<int> ans;
+    int tail = 0, head = -1, i = 0, j, k = n - 1;
+    for (int j = 1; j < n - 1; j++)
     {
-        int mid = (lo + hi) / 2;
-        if (check(mid, arr, m))
+        ll PairSum = target - arr[j];
+        while (i < j && k > j)
         {
-            ans = mid;
-            hi = mid - 1;
+            if (PairSum > arr[i] + arr[j])
+            {
+                k--;
+            }
+            else if (PairSum < arr[i] + arr[j])
+            {
+                j++;
+            }
         }
-        else
-        {
-            lo = mid + 1;
-        }
+        ans.pb(PairSum)
     }
-    // cout << ans << endl;
-    arr[ans] == m ? cout << ans << endl : cout << "-1" << endl;
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t;
-    // cin >> t;
-    t = 1;
+    cin >> t;
     while (t--)
-    {
         solve();
-    }
+
     return 0;
 }

@@ -35,47 +35,69 @@ const int md = 0;
     string s;  \
     cin >> s
 
-int check(int &x, vector<int> &arr, int &m)
+void insert(int &x, vector<int> &FrequencyofElements, int &DistinctElementsCount)
 {
-    return arr[x] >= m;
+    FrequencyofElements[x]++;
+    if (FrequencyofElements[x] == 1)
+    {
+        DistinctElementsCount++;
+    }
 }
-
+void remove(int &x, vector<int> &FrequencyofElements, int &DistinctElementsCount)
+{
+    FrequencyofElements[x]--;
+    if (FrequencyofElements[x] == 0)
+    {
+        DistinctElementsCount--;
+    }
+}
 void solve()
 {
     // SOLUTION STARTS
-    sci(n);
+    // SOLUTION STARTS
+    scii(n, k);
     vector<int> arr(n);
     for (int i = 0; i < n; i++)
     {
         cin >> arr[i];
     }
-    sci(m);
-    int lo = 0;
-    int hi = n - 1;
-    int ans = -1;
-    while (lo <= hi)
+
+    /* Maintaining a Frequency Count in O(1)*/
+    int DistinctElementsCount = 0;
+    vector<int> FrequencyofElements(1000000);
+
+    /* Two Pointers Code Starts*/
+    int tail = 0;
+    int head = -1;
+    int ans = 0;
+    while (tail < n)
     {
-        int mid = (lo + hi) / 2;
-        if (check(mid, arr, m))
+        while (head + 1 < n && DistinctElementsCount <= k - 1)
         {
-            ans = mid;
-            hi = mid - 1;
+            head++;
+            insert(arr[head], FrequencyofElements, DistinctElementsCount);
+        }
+        ans++;
+        if (head >= tail)
+        {
+            remove(arr[tail], FrequencyofElements, DistinctElementsCount);
+            tail++;
         }
         else
         {
-            lo = mid + 1;
+            tail++;
+            head = tail - 1;
         }
     }
-    // cout << ans << endl;
-    arr[ans] == m ? cout << ans << endl : cout << "-1" << endl;
+    cout << ans << endl;
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t;
-    // cin >> t;
-    t = 1;
+    cin >> t;
+    // t = 1;
     while (t--)
     {
         solve();
