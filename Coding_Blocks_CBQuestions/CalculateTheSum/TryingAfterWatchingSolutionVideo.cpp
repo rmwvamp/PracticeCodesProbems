@@ -39,42 +39,38 @@ void solve()
 {
     // SOLUTION STARTS
     sci(n);
-    ll target;
-    cin >> target;
     vector<int> arr(n);
+    vector<int> newarr(2 * n);
+    /*Taking Input and Creating extra array of size 2*n */
     for (int i = 0; i < n; i++)
     {
         cin >> arr[i];
-    } 
-    ll ans = LONG_MAX;
-    for (int j = 1; j < n - 1; j++)
-    {
-        int i = 0, k = n - 1;
-
-        while (i < j && k > j)
-        {
-            ans = min(ans, abs((arr[i] + arr[j] + arr[k]) - target));
-
-            if (target < arr[i] + arr[k] + arr[j])
-            {
-                k--;
-            }
-            else if (target > arr[i] + arr[k] + arr[j])
-            {
-                i++;
-            }
-        }
+        newarr[i] = arr[i];
     }
-    cout << ans << endl;
+    for (int i = n; i < 2 * n; i++)
+    {
+        newarr[i] = arr[i - n];
+    }
+
+    sci(q);
+
+    /* Main Logic */
 }
 int main()
 {
+    //  int n = 5, k;
+    // vector<int> test = {0, 9, 2, 1, 4, 3};
+    // // while(1){
+    // k = 1 + (rand() % n);
+    // random_shuffle(test.begin() + 1, test.end());
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t;
-    cin >> t;
+    // cin >> t;
+    t = 1;
     while (t--)
+    {
         solve();
-
+    }
     return 0;
 }

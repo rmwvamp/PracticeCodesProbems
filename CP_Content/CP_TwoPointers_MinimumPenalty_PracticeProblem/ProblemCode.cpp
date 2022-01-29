@@ -35,34 +35,57 @@ const int md = 0;
     string s;  \
     cin >> s
 
+void insert(int &num, vector<int> &frequency, ll &CountofDistinctIntegers)
+{
+    frequency[num]++;
+    if (frequency[num] == 1)
+    {
+        CountofDistinctIntegers++;
+    }
+}
+
+void remove(int &num, vector<int> &frequency, ll &CountofDistinctIntegers)
+{
+    frequency[num]--;
+    if (frequency[num] == 0)
+    {
+        CountofDistinctIntegers--;
+    }
+}
 void solve()
 {
     // SOLUTION STARTS
-    sci(n);
-    ll target;
-    cin >> target;
+    scii(n, d);
     vector<int> arr(n);
     for (int i = 0; i < n; i++)
     {
         cin >> arr[i];
-    } 
-    ll ans = LONG_MAX;
-    for (int j = 1; j < n - 1; j++)
+    }
+
+    int tail = 0;
+    int head = -1;
+    ll ans = 1e18;
+    vector<int> frequency(1e7);
+    ll CountofDistinctIntegers = 0;
+
+    while (tail < n)
     {
-        int i = 0, k = n - 1;
-
-        while (i < j && k > j)
+        while (head + 1 < n && ((head + 1) - tail + 1 <= d))
         {
-            ans = min(ans, abs((arr[i] + arr[j] + arr[k]) - target));
-
-            if (target < arr[i] + arr[k] + arr[j])
-            {
-                k--;
-            }
-            else if (target > arr[i] + arr[k] + arr[j])
-            {
-                i++;
-            }
+            head++;
+            insert(arr[head], frequency, CountofDistinctIntegers);
+        }
+        if (head >= tail)
+        {
+            if (head - tail + 1 == d)
+                ans = min(ans, CountofDistinctIntegers);
+            remove(arr[tail], frequency, CountofDistinctIntegers);
+            tail++;
+        }
+        else
+        {
+            tail++;
+            head = tail - 1;
         }
     }
     cout << ans << endl;

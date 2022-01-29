@@ -39,42 +39,43 @@ void solve()
 {
     // SOLUTION STARTS
     sci(n);
-    ll target;
-    cin >> target;
-    vector<int> arr(n);
+    vector<int> arr(2 * n, 0);
+
+    for (int i = n; i < (2 * n); i++)
+    {
+
+        cin >> arr[i];
+    }
     for (int i = 0; i < n; i++)
     {
-        cin >> arr[i];
-    } 
-    ll ans = LONG_MAX;
-    for (int j = 1; j < n - 1; j++)
-    {
-        int i = 0, k = n - 1;
-
-        while (i < j && k > j)
-        {
-            ans = min(ans, abs((arr[i] + arr[j] + arr[k]) - target));
-
-            if (target < arr[i] + arr[k] + arr[j])
-            {
-                k--;
-            }
-            else if (target > arr[i] + arr[k] + arr[j])
-            {
-                i++;
-            }
-        }
+        /* code */
+        arr[i] = arr[i + n];
     }
+
+    sci(q);
+    ll sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        sum += arr[i];
+    }
+    ll ans = sum * pow(2, q);
     cout << ans << endl;
 }
 int main()
 {
+    int n = 5, k;
+    vector<int> test = {0, 9, 2, 1, 4, 3};
+    // while(1){
+    k = 1 + (rand() % n);
+    random_shuffle(test.begin() + 1, test.end());
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t;
-    cin >> t;
+    // cin >> t;
+    t = 1;
     while (t--)
+    {
         solve();
-
+    }
     return 0;
 }

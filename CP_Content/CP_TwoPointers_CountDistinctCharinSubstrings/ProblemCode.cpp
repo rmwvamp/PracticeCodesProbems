@@ -38,34 +38,18 @@ const int md = 0;
 void solve()
 {
     // SOLUTION STARTS
-    sci(n);
-    ll target;
-    cin >> target;
-    vector<int> arr(n);
+    scs(n);
+    char s[n];
     for (int i = 0; i < n; i++)
     {
-        cin >> arr[i];
-    } 
-    ll ans = LONG_MAX;
-    for (int j = 1; j < n - 1; j++)
-    {
-        int i = 0, k = n - 1;
-
-        while (i < j && k > j)
-        {
-            ans = min(ans, abs((arr[i] + arr[j] + arr[k]) - target));
-
-            if (target < arr[i] + arr[k] + arr[j])
-            {
-                k--;
-            }
-            else if (target > arr[i] + arr[k] + arr[j])
-            {
-                i++;
-            }
-        }
+        cin >> s[i];
     }
-    cout << ans << endl;
+
+    vector<int> frequency(125);
+    int CountofDistinctChar=0;
+    int tail = 0;
+    int head = -1;
+    while (tail < n)
 }
 int main()
 {
