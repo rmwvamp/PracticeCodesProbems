@@ -35,23 +35,25 @@ const int md = 0;
     string s;  \
     cin >> s
 
-// void insert(char num, vector<int> &frequency, ll &CountofDistinctChar)
-// {
-//     frequency[num]++;
-//     if (frequency[num] == 1)
-//     {
-//         CountofDistinctChar++;
-//     }
-// }
+void insert(char num, vector<int> &frequency, ll &CountofDistinctChar)
+{
+    int CharIntegerConvert = num;
+    frequency[CharIntegerConvert]++;
+    if (frequency[CharIntegerConvert] == 1)
+    {
+        CountofDistinctChar++;
+    }
+}
 
-// void remove(char num, vector<int> &frequency, ll &CountofDistinctChar)
-// {
-//     frequency[num]--;
-//     if (frequency[num] == 0)
-//     {
-//         CountofDistinctChar--;
-//     }
-// }
+void remove(char num, vector<int> &frequency, ll &CountofDistinctChar)
+{
+    int CharIntegerConvert = num;
+    frequency[CharIntegerConvert]--;
+    if (frequency[CharIntegerConvert] == 0)
+    {
+        CountofDistinctChar--;
+    }
+}
 
 // bool InsertionCheck(char num, vector<int> &frequency, ll &CountofDistinctChar)
 // {
@@ -72,39 +74,39 @@ void solve()
         cin >> s[i];
     }
 
-    vector<int> frequency(125);
-    ll ans = (26 * (n * (n + 1))) / 2;
+    ll ans = 0;
 
     /*Removing Contribution */
-    vector<int> CountofSubArrayswithNoContribution(125); // 97-123
+    // vector<int> CountofSubArrayswithNoContribution(125); // 97-123
     for (int i = 97; i < 123; i++)
     {
+        vector<int> frequency(125);
+        ll CountofDistinctChar = 0; //
         int tail = 0;
         int head = -1;
         while (tail < n)
         {
-            while (head + 1 < n && s[head + 1] != i)
+            while (head + 1 < n)
             {
                 head++;
+                if(head)insert(s[head], frequency, CountofDistinctChar);
             }
-
+            ans += CountofDistinctChar;
             if (head >= tail)
             {
-                CountofSubArrayswithNoContribution[i] -= (head - tail + 1);
+                remove(s[tail], frequency, CountofDistinctChar);
                 tail++;
             }
             else
             {
+                remove(s[tail], frequency, CountofDistinctChar);
+
                 tail++;
                 head = tail - 1;
             }
         }
     }
 
-    for (int i = 97; i < 123; i++)
-    {
-        ans += CountofSubArrayswithNoContribution[i];
-    }
     cout << ans << endl;
 }
 int main()
