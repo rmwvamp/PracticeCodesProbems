@@ -35,34 +35,6 @@ const int md = 0;
     string s;  \
     cin >> s
 
-struct bag
-{
-    int sumVal;
-    map<int, int> mp;
-    bag()
-    {
-        sumVal = 0;
-        mp.clear();
-    }
-    void insert(int x)
-    {
-        mp[x]++;
-        sumVal += x;
-    }
-
-    void remove(int x)
-    {
-        if (mp.find(x) == mp.end())
-            return;
-        mp[x]--;
-        if (mp[x] == 0)
-        {
-            mp.erase(x);
-        }
-        sumVal -= x;
-    }
-};
-
 bool cmp(vector<int> v1, vector<int> v2)
 {
     int num = v1[1];
@@ -73,7 +45,7 @@ bool cmp(vector<int> v1, vector<int> v2)
 void solve()
 {
     // SOLUTION STARTS
-    sci(n);
+    scii(n, k);
     vector<vector<int>> arr(n);
     for (int i = 0; i < n; i++)
     {
@@ -81,12 +53,34 @@ void solve()
         cin >> arr[i][1]; // speed
     }
     sort(all(arr), cmp);
-    bag OurDataStructure;
-    for (int i = n - 1; i >= 0; i++)
+
+    priority_queue<int> pq;
+    int metric = 0;
+    int MinSpeedofTeam = 0;
+    int SumofEfficiency = 0;
+    int MaxMetric = 0;
+
+    for (int i = n - 1; i >= n - k; i++)
     {
-        /* code */
-        OurDataStructure.insert(arr[i][0]);
+        pq.push(-arr[i][0]);
+        SumofEfficiency += arr[i][0];
     }
+    MaxMetric = SumofEfficiency * arr[n - k][1];
+
+    for (int i = n - k; i >= 0; i++)
+    {
+        SumofEfficiency += pq.top();
+        pq.pop();
+        SumofEfficiency += arr[i][0];
+        pq.push(-arr[i][0]);
+        MinSpeedofTeam = arr[i][1];
+        metric = MinSpeedofTeam * SumofEfficiency;
+        if (metric > MaxMetric)
+        {
+            MaxMetric = metric;
+        }
+    }
+    cout << MaxMetric << endl;
 }
 int main()
 {

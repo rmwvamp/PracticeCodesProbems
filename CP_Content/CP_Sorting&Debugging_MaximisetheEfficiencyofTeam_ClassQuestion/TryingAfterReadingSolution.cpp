@@ -35,31 +35,54 @@ const int md = 0;
     string s;  \
     cin >> s
 
-struct bag
+class MyStructure
 {
-    int sumVal;
-    map<int, int> mp;
-    bag()
+
+private:
+    multiset<int> M1, M2;
+    ll sum;
+    int K;
+
+public:
+    MyStructure(int K) : K(K), sum(0LL){};
+
+    void add(int x)
     {
-        sumVal = 0;
-        mp.clear();
-    }
-    void insert(int x)
-    {
-        mp[x]++;
-        sumVal += x;
+        M1.insert(x);
+        sum += x;
+        if ((int)M1.size() > K)
+        {
+            int y = *(M1.begin());
+            M1.erase(M1.find(y));
+            sum -= y;
+            M2.insert(y);
+        }
+        return;
     }
 
     void remove(int x)
     {
-        if (mp.find(x) == mp.end())
-            return;
-        mp[x]--;
-        if (mp[x] == 0)
+        if (M2.find(x) != M2.end())
         {
-            mp.erase(x);
+            M2.erase(M2.find(x));
         }
-        sumVal -= x;
+        else if (M1.find(x) != M1.end())
+        {
+            sum -= x;
+            M1.erase(M1.find(x));
+            if (M2.empty())
+                return;
+            int y = *(M2.rbegin());
+            sum += y;
+            M1.insert(y);
+            M2.erase(M2.find(y));
+        }
+        return;
+    }
+
+    ll getSum()
+    {
+        return sum;
     }
 };
 
@@ -73,7 +96,7 @@ bool cmp(vector<int> v1, vector<int> v2)
 void solve()
 {
     // SOLUTION STARTS
-    sci(n);
+    scii(n, k);
     vector<vector<int>> arr(n);
     for (int i = 0; i < n; i++)
     {
@@ -81,11 +104,12 @@ void solve()
         cin >> arr[i][1]; // speed
     }
     sort(all(arr), cmp);
-    bag OurDataStructure;
+
+    MyStructure M(k);
     for (int i = n - 1; i >= 0; i++)
     {
-        /* code */
-        OurDataStructure.insert(arr[i][0]);
+        int x = arr[i][0];
+        MyStructure.add(M(x));
     }
 }
 int main()

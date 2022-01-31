@@ -35,57 +35,36 @@ const int md = 0;
     string s;  \
     cin >> s
 
-struct bag
-{
-    int sumVal;
-    map<int, int> mp;
-    bag()
-    {
-        sumVal = 0;
-        mp.clear();
-    }
-    void insert(int x)
-    {
-        mp[x]++;
-        sumVal += x;
-    }
-
-    void remove(int x)
-    {
-        if (mp.find(x) == mp.end())
-            return;
-        mp[x]--;
-        if (mp[x] == 0)
-        {
-            mp.erase(x);
-        }
-        sumVal -= x;
-    }
-};
-
-bool cmp(vector<int> v1, vector<int> v2)
-{
-    int num = v1[1];
-    int num2 = v1[1];
-    return num < num2;
-}
-
 void solve()
 {
     // SOLUTION STARTS
     sci(n);
-    vector<vector<int>> arr(n);
+    vector<int> arr(n);
     for (int i = 0; i < n; i++)
     {
-        cin >> arr[i][0]; // efficiency
-        cin >> arr[i][1]; // speed
+        cin >> arr[i];
     }
-    sort(all(arr), cmp);
-    bag OurDataStructure;
-    for (int i = n - 1; i >= 0; i++)
+    int TotalSum = 0;
+    int MaxSumEndingAtCurrentIndex = 0;
+    int MinSumEndingAtCurrentIndex = 0;
+    int MaxSum = INT_MIN;
+    int MinSum = INT_MAX;
+    for (int i = 0; i < n; i++)
     {
-        /* code */
-        OurDataStructure.insert(arr[i][0]);
+        TotalSum += arr[i];
+        MaxSumEndingAtCurrentIndex = max(arr[i], MaxSumEndingAtCurrentIndex + arr[i]);
+        MinSumEndingAtCurrentIndex = min(arr[i], MinSumEndingAtCurrentIndex + arr[i]);
+        MaxSum = max(MaxSumEndingAtCurrentIndex, MaxSum);
+        MinSum = min(MinSumEndingAtCurrentIndex, MinSum);
+    }
+
+    if (MaxSum > 0)
+    {
+        cout << max(MaxSum, TotalSum - MinSum) << endl;
+    }
+    else
+    {
+        cout << MaxSum << endl;
     }
 }
 int main()
