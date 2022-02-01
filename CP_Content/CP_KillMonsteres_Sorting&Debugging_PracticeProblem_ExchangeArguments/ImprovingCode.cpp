@@ -37,62 +37,30 @@ const int md = 0;
 
 bool cmp(vector<int> v1, vector<int> v2)
 {
-    int num = v1[1];
-    int num2 = v2[1];
-    return num < num2;
+    return v2[0] - v2[1] < v1[0] - v1[1];
 }
 
 void solve()
 {
     // SOLUTION STARTS
-    scii(n, k);
+    sci(n);
     vector<vector<int>> arr(n, vector<int>(2));
     for (int i = 0; i < n; i++)
     {
-        // vector<int> temp(2);
-
-        cin >> arr[i][0]; // efficiency
-        cin >> arr[i][1]; // speed
-        // arr.pb(temp);
+        scii(a, b);
+        arr[i][0] = a;
+        arr[i][1] = b;
     }
-
     sort(all(arr), cmp);
-    // for (int i = 0; i < n; i++)
-    // {
-    //     for (int j = 0; j < 2; j++)
-    //     {
-    //         cout << arr[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-
-    priority_queue<int> pq;
-    int metric = 0;
-    int MinSpeedofTeam = 0;
-    int SumofEfficiency = 0;
-    int MaxMetric = 0;
-
-    for (int i = n - 1; i >= n - k; i--)
+    ll Answer_RequiredSoldiers = arr[0][0];
+    ll SoldiersOnFieldAfterDefeatingIthMonster = arr[0][0] - arr[0][1];
+    for (int i = 1; i < n; i++)
     {
-        pq.push(-arr[i][0]);
-        SumofEfficiency += arr[i][0];
+        ll SoldierRequiredforIthMonster = max(0LL, arr[i][0] - SoldiersOnFieldAfterDefeatingIthMonster);
+        Answer_RequiredSoldiers += SoldierRequiredforIthMonster;
+        SoldiersOnFieldAfterDefeatingIthMonster += SoldierRequiredforIthMonster - arr[i][1];
     }
-    MaxMetric = SumofEfficiency * arr[n - k][1];
-
-    for (int i = n - k - 1; i >= 0; i--)
-    {
-        SumofEfficiency += pq.top();
-        pq.pop();
-        SumofEfficiency += arr[i][0];
-        pq.push(-arr[i][0]);
-        MinSpeedofTeam = arr[i][1];
-        metric = MinSpeedofTeam * SumofEfficiency;
-        if (metric > MaxMetric)
-        {
-            MaxMetric = metric;
-        }
-    }
-    cout << MaxMetric << endl;
+    cout << Answer_RequiredSoldiers << endl;
 }
 int main()
 {
