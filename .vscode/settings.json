@@ -4,6 +4,11 @@
         "iosfwd": "cpp",
         "bitset": "cpp",
         "set": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "regex": "cpp",
+        "utility": "cpp",
+        "valarray": "cpp"
     }
 }

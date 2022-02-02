@@ -35,60 +35,37 @@ const int md = 0;
     string s;  \
     cin >> s
 
-bool cmp(pair<string, int> a, pair<string, int> b)
-{
-    return ((a.second) * (b.first.size() - b.second)) > ((b.second) * (a.first.size() - a.second));
-}
-
 void solve()
 {
     // SOLUTION STARTS
-    sci(m);
-    vector<string> arr(m);
-    for (int i = 0; i < m; i++)
+    sci(n);
+    int arr[n][n];
+    int number = 1;
+    for (int i = 0; i < n; i++)
     {
-        cin >> arr[i];
-    }
-    vector<pair<string, int>> count(m);
-    for (int i = 0; i < m; i++)
-    {
-        count[i].first = arr[i];
-        count[i].second = 0;
-        for (int j = 0; j < arr[i].size(); j++)
+        for (int j = 0; j < n; j++)
         {
-            if (arr[i][j] == '0')
-            {
-                count[i].second++;
-            }
+            arr[i][j] = number;
+            number++;
         }
     }
-    sort(all(count), cmp);
 
-    /* Now would concatenate m strings together by their order.
-       j>i
-       Now need to find out the number of inversion counts
-       */
-    int cnt1 = 0;
-    int cnt0 = 0;
-    int InversionCount = 0;
-
-    for (int i = 0; i < m; i++)
+    sci(key);
+    int flag = 0;
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < count[i].first.size(); j++)
+        for (int j = 0; j < n; j++)
         {
-            /* code */
-            if (count[i].first[j] == '0')
+            if (key == arr[i][j])
             {
-                // cnt0++;
-                InversionCount += cnt1;
-            }
-            else
-            {
-                cnt1++;
+                cout << "row: " << i << " col: " << j << endl;
+                flag = 1;
+                break;
             }
         }
+        if (flag)
+            break;
     }
-    cout << InversionCount << endl;
 }
 int main()
 {
