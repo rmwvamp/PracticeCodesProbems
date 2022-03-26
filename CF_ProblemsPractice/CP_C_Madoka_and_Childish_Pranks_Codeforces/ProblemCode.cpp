@@ -252,15 +252,42 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    scii(n, m);
+    vector<vector<char>> FinalPicture(n, vector<char>(m));
+    vector<vector<char>> InitialPicture(n, vector<char>(m));
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            /* code */
+            cin >> FinalPicture[i][j];
+        }
+    }
+    vector<pair<pair<int,int>>,<pair<int,int>>>> Solution;
+    if (FinalPicture[0][0] == '1')
+    {
+        cout << "-1" << endl;
+        return;
+    }
+    for (int i = 1; i < n; i++)
+    {
+        /* code */
+        for (int j = 1; j < m; j++)
+        {
+            /* code */
+        }
+        
+    }
+    
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

@@ -35,29 +35,53 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void TowerofHanoi(char Source, char Helper, char Destination, int n)
+// bool cmp(pair<ll, ll> m1, pair<ll, ll> m2)
+// {
+//     return m1.second > m2.second;
+// }
+
+void ReversetheArray(auto &arr, int start, int end)
 {
-    // Base case
-    if (n == 0) // if no dis
+    int mid = (end - start + 1) / 2;
+    for (int i = start; i < start + mid; i++)
     {
-        return;
+        swap(arr[i], arr[end - i + start]);
     }
-
-    // Entire WorkFlow using Recursion
-    // 1. First Moving n-1 disks from source to helper
-    TowerofHanoi(Source, Destination, Helper, n - 1);
-    // then moving the nth disk from source to Destination
-    cout << "Taking " << n << " disk from " << Source << " to " << Destination << endl;
-
-    // Then moving my n-1 disks from helper to the actual Destination
-    TowerofHanoi(Helper, Source, Destination, n - 1);
 }
 
+void RotatetheVector(auto &arr, int no_of_rotations)
+{
+    ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
+    ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
+    ReversetheArray(arr, 0, arr.size() - 1);
+}
 void solve()
 {
     // SOLUTION STARTS
     sci(n);
-    TowerofHanoi('A', 'B', 'C', n);
+    vector<ll> arr(n);
+    map<ll, ll> mt;
+    int max_occurrence_index = 0;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        mt[arr[i]]++;
+    }
+    // Array is sorted 1 2 2 2 3 3
+    // count the number of occurrences with maximum sum
+    for (auto x : mt)
+    {
+        if (x.second > mt[max_occurrence_index])
+        {
+            max_occurrence_index = x.first;
+        }
+    }
+    RotatetheVector(arr, 3);
+    for (auto x : arr)
+    {
+        cout << x << " ";
+    }
+    cout << endl;
 }
 int main()
 {

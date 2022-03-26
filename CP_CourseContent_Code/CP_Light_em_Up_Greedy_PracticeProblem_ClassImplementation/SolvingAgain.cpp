@@ -35,36 +35,47 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void TowerofHanoi(char Source, char Helper, char Destination, int n)
-{
-    // Base case
-    if (n == 0) // if no dis
-    {
-        return;
-    }
-
-    // Entire WorkFlow using Recursion
-    // 1. First Moving n-1 disks from source to helper
-    TowerofHanoi(Source, Destination, Helper, n - 1);
-    // then moving the nth disk from source to Destination
-    cout << "Taking " << n << " disk from " << Source << " to " << Destination << endl;
-
-    // Then moving my n-1 disks from helper to the actual Destination
-    TowerofHanoi(Helper, Source, Destination, n - 1);
-}
-
 void solve()
 {
     // SOLUTION STARTS
-    sci(n);
-    TowerofHanoi('A', 'B', 'C', n);
+    scii(n, k);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    int NumberofOperations = 0;
+    vector<ll> PartialSum(n, 0);
+    vector<ll> PrefixSum(n, 0);
+    for (int i = 0; i <= n - k; i++)
+    {
+        // Create the Prefix Sum
+        if (i)
+        {
+            PrefixSum[i] = PartialSum[i] + PrefixSum[i - 1];
+        }
+        else
+        {
+            PrefixSum[i] = arr[i];
+        }
+        if ((PrefixSum[i] + arr[i]) % 2 == 0) // A flip needs to be done, needs to turn all the bulbs on
+        {
+            NumberofOperations++;
+            PartialSum[i + 1] += 1;
+            PartialSum[i + k] -= 1;
+        }
+    }
+
+    cout << NumberofOperations << endl;
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

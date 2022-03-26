@@ -252,15 +252,45 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    sci(n);
+    // cout << "hello 1" << endl;
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    int i = 2;
+    if (n % 3 == 0 || n % 3 == 2)
+    {
+        // cout << "hello 2" << endl;
+        while (n)
+        {
+            // cout << "hello 3" << endl;
+
+            cout << i;
+            n = n - i;
+            i = 3 - i;
+        }
+    }
+    i = 1;
+    if (n % 3 == 1)
+    {
+        // cout << "hello 4" << endl;
+        while (n)
+        {
+            // cout << "hello 5" << endl;
+
+            cout << i;
+            n = n - i;
+            i = 3 - i;
+        }
+    }
+    cout << endl;
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

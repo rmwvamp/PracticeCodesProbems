@@ -35,29 +35,28 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void TowerofHanoi(char Source, char Helper, char Destination, int n)
+int Last7_Iterator(vector<ll> &arr, int n, int i)
 {
-    // Base case
-    if (n == 0) // if no dis
+    if (i == -1)
     {
-        return;
+        return -1;
     }
-
-    // Entire WorkFlow using Recursion
-    // 1. First Moving n-1 disks from source to helper
-    TowerofHanoi(Source, Destination, Helper, n - 1);
-    // then moving the nth disk from source to Destination
-    cout << "Taking " << n << " disk from " << Source << " to " << Destination << endl;
-
-    // Then moving my n-1 disks from helper to the actual Destination
-    TowerofHanoi(Helper, Source, Destination, n - 1);
+    if (arr[i] == 7)
+    {
+        return i;
+    }
+    return Last7_Iterator(arr, n, i - 1);
 }
-
 void solve()
 {
     // SOLUTION STARTS
     sci(n);
-    TowerofHanoi('A', 'B', 'C', n);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    cout << Last7_Iterator(arr, arr.size(), arr.size() - 1) << endl;
 }
 int main()
 {

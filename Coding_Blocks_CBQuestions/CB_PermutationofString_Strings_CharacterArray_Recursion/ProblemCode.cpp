@@ -35,29 +35,28 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void TowerofHanoi(char Source, char Helper, char Destination, int n)
+void Permutation_of_String(string &str, char *output, int i)
 {
-    // Base case
-    if (n == 0) // if no dis
+    if (i == str.size())
     {
+        // output[i] = '\0';
+        cout << str << endl;
         return;
     }
-
-    // Entire WorkFlow using Recursion
-    // 1. First Moving n-1 disks from source to helper
-    TowerofHanoi(Source, Destination, Helper, n - 1);
-    // then moving the nth disk from source to Destination
-    cout << "Taking " << n << " disk from " << Source << " to " << Destination << endl;
-
-    // Then moving my n-1 disks from helper to the actual Destination
-    TowerofHanoi(Helper, Source, Destination, n - 1);
+    for (int j = i; str[j] != '\0'; j++)
+    {
+        swap(str[i], str[j]);
+        Permutation_of_String(str, output, i + 1);
+        swap(str[i], str[j]);
+    }
 }
-
 void solve()
 {
+
     // SOLUTION STARTS
-    sci(n);
-    TowerofHanoi('A', 'B', 'C', n);
+    scs(str);
+    char output[100] = {'0'};
+    Permutation_of_String(str, output, 0);
 }
 int main()
 {

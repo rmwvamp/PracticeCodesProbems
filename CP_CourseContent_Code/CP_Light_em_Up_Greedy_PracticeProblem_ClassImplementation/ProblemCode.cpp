@@ -35,29 +35,43 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void TowerofHanoi(char Source, char Helper, char Destination, int n)
-{
-    // Base case
-    if (n == 0) // if no dis
-    {
-        return;
-    }
-
-    // Entire WorkFlow using Recursion
-    // 1. First Moving n-1 disks from source to helper
-    TowerofHanoi(Source, Destination, Helper, n - 1);
-    // then moving the nth disk from source to Destination
-    cout << "Taking " << n << " disk from " << Source << " to " << Destination << endl;
-
-    // Then moving my n-1 disks from helper to the actual Destination
-    TowerofHanoi(Helper, Source, Destination, n - 1);
-}
-
 void solve()
 {
     // SOLUTION STARTS
-    sci(n);
-    TowerofHanoi('A', 'B', 'C', n);
+    scii(n, k);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    int count = 0;
+    vector<ll> PartialSum(n + 2, 0);
+    vector<ll> PrefixSum(n, 0);
+    for (int i = 0; i <= n - k; i++)
+    {
+        if (i == 0 && arr[i] % 2)
+        {
+            PartialSum[i + 1] += 1;
+            PartialSum[i + k] -= 1;
+            PrefixSum[i] = arr[i];
+            count++;
+            continue;
+        }
+        else{
+            
+        }
+
+        if ((arr[i] + PrefixSum[i - 1] + PartialSum[i]) % 2)
+        {
+            count++;
+            PartialSum[i + 1] += 1;
+            if (i < n - k)
+                PartialSum[i + k] -= 1;
+            PrefixSum[i] = PrefixSum[i - 1] + arr[i] + PartialSum[i - 1];
+        }
+    }
+
+    cout << count << endl;
 }
 int main()
 {

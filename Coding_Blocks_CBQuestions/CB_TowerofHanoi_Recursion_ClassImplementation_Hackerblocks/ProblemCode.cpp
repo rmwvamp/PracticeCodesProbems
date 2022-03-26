@@ -34,30 +34,27 @@ const int md = 0;
 #define scs(s) \
     string s;  \
     cin >> s
-
-void TowerofHanoi(char Source, char Helper, char Destination, int n)
+// ll count;
+ll cnt;
+void TowerofHanoi(int n, string source, string helper, string destination)
 {
-    // Base case
-    if (n == 0) // if no dis
-    {
+    if (n == 0)
         return;
-    }
 
-    // Entire WorkFlow using Recursion
-    // 1. First Moving n-1 disks from source to helper
-    TowerofHanoi(Source, Destination, Helper, n - 1);
-    // then moving the nth disk from source to Destination
-    cout << "Taking " << n << " disk from " << Source << " to " << Destination << endl;
-
-    // Then moving my n-1 disks from helper to the actual Destination
-    TowerofHanoi(Helper, Source, Destination, n - 1);
+    TowerofHanoi(n - 1, source, destination, helper);
+    cnt++;
+    cout << "Move " << n << "th disc from " << source << " to " << destination << endl;
+    TowerofHanoi(n - 1, helper, source, destination);
 }
-
 void solve()
 {
     // SOLUTION STARTS
+    // char set[] = {'A', 'B', 'C'};
+    // int n = sizeof(set) / sizeof(char);
     sci(n);
-    TowerofHanoi('A', 'B', 'C', n);
+    cnt = 0;
+    TowerofHanoi(n, "T1", "T3", "T2");
+    cout << cnt << endl;
 }
 int main()
 {

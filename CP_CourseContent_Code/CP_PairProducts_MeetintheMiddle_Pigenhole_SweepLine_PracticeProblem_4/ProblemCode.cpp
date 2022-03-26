@@ -252,8 +252,29 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    scii(n, m);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    if (n > m)
+    {
+        cout << "0" << endl;
+    }
+    else
+    {
+        ll ans = 1;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                /* code */
+                ans = (ans % m * abs(arr[i] - arr[j]) % m) % m;
+            }
+        }
+        cout<<ans << endl;
+    }
 }
 int main()
 {

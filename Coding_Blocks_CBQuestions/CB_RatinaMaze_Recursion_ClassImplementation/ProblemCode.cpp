@@ -35,29 +35,9 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void TowerofHanoi(char Source, char Helper, char Destination, int n)
-{
-    // Base case
-    if (n == 0) // if no dis
-    {
-        return;
-    }
-
-    // Entire WorkFlow using Recursion
-    // 1. First Moving n-1 disks from source to helper
-    TowerofHanoi(Source, Destination, Helper, n - 1);
-    // then moving the nth disk from source to Destination
-    cout << "Taking " << n << " disk from " << Source << " to " << Destination << endl;
-
-    // Then moving my n-1 disks from helper to the actual Destination
-    TowerofHanoi(Helper, Source, Destination, n - 1);
-}
-
 void solve()
 {
     // SOLUTION STARTS
-    sci(n);
-    TowerofHanoi('A', 'B', 'C', n);
 }
 int main()
 {

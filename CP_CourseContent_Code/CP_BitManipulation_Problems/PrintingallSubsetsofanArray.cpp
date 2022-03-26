@@ -42,3 +42,14 @@ int main()
 for printing i',m creating an additional loop with n loop.. so, T.C. is O((2^n)*n) */
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+s

@@ -254,13 +254,40 @@ void solve()
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    scii(n, m);
+    vector<vector<char>> arr(n, vector<char>(m));
+    int flag = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            /* code */
+            cin >> arr[i][j];
+        }
+    }
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = 0; j < m - 1; j++)
+        {
+            /* code */
+
+            if ((arr[i][j] + arr[i][j + 1] + arr[i + 1][j] + arr[i + 1][j + 1] - 4 * ('0')) == 3)
+            {
+                flag = 1;
+                break;
+            }
+        }
+    }
+    flag == 1 ? cout << "NO" << endl : cout << "YES" << endl;
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

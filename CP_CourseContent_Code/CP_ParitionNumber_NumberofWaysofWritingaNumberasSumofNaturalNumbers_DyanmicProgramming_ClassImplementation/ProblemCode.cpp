@@ -248,11 +248,24 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
+ll dp(ll i, ll taken)
+{
+    if (i < 1)
+    {
+        return 1;
+    }
+    // recursive case
+    return dp(i - taken, taken) + dp(i, taken + 1);
+}
+
 void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    sci(n);
+    ll ans = dp(n, 1);
+    cout << ans << endl;
+
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
 }
 int main()

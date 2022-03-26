@@ -35,29 +35,55 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void TowerofHanoi(char Source, char Helper, char Destination, int n)
+void Check7rec(vector<ll> &arr, int n, int i, bool &flag)
 {
-    // Base case
-    if (n == 0) // if no dis
+    if (i == n)
     {
         return;
     }
-
-    // Entire WorkFlow using Recursion
-    // 1. First Moving n-1 disks from source to helper
-    TowerofHanoi(Source, Destination, Helper, n - 1);
-    // then moving the nth disk from source to Destination
-    cout << "Taking " << n << " disk from " << Source << " to " << Destination << endl;
-
-    // Then moving my n-1 disks from helper to the actual Destination
-    TowerofHanoi(Helper, Source, Destination, n - 1);
+    if (arr[i] == 7)
+        flag = true;
+    Check7rec(arr, n, i + 1, flag);
+}
+void First7rec(vector<ll> &arr, int n, int i, bool &flag)
+{
+    if (i == n)
+    {
+        return;
+    }
+    if (arr[i] == 7 && i == 0)
+        flag = true;
+    First7rec(arr, n, i + 1, flag);
+}
+void Last7rec(vector<ll> &arr, int n, int i, bool &flag)
+{
+    if (i == n)
+    {
+        return;
+    }
+    if (arr[i] == 7 && i == n - 1)
+        flag = true;
+    Last7rec(arr, n, i + 1, flag);
 }
 
 void solve()
 {
     // SOLUTION STARTS
     sci(n);
-    TowerofHanoi('A', 'B', 'C', n);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    bool flag = 0;
+    Check7rec(arr, arr.size(), 0, flag);
+    flag == 0 ? cout << "No 7" << endl : cout << "Yes 7" << endl;
+    flag = 0;
+    First7rec(arr, arr.size(), 0, flag);
+    flag == 0 ? cout << "No First 7" << endl : cout << "Yes First 7" << endl;
+    flag = 0;
+    Last7rec(arr, arr.size(), 0, flag);
+    flag == 0 ? cout << "No Last 7" << endl : cout << "Yes Last 7" << endl;
 }
 int main()
 {

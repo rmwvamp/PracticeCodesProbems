@@ -35,35 +35,49 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void TowerofHanoi(char Source, char Helper, char Destination, int n)
+ll Median_of_an_Vector(vector<ll> arr)
 {
-    // Base case
-    if (n == 0) // if no dis
+    int n = arr.size();
+    if (n % 2)
     {
-        return;
+        return arr[n / 2];
     }
-
-    // Entire WorkFlow using Recursion
-    // 1. First Moving n-1 disks from source to helper
-    TowerofHanoi(Source, Destination, Helper, n - 1);
-    // then moving the nth disk from source to Destination
-    cout << "Taking " << n << " disk from " << Source << " to " << Destination << endl;
-
-    // Then moving my n-1 disks from helper to the actual Destination
-    TowerofHanoi(Helper, Source, Destination, n - 1);
+    else
+    {
+        return arr[n / 2] + arr[n / 2 + 1] / 2;
+    }
 }
 
 void solve()
 {
     // SOLUTION STARTS
     sci(n);
-    TowerofHanoi('A', 'B', 'C', n);
+    vector<ll> RowPositions;
+    vector<ll> ColumnPositions;
+    for (int i = 0; i < n; i++)
+    {
+        scii(x, y);
+        RowPositions.push_back(x);
+        ColumnPositions.push_back(y);
+    }
+    sort(all(RowPositions));
+    sort(all(ColumnPositions));
+
+    ll X_MeetingPoint = Median_of_an_Vector(RowPositions);
+    ll Y_MeetingPoint = Median_of_an_Vector(ColumnPositions);
+    ll cost = 0;
+    for (int i = 0; i < n; i++)
+    {
+        cost += abs(RowPositions[i] - X_MeetingPoint);
+        cost += abs(ColumnPositions[i] - Y_MeetingPoint);
+    }
+    cout << cost << endl;
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
+    int t;cin >> t;while (t--)
     solve();
 
     return 0;

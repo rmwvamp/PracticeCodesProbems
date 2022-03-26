@@ -248,19 +248,49 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
+// If for any value y, we can create y-1 and the sum of values upto y is greater than or equal to y, then we can create y
+
 void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sci(n);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    sort(all(arr));
+    int sum = 0;
+    int pt = 0;
+    int CurrentCheck = 1;
+    while (1)
+    {
+        while (pt < n && arr[pt] <= CurrentCheck)
+        {
+            sum += arr[pt];
+            pt++;
+        }
+        if (sum < CurrentCheck)
+        {
+            cout << CurrentCheck << endl;
+            return;
+        }
+        else
+        {
+            // CurrentCheck = sum + 1;
+            CurrentCheck++;
+        }
+    }
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }
