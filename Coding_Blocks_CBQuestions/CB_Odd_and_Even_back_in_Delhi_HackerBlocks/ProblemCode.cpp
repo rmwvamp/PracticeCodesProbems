@@ -38,18 +38,37 @@ const int md = 0;
 void solve()
 {
     // SOLUTION STARTS
-    sci(q);
-    while(q--)
+    // sci(n);
+    scs(s);
+    int EvenSum = 0;
+    int OddSum = 0;
+    int n = s.size();
+    for (int i = 0; i < n; i += 2)
     {
-        sci(n);
+        /* code */
+        EvenSum += s[i] - '1';
+        // EvenSum +=s[i]-'1';
     }
+    for (int i = 1; i < n; i += 2)
+    {
+        OddSum += s[i] - '1';
+        /* code */
+    }
+    if (EvenSum % 4 == 0 || OddSum % 3 == 0)
+    {
+        cout << "Yes" << endl;
+        return;
+    }
+    cout << "No" << endl;
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

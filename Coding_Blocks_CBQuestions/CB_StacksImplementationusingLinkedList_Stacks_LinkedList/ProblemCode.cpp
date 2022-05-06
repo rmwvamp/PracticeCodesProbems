@@ -221,7 +221,7 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
+void ReversetheArray(auto &arr, int start, int end)
 {
     int mid = (end - start + 1) / 2;
     for (int i = start; i < start + mid; i++)
@@ -230,7 +230,7 @@ void ReversetheArray(vector<ll> &arr, int start, int end)
     }
 }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
+void RotatetheVector(auto &arr, int no_of_rotations)
 {
     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
@@ -247,48 +247,57 @@ ll CountDigitsofNumber(ll n)
     }
     return count;
 }
+template <typename T1>
+class node
+{
+    T1 data;
+    node<T1> *next;
+    node(T1 d)
+    {
+        data = d;
+        next = NULL;
+    }
+};
 
-// Code for 1 state dp
+template <typename T>
+class Stack_ImplementedUsingLL
+{
+    node<T> *head;
+    Stack_ImplementedUsingLL()
+    {
+        head = NULL;
+    }
+    void push(T d)
+    {
+        if (!head)EE
+        {
+            node<T> *n = new node<T>(d);
+            head = n;
+        }
+        else
+        {
+            node<T> *n = new node<T>(d);
+            n->next = head;
+            head = n;
+        }
+    }
+    void pop()
+    {
+        if (!head)
+        {
+            return;
+        }
 
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
-
-// Code for 2 states dp
-
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
+        node<T> *n = head;
+        head = head->next;
+        delete n;
+    }
+    bool empty() return head == NULL;
+    T top()
+    {
+        return head->data;
+    }
+};
 
 void solve()
 {

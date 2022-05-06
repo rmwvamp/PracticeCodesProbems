@@ -221,7 +221,7 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
+void ReversetheArray(auto &arr, int start, int end)
 {
     int mid = (end - start + 1) / 2;
     for (int i = start; i < start + mid; i++)
@@ -230,7 +230,7 @@ void ReversetheArray(vector<ll> &arr, int start, int end)
     }
 }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
+void RotatetheVector(auto &arr, int no_of_rotations)
 {
     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
@@ -248,47 +248,32 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
+ll n, W;
+ll w[1001];
+ll p[1001];
+ll memo[1001][1001];
 
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
+ll dp(ll i, ll BagCurrentWeight)
+{
+    // base case
+    if (i == 0 || BagCurrentWeight == 0)
+        return 0;
 
-// Code for 2 states dp
+    // check in memo array
+    if (memo[i][BagCurrentWeight] != -1)
+    {
+        return memo[i][BagCurrentWeight];
+    }
 
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
+    // dp logic
+    ll ans = dp(i - 1, BagCurrentWeight);
+    if (w[i] <= BagCurrentWeight)
+    {
+        ans = max(ans, dp(i - 1, BagCurrentWeight - w[i] + p[i]));
+    }
 
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
+    return memo[i][BagCurrentWeight] = ans;
+}
 
 void solve()
 {
@@ -296,6 +281,13 @@ void solve()
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    memset(memo, -1, sizeof(memo));
+    scii(n, W);
+    ll ans = -1e9;
+    for (int i = 0; i <= W; i++)
+    {
+        ans = max(ans, dp(n, i));
+    }
 }
 int main()
 {

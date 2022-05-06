@@ -255,10 +255,10 @@ ll CountDigitsofNumber(ll n)
 // ll dp(ll i)
 // {
 //     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
+// if(i<0)
+// {
+//     return 0;
+// }
 //     //
 // if (memo[i] != -1)
 // {
@@ -271,31 +271,39 @@ ll CountDigitsofNumber(ll n)
 // Code for 2 states dp
 
 // string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
+vector<ll> arr(1e6);
+vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
+ll dp(ll l, ll r, int n)
+{
+    // base case
+    if (l > n - 1 || r < 0)
+    {
+        return 0;
+    }
 
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
+    //
+    if (memo[l][r] != -1)
+    {
+        return memo[l][r];
+    }
+    ll ans = 0;
+    ans = max(arr[l] - dp(l + 1, r, n), arr[r] - dp(l, r - 1, n));
 
-//     return memo[i][j] = ans;
-// }
+    return memo[l][r] = ans;
+}
 
 void solve()
 {
     // SOLUTION STARTS
-
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    
+    sci(n);
+    // vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    ll res = dp(0, n - 1, n);
+    cout << res << endl;
 }
 int main()
 {

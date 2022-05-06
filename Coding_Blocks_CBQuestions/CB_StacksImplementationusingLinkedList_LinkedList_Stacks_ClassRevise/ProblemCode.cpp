@@ -221,7 +221,7 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
+void ReversetheArray(auto &arr, int start, int end)
 {
     int mid = (end - start + 1) / 2;
     for (int i = start; i < start + mid; i++)
@@ -230,7 +230,7 @@ void ReversetheArray(vector<ll> &arr, int start, int end)
     }
 }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
+void RotatetheVector(auto &arr, int no_of_rotations)
 {
     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
@@ -248,54 +248,90 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
+template <typename T1>
+class node
+{
+public:
+    T1 data;
+    node<T1> *next;
+    node(T1 d)
+    {
+        data = d;
+        next = NULL;
+    }
+};
 
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
+template <typename T>
+class Stack_ImplementedUsingLL
+{
+public:
+    node<T> *head;
+    Stack_ImplementedUsingLL()
+    {
+        head = NULL;
+    }
+    ~Stack_ImplementedUsingLL()
+    {
+        while (!head)
+        {
+            pop();
+        }
+    }
+    void push(T data)
+    {
+        if (!head)
+        {
 
-// Code for 2 states dp
+            head = new node<T>(data);
+        }
+        else
+        {
+            node<T> *n = new node<T>(data);
+            n->next = head;
+            head = n;
+        }
+    }
+    void pop()
+    {
+        if (!head)
+        {
+            return;
+        }
+        node<T> *temp = head;
+        head = head->next;
+        delete temp;
+    }
+    T top()
+    {
+        return head->data;
+    }
+    bool empty()
+    {
+        return head == NULL;
+    }
+};
 
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
+void PrintStack(Stack_ImplementedUsingLL<int> s) // s does Shallow Copy as it uses Inbuilt Copy Constructor
+{
+    while (!s.empty())
+    {
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << endl;
+}
 
 void solve()
 {
-    // SOLUTION STARTS
-
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    Stack_ImplementedUsingLL<int> s;
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.push(4);
+    s.push(5);
+    s.push(6);
+    s.pop();
+    PrintStack(s);
 }
 int main()
 {

@@ -221,7 +221,7 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
+void ReversetheArray(auto &arr, int start, int end)
 {
     int mid = (end - start + 1) / 2;
     for (int i = start; i < start + mid; i++)
@@ -230,7 +230,7 @@ void ReversetheArray(vector<ll> &arr, int start, int end)
     }
 }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
+void RotatetheVector(auto &arr, int no_of_rotations)
 {
     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
@@ -248,54 +248,35 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
-
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
-
-// Code for 2 states dp
-
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
-
+// https://cses.fi/problemset/task/1642
 void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    scii(n, x);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    map<int, pair<int, int>> PositionstoValue;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (PositionstoValue.count(x - arr[i] - arr[j]))
+            {
+                cout << i + 1 << " " << j + 1 << " " << PositionstoValue[x - arr[i] - arr[j]].first + 1 << " " << PositionstoValue[x - arr[i] - arr[j]].second + 1 << endl;
+                return;
+            }
+        }
+        for (int j = 0; j < i; j++)
+        {
+            /* code */
+            PositionstoValue[arr[i] + arr[j]] = {i, j};
+        }
+    }
+    cout << "IMPOSSIBLE" << endl;
 }
 int main()
 {

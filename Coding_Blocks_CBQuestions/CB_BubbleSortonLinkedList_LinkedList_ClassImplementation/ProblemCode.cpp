@@ -221,7 +221,7 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
+void ReversetheArray(auto &arr, int start, int end)
 {
     int mid = (end - start + 1) / 2;
     for (int i = start; i < start + mid; i++)
@@ -230,7 +230,7 @@ void ReversetheArray(vector<ll> &arr, int start, int end)
     }
 }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
+void RotatetheVector(auto &arr, int no_of_rotations)
 {
     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
@@ -248,54 +248,172 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
+class node
+{
+public:
+    int data;
+    node *next;
 
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
+    node(int d)
+    {
+        data = d;
+        next = NULL;
+    }
+};
 
-// Code for 2 states dp
+int lengthLL(node *head)
+{
+    int cnt = 0;
+    while (head)
+    {
+        cnt++;
+        head = head->next;
+    }
+    return cnt;
+}
+void InsertAtBegin(node *&head, node *&tail, int data)
+{
+    if (head == NULL)
+    {
+        node *n = new node(data);
+        head = tail = n;
+    }
+    else
+    {
+        node *n = new node(data);
+        n->next = head;
+        head = n;
+    }
+}
 
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
+void InsertAtEnd(node *&head, node *&tail, int data)
+{
+    if (!head)
+    {
+        node *n = new node(data);
+        head = tail = n;
+    }
+    else
+    {
+        node *n = new node(data);
+        n->next = tail;
+        tail = n;
+    }
+}
+void printLL(node *head)
+{
+    while (head != NULL)
+    {
 
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
+        cout << head->data << "->";
+        head = head->next;
+    }
+}
 
-//     return memo[i][j] = ans;
-// }
+void InsertatMiddle(node *&head, node *&tail, int pos, int data)
+{
+    if (pos == 0)
+    {
+        InsertAtBegin(head, tail, data);
+    }
+    else
+    {
+        node *temp = new node(data);
+        for (int i = 0; i < pos - 1; i++)
+        {
+            temp = temp->next;
+        }   
+        node *n = new node(data);
+        n->next = temp->next;
+        temp->next = n;
+    }
+}
 
+void BubbleSort_onLinkedListLL(node *&head)
+{
+    node *prev = NULL;
+    node *current = head;
+    node *NextOne = head->next;
+    int n = lengthLL(head);
+    for (int i = 0; i < n - 1; i++)
+    {
+
+        /* code */
+        while (current && current->next)
+        {
+
+            if (current->data > current->next->data)
+            {                     // swapping needs to be done
+                if (prev == NULL) // we will be changing a head pointer so keeping something similar
+                {
+                    NextOne = current->next; // making nextone after current
+                    current->next = NextOne->next;
+                    NextOne->next = current;
+                    head = prev = NextOne;
+                }
+
+                else
+                {
+                    NextOne = current->next; // making nextone after current
+                    current->next = NextOne->next;
+                    NextOne->next = current;
+                }
+            }
+        }
+    }
+}
+
+void CreateCycle(node *head)
+{
+    node *temp = head;
+    while (temp->next)
+    {
+        temp = temp->next;
+    }
+    temp->next = head->next->next;
+}
+
+bool isCyclic(node *&head)
+{
+    node *slow, *fast;
+    slow = fast = head;
+    while (fast && fast->next)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+        if (slow == fast)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+void BreakCycle(node *fast, node *head)
+{
+    node *slow = head;
+    node *prev = head;
+    while (prev->next != fast)
+    {
+        prev = prev->next;
+    }
+    while (fast != slow)
+    {
+        prev = fast;
+        fast = fast->next;
+        slow = slow->next;
+    }
+    prev->next = NULL;
+}
 void solve()
 {
-    // SOLUTION STARTS
-
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    node *head, *tail;
+    head = tail = NULL;
+    InsertAtEnd(head, tail, 5);
+    InsertAtEnd(head, tail, 4);
+    InsertAtEnd(head, tail, 3);
+    InsertAtEnd(head, tail, 2);
+    InsertAtEnd(head, tail, 1);
+    printLL(head);
 }
 int main()
 {

@@ -221,7 +221,7 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
+void ReversetheArray(auto &arr, int start, int end)
 {
     int mid = (end - start + 1) / 2;
     for (int i = start; i < start + mid; i++)
@@ -230,7 +230,7 @@ void ReversetheArray(vector<ll> &arr, int start, int end)
     }
 }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
+void RotatetheVector(auto &arr, int no_of_rotations)
 {
     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
@@ -248,47 +248,78 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
+class node
+{
+public:
+    int data;
+    node *next;
 
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
+    node(int d)
+    {
+        data = d;
+        next = NULL;
+    }
+};
 
-// Code for 2 states dp
+void InsertAtBegin(node *&head, node *&tail, int d)
+{
+    if (!head)
+    {
+        node *n = new node(d);
+        head = tail = n;
+    }
+    else
+    {
+        node *n = new node(d);
+        // n->next = head->next; mistake
+        n->next = head;
 
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
+        head = n;
+    }
+}
+void InsertAtEnd(node *&head, node *&tail, int d)
+{
+    if (!head)
+    {
+        node *n = new node(d);
+        head = tail = n;
+    }
+    else
+    {
+        node *n = new node(d);
+        tail->next = n;
+        tail = n;
+    }
+}
+void PrintLinkedList(node *head)
+{
 
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
+    while (head)
+    {
+        cout << head->data << "--> ";
+        head = head->next;
+    }
+}
 
-//     return memo[i][j] = ans;
-// }
+void InsertAtMiddle(node *&head, node *&tail, int pos, int d)
+{
+    if (pos == 0)
+    {
+        InsertAtBegin(head, tail, d);
+    }
+    else
+    {
+
+        node *temp = head;
+        for (int i = 0; i < pos - 1; i++)
+        {
+            temp = temp->next;
+        }
+        node *n = new node(d);
+        n->next = temp->next;
+        temp->next = n;
+    }
+}
 
 void solve()
 {
@@ -296,6 +327,15 @@ void solve()
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    node *head;
+    node *tail;
+    head = tail = NULL;
+    InsertAtEnd(head, tail, 5);
+    InsertAtEnd(head, tail, 4);
+    InsertAtEnd(head, tail, 3);
+    InsertAtEnd(head, tail, 2);
+    InsertAtEnd(head, tail, 1);
+    PrintLinkedList(head);
 }
 int main()
 {

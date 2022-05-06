@@ -255,10 +255,10 @@ ll CountDigitsofNumber(ll n)
 // ll dp(ll i)
 // {
 //     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
+// if(i<0)
+// {
+//     return 0;
+// }
 //     //
 // if (memo[i] != -1)
 // {
@@ -290,6 +290,96 @@ ll CountDigitsofNumber(ll n)
 //     return memo[i][j] = ans;
 // }
 
+class node
+{
+public:
+    int data;
+    node *left;
+    node *right;
+    node(int d)
+    {
+        data = d;
+        left = right = NULL;
+    }
+};
+
+void MirrorABinaryTree(node *root)
+{
+    if (!root)
+    {
+        return;
+    }
+    MirrorABinaryTree(root->left);
+    MirrorABinaryTree(root->right);
+    node *temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+}
+
+ll number;
+bool FindNodeinBinaryTree(node *root)
+{
+    if (!root)
+    {
+        return false;
+    }
+    if (root->data == number)
+    {
+        return true;
+    }
+    return FindNodeinBinaryTree(root->left) || FindNodeinBinaryTree(root->right);
+}
+
+node *LevelOrderInput()
+{
+    sci(data);
+    if (data == -1)
+    {
+        return NULL;
+    }
+    node *root = new node(data);
+    queue<node *> q;
+    q.push(root);
+    while (!q.empty())
+    {
+        node *x = q.front();
+        q.pop();
+        scii(l, r);
+        if (l != -1)
+        {
+            root->left = new node(l);
+            q.push(x->left);
+        }
+
+        if (r != -1)
+        {
+            root->right = new node(r);
+            q.push(x->right);
+        }
+    }
+}
+int i = 0;
+node *BuildTree(int s, int e)
+{
+    if (s > e)
+    {
+        return NULL;
+    }
+    node *root = new node(pre[i++]);
+    int k = -1;
+    for (int j = s; j < e + 1; j++)
+    {
+        /* code */
+        if (root->data == InorderArray[j])
+        {
+            k = j;
+            break;
+        }
+    }
+    root->left = BuildTree(s, k - 1);
+    root->right = BuildTree(k + 1, e);
+    return root;
+}
 void solve()
 {
     // SOLUTION STARTS

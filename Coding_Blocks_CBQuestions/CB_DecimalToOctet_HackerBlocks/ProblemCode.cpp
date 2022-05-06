@@ -255,10 +255,10 @@ ll CountDigitsofNumber(ll n)
 // ll dp(ll i)
 // {
 //     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
+// if(i<0)
+// {
+//     return 0;
+// }
 //     //
 // if (memo[i] != -1)
 // {
@@ -294,8 +294,22 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sci(n);
+    // vector<ll> arr(n);
+    // for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    vector<ll> arr;
+    while (n)
+    {
+        ll rem = n % 8;
+        arr.pb(rem);
+        n /= 8;
+    }
+    for (int i = arr.size() - 1; i >= 0; i--)
+    {
+        /* code */
+        cout << arr[i];
+    } 
+    cout << endl;
 }
 int main()
 {

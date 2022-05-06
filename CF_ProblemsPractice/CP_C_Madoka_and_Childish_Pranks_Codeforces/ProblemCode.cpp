@@ -254,7 +254,7 @@ void solve()
 
     scii(n, m);
     vector<vector<char>> FinalPicture(n, vector<char>(m));
-    vector<vector<char>> InitialPicture(n, vector<char>(m));
+    vector<vector<char>> InitialPicture(n, vector<char>(m, '0'));
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
@@ -263,22 +263,53 @@ void solve()
             cin >> FinalPicture[i][j];
         }
     }
-    vector<pair<pair<int,int>>,<pair<int,int>>>> Solution;
+    vector<vector<int>> Solution;
     if (FinalPicture[0][0] == '1')
     {
         cout << "-1" << endl;
         return;
     }
-    for (int i = 1; i < n; i++)
+    ll Steps = 0;
+    for (int i = n - 1; i >= 0; i--)
     {
         /* code */
-        for (int j = 1; j < m; j++)
+        for (int j = m - 1; j >= 0; j--)
         {
             /* code */
+            if (FinalPicture[i][j] == '1')
+            {
+                if (i > 0)
+                {
+                    Steps++;
+                    vector<int> temp;
+                    temp.pb(i - 1);
+                    temp.pb(j);
+                    temp.pb(i);
+                    temp.pb(j);
+                    Solution.pb(temp);
+                }
+                else
+                {
+                    Steps++;
+                    vector<int> temp;
+                    temp.pb(i);
+                    temp.pb(j - 1);
+                    temp.pb(i);
+                    temp.pb(j);
+                    Solution.pb(temp);
+                }
+            }
         }
-        
     }
-    
+    cout << Steps << endl;
+    for (auto x : Solution)
+    {
+        for (auto v : x)
+        {
+            cout << v;
+        }
+        cout << endl;
+    }
 }
 int main()
 {

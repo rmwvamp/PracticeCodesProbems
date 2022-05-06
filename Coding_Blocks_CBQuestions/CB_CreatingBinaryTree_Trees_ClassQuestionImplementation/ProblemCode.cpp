@@ -248,47 +248,71 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
+template <typename T>
+class node
+{
+public:
+    T data;
+    node<T> *left;
+    node<T> *right;
+    node(T d)
+    {
+        data = d;
+        left = right = NULL;
+    }
+};
 
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
+template <typename U>
+node<U> *CreateBinaryTree() // this return the root
+{
+    sci(value);
+    // base case, if the value is -1
+    if (value == -1)
+    {
+        return NULL;
+    }
 
-// Code for 2 states dp
+    node<U> *root = new node<U>(value);
+    root->left = CreateBinaryTree<U>();
+    root->right = CreateBinaryTree<U>();
 
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
+    return root;
+}
 
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
+template <typename V>
+void PrintInorderBinaryTree(node<V> *root)
+{
+    if (root)
+    {
+        return;
+    }
+    PrintInorderBinaryTree(root->left);
+    cout << root->data << " ";
+    PrintInorderBinaryTree(root->right);
+}
 
-//     return memo[i][j] = ans;
-// }
+template <typename Q = int>
+void PrintPreOrderBinaryTree(node<Q> *root)
+{
+    if (root)
+    {
+        return;
+    }
+    cout << root->data << " ";
+    PrintInorderBinaryTree(root->left);
+    PrintInorderBinaryTree(root->right);
+}
+template <typename B = int>
+void PrintPostOrderBinaryTree(node<B> *root)
+{
+    if (root)
+    {
+        return;
+    }
+    PrintInorderBinaryTree(root->left);
+    PrintInorderBinaryTree(root->right);
+    cout << root->data << " ";
+}
 
 void solve()
 {
@@ -296,6 +320,8 @@ void solve()
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    node<int> *root = CreateBinaryTree<int>();
+    PrintInorderBinaryTree(root);
 }
 int main()
 {

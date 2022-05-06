@@ -221,21 +221,21 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
-{
-    int mid = (end - start + 1) / 2;
-    for (int i = start; i < start + mid; i++)
-    {
-        swap(arr[i], arr[end - i + start]);
-    }
-}
+// void ReversetheArray(auto &arr, int start, int end)
+// {
+//     int mid = (end - start + 1) / 2;
+//     for (int i = start; i < start + mid; i++)
+//     {
+//         swap(arr[i], arr[end - i + start]);
+//     }
+// }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
-{
-    ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
-    ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
-    ReversetheArray(arr, 0, arr.size() - 1);
-}
+// void RotatetheVector(auto &arr, int no_of_rotations)
+// {
+//     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
+//     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
+//     ReversetheArray(arr, 0, arr.size() - 1);
+// }
 
 ll CountDigitsofNumber(ll n)
 {
@@ -247,48 +247,52 @@ ll CountDigitsofNumber(ll n)
     }
     return count;
 }
-
-// Code for 1 state dp
-
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
-
-// Code for 2 states dp
-
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
+template <typename T>
+class Queue
+{
+public:
+    T *a;
+    T n;
+    T cs;
+    T f;
+    T e;
+    Queue(T s = 5)
+    {
+        n = s;
+        a = new int[5];
+        cs = 0;
+        f = 0;
+        e = n - 1;
+    }
+    void push(T d)
+    {
+        if (cs == n)
+        {
+            cout << "Overflow" << endl;
+            return;
+        }
+        e = (e + 1) % n;
+        a[e] = d;
+        cs++;
+    }
+    void pop(T d)
+    {
+        if (cs > 0)
+        {
+            cs--;
+            f = (f + 1) % n;
+        }
+        else
+        {
+            cout << "Underflow" << endl;
+        }
+    }
+    bool empty()
+    {
+        return cs == 0;
+    }
+    T front() { return a[f]; }
+};
 
 void solve()
 {

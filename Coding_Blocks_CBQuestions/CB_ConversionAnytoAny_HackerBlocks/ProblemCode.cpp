@@ -255,10 +255,10 @@ ll CountDigitsofNumber(ll n)
 // ll dp(ll i)
 // {
 //     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
+// if(i<0)
+// {
+//     return 0;
+// }
 //     //
 // if (memo[i] != -1)
 // {
@@ -294,8 +294,36 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sciii(SourceNumberBase, DestinationNumberBase, Number);
+    // vector<ll> arr(n);
+    // for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    vector<ll> arr;
+    ll DecimalNumber = 0;
+    ll counter = 0;
+    // Converting SourceBase to 10
+    while (Number)
+    {
+        ll rem = Number % 10;
+        DecimalNumber += rem * BinaryExponentiation_Binpow(SourceNumberBase, counter);
+        Number /= 10;
+        counter++;
+    }
+    // cout << DecimalNumber << endl;
+
+    // Then 10 to Destination Base
+    while (DecimalNumber)
+    {
+        ll rem = DecimalNumber % DestinationNumberBase;
+
+        arr.pb(rem);
+        DecimalNumber /= DestinationNumberBase;
+    }
+    for (int i = arr.size() - 1; i >= 0; i--)
+    {
+        /* code */
+        cout << arr[i];
+    }
+    cout << endl;
 }
 int main()
 {

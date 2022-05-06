@@ -221,7 +221,7 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
+void ReversetheArray(auto &arr, int start, int end)
 {
     int mid = (end - start + 1) / 2;
     for (int i = start; i < start + mid; i++)
@@ -230,7 +230,7 @@ void ReversetheArray(vector<ll> &arr, int start, int end)
     }
 }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
+void RotatetheVector(auto &arr, int no_of_rotations)
 {
     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
@@ -248,54 +248,77 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
-
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
-
-// Code for 2 states dp
-
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
-
+bool CheckBalanced(char *a)
+{
+    int n = sizeof(a) / sizeof(char);
+    stack<char> s;
+    cout << n << endl;
+    for (int i = 0; a[i] != '\0'; i++)
+    {
+        switch (a[i])
+        {
+        case '[':
+        case '{':
+        case '(':
+            s.push(a[i]);
+            break;
+        case ']':
+            if (!s.empty() && s.top() == '[')
+            {
+                s.pop();
+                // break;
+            }
+            else
+            {
+                return false;
+            }
+            break;
+        case '}':
+            if (!s.empty() && s.top() == '{')
+            {
+                s.pop();
+                // break;
+            }
+            else
+            {
+                return false;
+            }
+            break;
+        case ')':
+            if (!s.empty() && s.top() == '(')
+            {
+                s.pop();
+                // break;
+            }
+            else
+            {
+                return false;
+            }
+            break;
+        default:
+            break;
+        }
+        cout << i << endl;
+    }
+    return s.empty();
+}
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+
+    char a[] = "{a+(b+c)+[d+(e+f)]}";
+
+    if (CheckBalanced(a))
+    {
+        cout << "Balanced!" << endl;
+    }
+    else
+    {
+        cout << "Not Balanced!" << endl;
+    }
 }
 int main()
 {

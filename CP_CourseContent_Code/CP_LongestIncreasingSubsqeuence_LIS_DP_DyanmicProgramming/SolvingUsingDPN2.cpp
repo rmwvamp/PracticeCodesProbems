@@ -221,7 +221,7 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
+void ReversetheArray(auto &arr, int start, int end)
 {
     int mid = (end - start + 1) / 2;
     for (int i = start; i < start + mid; i++)
@@ -230,7 +230,7 @@ void ReversetheArray(vector<ll> &arr, int start, int end)
     }
 }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
+void RotatetheVector(auto &arr, int no_of_rotations)
 {
     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
@@ -248,54 +248,43 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
+ll memo[10001];
+vector<ll> arr(1e6 + 1);
+ll dp(ll i)
+{
+    if (i <= 0)
+        return 1;
+    if (memo[i] != -1)
+    {
+        return memo[i];
+    }
+    ll ans = -1e9;
 
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
-
-// Code for 2 states dp
-
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
+    for (int j = 0; j < i; j++)
+    {
+        if (arr[j] < arr[i])
+            ans = max(ans, dp(j));
+    }
+    
+    return memo[i] = ans + 1;
+}
 
 void solve()
 {
     // SOLUTION STARTS
+    memset(memo, -1, sizeof(memo));
+    sci(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    ll res = -1;
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    for (int i = 0; i < n; i++)
+    {
+        res = max(res, dp(i));
+    }
+    cout << res << endl;
 }
 int main()
 {

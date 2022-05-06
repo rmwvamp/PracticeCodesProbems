@@ -255,10 +255,10 @@ ll CountDigitsofNumber(ll n)
 // ll dp(ll i)
 // {
 //     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
+// if(i<0)
+// {
+//     return 0;
+// }
 //     //
 // if (memo[i] != -1)
 // {
@@ -296,13 +296,60 @@ void solve()
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sciii(n, r, b);
+    int step = r / b;
+    // if(step!=-1)step++;
+    vector<char> arr;
+    bool flag = false;
+    if (b == 1)
+    {
+        flag = true;
+        for (int i = 1; i <= n / 2; i++)
+        {
+            /* code */
+            arr.pb('R');
+        }
+        arr.pb('B');
+        for (int i = (n / 2) + 1; i <= n; i++)
+        {
+            /* code */
+            arr.pb('R');
+        }
+    }
+    if (step == 1)
+    {
+        step = 2;
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        if (flag)
+        {
+            break;
+        }
+        /* code */
+        if (i % step == 0) // odd-> blue
+        {
+            arr.pb('B');
+        }
+        else // odd-> blue
+        {
+            arr.pb('R');
+        }
+    }
+    for (auto x : arr)
+    {
+        cout << x;
+    }
+    cout << endl;
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

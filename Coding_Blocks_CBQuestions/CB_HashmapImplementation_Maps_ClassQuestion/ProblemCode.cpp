@@ -255,10 +255,10 @@ ll CountDigitsofNumber(ll n)
 // ll dp(ll i)
 // {
 //     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
+// if(i<0)
+// {
+//     return 0;
+// }
 //     //
 // if (memo[i] != -1)
 // {
@@ -290,12 +290,142 @@ ll CountDigitsofNumber(ll n)
 //     return memo[i][j] = ans;
 // }
 
+class node
+{
+public:
+    int value;
+    string key;
+    node *next;
+    node(string k, int v)
+    {
+        value = v;
+        key = k;
+        next = NULL;
+    }
+};
+
+class Hashmap
+{
+    int HashFunction(string key)
+    {
+        int ans = 0;
+        int mul = 1;
+        for (int i = 0; i < key.length(); i++)
+        {
+            ans = (ans % ts + ((mul % ts) * (key[i] % ts)) % ts) % ts;
+            mul = ((mul % ts) * (mul % ts)) % ts;
+        }
+        return ans % ts;
+    }
+    void Rehash()
+    {
+        int oldts = ts;
+        node **oldh = h;
+        ts = 2 * ts;
+        h = new node *[ts];
+        cs = 0;
+        for (int i = 0; i < ts; ++i)
+        {
+            h[i] = NULL;
+        }
+        for (int i = 0; i < oldts; i++)
+        {
+            node *head = h[i];
+            while (head)
+            {
+                // int hashindex = HashFunction(head->key);
+                insert(head->key, head->value);
+                head = head->next;
+            }
+        }
+        delete[] oldh;
+    }
+
+public:
+    int ts;
+    node **h;
+    int cs;
+    Hashmap(int s = 7)
+    {
+        ts = s;
+        cs = 0;
+        node **h = new node *[ts];
+        for (int i = 0; i < ts; i++)
+        {
+            h[i] = NULL;
+        }
+    }
+    void insert(string key, int value)
+    {
+        int hashindex = HashFunction(key);
+        node *n = new node(key, value);
+        n->next = h[hashindex];
+        h[hashindex] = n;
+        cs++;
+
+        float loadfactor = cs / (ts * 1.0);
+        if (loadfactor >= 0.6)
+        {
+            Rehash();
+        }
+    }
+    node *search(string key)
+    {
+        int hashindex = HashFunction(key);
+        node *n = h[hashindex];
+        while (n)
+        {
+            if (n->key == key)
+            {
+                return n;
+            }
+            n = n->next;
+        }
+        return NULL;
+    }
+
+    int &operator[](string key)
+    {
+        int g;
+        if (search(key) == NULL)
+        {
+
+            insert(key, g);
+        }
+        node *n = search(key);
+        return n->value;
+    }
+    void print()
+    {
+        for (int i = 0; i < ts; i++)
+        {
+            cout << i << "-->";
+            node *head = h[i];
+            while (head)
+            {
+                cout << "( " << head->key << "," << head->value << " ) ";
+                head = head->next;
+            }
+            cout << endl;
+        }
+    }
+};
+
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    Hashmap h;
+    h.insert("Apple", 10);
+    h.insert("Mango", 20);
+    h.insert("Kiwi", 30);
+    h.print();
+    h["Mango"] = 150;
+    h.print();
+    h.insert("Orange", 28);
+    h.print();
 }
 int main()
 {

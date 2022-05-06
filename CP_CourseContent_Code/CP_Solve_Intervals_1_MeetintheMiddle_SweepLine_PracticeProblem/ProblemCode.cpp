@@ -252,8 +252,37 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    scii(n, L);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    vector<pair<int, int>> intervals;
+    for (int i = 0; i < n; i++)
+    {
+
+        scii(l, r);
+        intervals.push_back({l, r});
+    }
+    sort(all(intervals));
+    int FinishPrevious = 0;
+    priority_queue<ll> pq;
+    int MinIntervals = 0;
+    for (int i = 0; i < n; i++)
+    {
+        /* code */
+        while (i < n && intervals[i].first <= FinishPrevious)
+        {
+            pq.push(intervals[i].second);
+            i++;
+        }
+        i--;
+        ll BestChoice = pq.top();
+        FinishPrevious = BestChoice;
+        MinIntervals++;
+        if (FinishPrevious == L)
+        {
+            break;
+        }
+    }
+    cout << MinIntervals << endl;
 }
 int main()
 {

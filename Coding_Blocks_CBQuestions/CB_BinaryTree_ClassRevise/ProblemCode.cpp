@@ -255,10 +255,10 @@ ll CountDigitsofNumber(ll n)
 // ll dp(ll i)
 // {
 //     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
+// if(i<0)
+// {
+//     return 0;
+// }
 //     //
 // if (memo[i] != -1)
 // {
@@ -290,12 +290,227 @@ ll CountDigitsofNumber(ll n)
 //     return memo[i][j] = ans;
 // }
 
+class node
+{
+public:
+    int data;
+    node *left;
+    node *right;
+    node(int d)
+    {
+        data = d;
+        left = right = NULL;
+    }
+};
+
+node *CreateTree()
+{
+    sci(value);
+    if (value == -1)
+    {
+        return NULL;
+    }
+    node *root = new node(value);
+    root->left = CreateTree();
+    root->right = CreateTree();
+    return root;
+}
+
+void PreOrderTreePrint(node *root)
+{
+    if (!root)
+    {
+        return;
+    }
+    cout << root->data << " ";
+    PreOrderTreePrint(root->left);
+    PreOrderTreePrint(root->right);
+}
+void InorderTreePrint(node *root)
+{
+    if (!root)
+    {
+        return;
+    }
+    InorderTreePrint(root->left);
+    cout << root->data << " ";
+    InorderTreePrint(root->right);
+}
+void PostOrderTreePrint(node *root)
+{
+    if (!root)
+    {
+        return;
+    }
+    PostOrderTreePrint(root->left);
+    PostOrderTreePrint(root->right);
+    cout << root->data << " ";
+}
+
+int NumberofNodesofaBinaryTree(node *root)
+{
+    if (!root)
+    {
+        return 0;
+    }
+    else
+    {
+
+        return 1 + NumberofNodesofaBinaryTree(root->left) + NumberofNodesofaBinaryTree(root->right);
+    }
+}
+
+int HeightofTree(node *root)
+{
+    if (!root)
+    {
+        return 0;
+    }
+    else
+    {
+        return max(HeightofTree(root->left), HeightofTree(root->right)) + 1;
+    }
+}
+
+int DiameterofBinaryTree(node *root) // this takes a time complexity of n^2
+{
+    if (!root)
+    {
+        return 0;
+    }
+
+    int LeftOption = HeightofTree(root->left);
+    int RightOption = HeightofTree(root->right);
+    int RootOption = 1 + HeightofTree(root->left) + HeightofTree(root->right);
+
+    return max(LeftOption, max(RightOption, RootOption));
+}
+
+class Pair
+{
+public:
+    int Diameter;
+    int Height;
+};
+
+Pair FastDiameterHeight(node *root)
+{
+    if (!root)
+    {
+        Pair p;
+        p.Diameter = 0;
+        p.Height = 0;
+        return p;
+    }
+
+    Pair p, LeftSubTree, RightSubTree;
+    // Height
+    LeftSubTree = FastDiameterHeight(root->left);
+    RightSubTree = FastDiameterHeight(root->right);
+    p.Height = 1 + max(LeftSubTree.Height, RightSubTree.Height);
+
+    // Diameter
+
+    int LeftOption = LeftSubTree.Height;
+    int RightOption = RightSubTree.Height;
+    int RootOption = 1 + LeftOption + RightOption;
+    p.Diameter = max(LeftOption, max(RootOption, RightOption));
+    return p;
+}
+
+void LevelOrderPrint(node *root)
+{
+    queue<node *> q;
+    q.push(root);
+    q.push(NULL);
+    while (q.size() > 1)
+    {
+        node *temp = q.front();
+        q.pop();
+        if (!temp)
+        {
+            // q.push(NULL);
+            cout << endl;
+            if (!q.empty())
+            {
+                q.push(NULL);
+            }
+        }
+        else
+        {
+            cout << temp->data << " ";
+
+            if (temp->left)
+                q.push(temp->left);
+            if (temp->right)
+                q.push(temp->right);
+        }
+    }
+}
+
+class LinkedList
+{
+public:
+    node *head;
+    node *tail;
+};
+
+LinkedList BSTtoLL(node *root)
+{
+    LinkedList l;
+    if (root == NULL)
+    {
+        l.head = l.tail = NULL;
+        return l;
+    }
+
+    if (root->right == NULL && root->left != NULL)
+    {
+        LinkedList left = BSTtoLL(root->left);
+        left.tail->right = root;
+        l.head = left.head;
+        l.tail = root;
+    }
+    else if (root->left == NULL && root->right != NULL)
+    {
+        LinkedList right = BSTtoLL(root->right);
+        root->right = right.head;
+        l.head = root;
+        l.tail = right.tail;
+    }
+    else if (root->left == NULL && root->right == NULL)
+    {
+        l.head = l.tail = root;
+    }
+    else
+    {
+        LinkedList left = BSTtoLL(root->left);
+        LinkedList right = BSTtoLL(root->right);
+        left.tail->right = root;
+        root->right = right.head;
+        l.head = left.head;
+        l.tail = right.tail;
+    }
+    return l;
+}
+
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    node *root = CreateTree();
+    // input -> 8 10 1 -1 -1 6 4 -1 -1 7 -1 -1 3 -1 14 13 -1 -1 -18 10 1 -1 -1 6 4 -1 -1 7 -1 -1 3 -1 14 13 -1 -1 -1
+    PreOrderTreePrint(root);
+    cout << endl;
+    InorderTreePrint(root);
+    cout << endl;
+    PostOrderTreePrint(root);
+    cout << endl;
+    cout << "Number of Nodes of Binary Tree: " << NumberofNodesofaBinaryTree(root) << endl;
+    cout << "Height of Binary Tree: " << HeightofTree(root) << endl;
+    cout << "Diameter of Binary Tree: " << DiameterofBinaryTree(root) << endl;
 }
 int main()
 {

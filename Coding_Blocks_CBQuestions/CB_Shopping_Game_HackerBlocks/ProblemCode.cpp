@@ -221,21 +221,21 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
-{
-    int mid = (end - start + 1) / 2;
-    for (int i = start; i < start + mid; i++)
-    {
-        swap(arr[i], arr[end - i + start]);
-    }
-}
+// void ReversetheArray(auto &arr, int start, int end)
+// {
+//     int mid = (end - start + 1) / 2;
+//     for (int i = start; i < start + mid; i++)
+//     {
+//         swap(arr[i], arr[end - i + start]);
+//     }
+// }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
-{
-    ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
-    ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
-    ReversetheArray(arr, 0, arr.size() - 1);
-}
+// void RotatetheVector(auto &arr, int no_of_rotations)
+// {
+//     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
+//     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
+//     ReversetheArray(arr, 0, arr.size() - 1);
+// }
 
 ll CountDigitsofNumber(ll n)
 {
@@ -248,61 +248,33 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
-
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
-
-// Code for 2 states dp
-
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
-
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    scii(m, n);
+    int AayushCount = 0;
+    int HarshitCount = 0;
+    for (int i = 1; i * i <= m; i++, AayushCount++)
+    {
+        /* code */ // 1e3 Time Complexity
+    }
+    for (int i = 1; i * (i + 1) <= n; i++, HarshitCount++)
+    {
+        /* code */ // 1e3 Time Complexity
+    }
+    HarshitCount < AayushCount ? cout << "Aayush" << endl : cout << "Harshit" << endl;
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

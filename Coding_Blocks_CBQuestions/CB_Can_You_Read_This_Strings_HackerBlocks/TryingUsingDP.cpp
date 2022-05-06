@@ -248,54 +248,31 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
-
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
-
-// Code for 2 states dp
-
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
+ll n;
+ll memo[int(1e6)];
+ll dp(ll i)
+{
+    // base case for
+    if (i == 0)
+        return memo[i] = 0;
+    if (i == 1)
+        return memo[i] = 1;
+    //
+    if (!memo[i] == -1)
+    {
+        return memo[i];
+    }
+    ll ans = dp(i - 1) + dp(i - 2);
+    return memo[i] = ans;
+}
 
 void solve()
 {
     // SOLUTION STARTS
-
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    memset(memo, -1, sizeof(memo));
+    sci(n);
+    ll res = dp(n);
+    cout << res << endl;
 }
 int main()
 {

@@ -221,7 +221,7 @@ void PreComputing_InversesofFactorials()
     // }
 }
 
-void ReversetheArray(vector<ll> &arr, int start, int end)
+void ReversetheArray(auto &arr, int start, int end)
 {
     int mid = (end - start + 1) / 2;
     for (int i = start; i < start + mid; i++)
@@ -230,7 +230,7 @@ void ReversetheArray(vector<ll> &arr, int start, int end)
     }
 }
 
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
+void RotatetheVector(auto &arr, int no_of_rotations)
 {
     ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
     ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
@@ -248,47 +248,56 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
+class UserDefined_Vector
+{
+public:
+    int *arr;
+    int cs;
+    int ms;
+    UserDefined_Vector(int s = 2)
+    {
+        arr = new int[s];
+        ms = s;
+        cs = 0;
+    }
+    void push_back(int value)
+    {
+        if (cs == ms)
+        {
+            int *oldarr = arr;
+            int oldms = ms;
+            arr = new int[2 * ms];
+            ms *= 2;
+            for (int i = 0; i < ms; i++)
+            {
+                arr[i] = oldarr[i];
+            }
+            delete[] oldarr;
+        }
+        arr[cs] = value;
+        cs++;
+    }
+    void pop_back()
+    {
+        if (cs > 0)
+        {
+            cs--;
+        }
+    }
+    int size()
+    {
+        return cs;
+    }
+    int capacity()
+    {
+        return ms;
+    }
 
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
-
-// Code for 2 states dp
-
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
+    int operator[](int index)
+    {
+        return arr[index];
+    }
+};
 
 void solve()
 {

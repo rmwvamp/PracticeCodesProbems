@@ -255,10 +255,10 @@ ll CountDigitsofNumber(ll n)
 // ll dp(ll i)
 // {
 //     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
+// if(i<0)
+// {
+//     return 0;
+// }
 //     //
 // if (memo[i] != -1)
 // {
@@ -290,6 +290,31 @@ ll CountDigitsofNumber(ll n)
 //     return memo[i][j] = ans;
 // }
 
+class node
+{
+public:
+    int data;
+    node *left;
+    node *right;
+    node(int d)
+    {
+        data = d;
+        left = right = NULL;
+    }
+};
+
+node *InsertinBST(node *root, int data)
+{
+}
+
+void BuildBST(node *root)
+{
+    if(!root)
+    {
+        
+    }
+}
+
 void solve()
 {
     // SOLUTION STARTS
@@ -297,6 +322,7 @@ void solve()
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
 }
+
 int main()
 {
     ios::sync_with_stdio(false);

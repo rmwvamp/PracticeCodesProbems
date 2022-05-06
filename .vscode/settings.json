@@ -17,7 +17,15 @@
         "unordered_map": "cpp",
         "unordered_set": "cpp",
         "vector": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "xutility": "cpp",
+        "algorithm": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "xlocale": "cpp",
+        "stack": "cpp",
+        "random": "cpp"
     },
     "cph.general.defaultLanguage": "cpp",
     "cph.general.defaultLanguageTemplateFileLocation": "C:\\Users\\User\\Desktop\\Code\\CP_Course\\CustomTemplate\\ContestTemplate.cpp"

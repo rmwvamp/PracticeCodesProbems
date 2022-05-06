@@ -248,54 +248,43 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
+void ReverseQueuerec(queue<int> &q)
+{
+    // base case
+    if (q.empty())
+        return;
+    // rec case
+    int front = q.front();
+    q.pop();
+    ReverseQueuerec(q);
+    q.push(front);
+}
 
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-        // if(i<0)
-        // {
-        //     return 0;
-        // }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
-
-// Code for 2 states dp
-
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
-
+void PrintQueue(queue<int> q)
+{
+    while (!q.empty())
+    {
+        int data = q.front();
+        q.pop();
+        cout << data << " ";
+    }
+    cout << endl;
+}
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+
+    queue<int> q;
+    q.push(1);
+    q.push(2);
+    q.push(3);
+    q.push(4);
+    PrintQueue(q);
+    ReverseQueuerec(q);
+    PrintQueue(q);
 }
 int main()
 {
