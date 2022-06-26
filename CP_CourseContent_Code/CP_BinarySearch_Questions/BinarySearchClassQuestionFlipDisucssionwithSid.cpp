@@ -10,7 +10,9 @@ void creationprefixsum()
     for (int i = 1; i < n + 1; i++)
     {
         /* code */
-        prefixsum[i] = arr[i] + prefixsum[i - 1];
+        prefixsum[i] = arr[i];
+        if (i)
+            prefixsum[i] += prefixsum[i - 1];
     }
 }
 

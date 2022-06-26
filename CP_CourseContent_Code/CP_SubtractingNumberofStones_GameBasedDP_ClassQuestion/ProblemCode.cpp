@@ -207,7 +207,7 @@ void PreComputing_Factorials()
     // cout << Factorials[10] << endl;
 }
 
-void PreComputing_InversesofFactorials() // so we find the factorials first then find their inverse using Little 's fermat rule
+void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
     for (int i = 1; i < 1e6 + 1; i++)
@@ -251,22 +251,27 @@ ll CountDigitsofNumber(ll n)
 // Code for 1 state dp
 
 // ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-// if(i<0)
-// {
-//     return 0;
-// }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
+vector<ll> memo(1e6, -1);
+ll dp(ll NumberofStones, vector<int> &StoneChoice)
+{
+    // base case
+    if (NumberofStones == 0)
+    {
+        return memo[NumberofStones] = 0;
+    }
+    //
+    if (memo[NumberofStones] != -1)
+    {
+        return memo[NumberofStones];
+    }
+    ll ans = 1;
+    for (int Choice : StoneChoice)
+    {
+        ans *= dp(NumberofStones - Choice, StoneChoice);
+    }
+    ans = 1 - ans;
+    return memo[NumberofStones] = ans;
+}
 
 // Code for 2 states dp
 
@@ -289,35 +294,13 @@ ll CountDigitsofNumber(ll n)
 
 //     return memo[i][j] = ans;
 // }
-ll n, number;
-vector<ll> arr(1e6);
 
-void rec(ll i)
-{
-    if (i == n)
-    {
-        return;
-    }
-    if (arr[i] == number)
-    {
-        cout << i << " ";
-    }
-    rec(i + 1);
-}
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    cin >> number;
-    // sci(number);
-    rec(0);
-    cout << endl;
+    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
 }
 int main()
 {

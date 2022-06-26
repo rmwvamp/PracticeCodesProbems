@@ -207,7 +207,7 @@ void PreComputing_Factorials()
     // cout << Factorials[10] << endl;
 }
 
-void PreComputing_InversesofFactorials() // so we find the factorials first then find their inverse using Little 's fermat rule
+void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
     for (int i = 1; i < 1e6 + 1; i++)
@@ -289,42 +289,47 @@ ll CountDigitsofNumber(ll n)
 
 //     return memo[i][j] = ans;
 // }
-ll n, number;
-vector<ll> arr(1e6);
 
-void rec(ll i)
-{
-    if (i == n)
-    {
-        return;
-    }
-    if (arr[i] == number)
-    {
-        cout << i << " ";
-    }
-    rec(i + 1);
-}
-void solve()
-{
-    // SOLUTION STARTS
+// void solve()
+// {
+//     // SOLUTION STARTS
 
-    // sci(n);
-    cin >> n;
-    for (int i = 0; i < n; i++)
+//     // sci(n);
+//     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+// }
+
+int dp[1000][1000];
+
+int ElephantWays_rec(int i, int j)
+{
+    // base case
+    if (i == 0 && j == 0)
     {
-        cin >> arr[i];
+        return 1;
     }
-    cin >> number;
-    // sci(number);
-    rec(0);
-    cout << endl;
+
+    if (dp[i][j] != -1)
+    {
+        return dp[i][j];
+    }
+
+    // Recurisve Case
+    long long ans = 0;
+    for (int k = 0; k < i; k++)
+    {
+        ans += ElephantWays_rec(k, j);
+    }
+    for (int k = 0; k < j; k++)
+    {
+        ans += ElephantWays_rec(i, k);
+    }
+    return dp[i][j] = ans;
 }
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    memset(dp, -1, sizeof(dp));
+    int res = ElephantWays_rec(3, 3);
+    cout << res << endl;
 
     return 0;
 }

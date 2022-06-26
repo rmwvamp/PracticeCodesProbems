@@ -3,7 +3,7 @@ using namespace std;
 int main()
 {
     int n = 10;
-    // cin >> n;
+    // cin >> n; 
     vector<int> count(32, 0);
     vector<int> vi{0b0111, 0b0111, 0b0111, 0b0111, 0b0111, 0b0111, 0b0111, 0b0111, 0b0111, 0b0111};
     for (int i = 0; i < n; i++) /* Counting the number of 1's and 0's in O(n), where n is the number of elements */

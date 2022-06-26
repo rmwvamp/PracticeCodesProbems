@@ -207,7 +207,7 @@ void PreComputing_Factorials()
     // cout << Factorials[10] << endl;
 }
 
-void PreComputing_InversesofFactorials() // so we find the factorials first then find their inverse using Little 's fermat rule
+void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
     for (int i = 1; i < 1e6 + 1; i++)
@@ -289,42 +289,44 @@ ll CountDigitsofNumber(ll n)
 
 //     return memo[i][j] = ans;
 // }
-ll n, number;
-vector<ll> arr(1e6);
 
-void rec(ll i)
-{
-    if (i == n)
-    {
-        return;
-    }
-    if (arr[i] == number)
-    {
-        cout << i << " ";
-    }
-    rec(i + 1);
-}
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    cin >> number;
-    // sci(number);
-    rec(0);
-    cout << endl;
+    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
 }
+
+void BinarySearch_Recursion(int start, int end, int key, int *arr)
+{
+    if (end < start)
+    {
+        cout << "Element not present" << endl;
+        return;
+    }
+    int mid = (start + end) / 2;
+    if (arr[mid] == key)
+    {
+        cout << "Element " << key << " Present at Index: " << mid << endl;
+        return;
+    }
+    else if (arr[mid] < key)
+    {
+        BinarySearch_Recursion(mid + 1, end, key, arr);
+    }
+    else
+    {
+        BinarySearch_Recursion(start, mid - 1, key, arr);
+    }
+}
+
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int arr[] = {10, 20, 30, 50, 60, 80, 110, 130, 140, 170};
+    int n = sizeof(arr) / sizeof(int);
+    int key = 5;
+    BinarySearch_Recursion(0, n - 1, key, arr);
 
     return 0;
 }

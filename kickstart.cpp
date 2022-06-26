@@ -198,7 +198,7 @@ vector<ll> InverseofFactorials(int(1e6 + 1));
 void PreComputing_Factorials()
 {
     Factorials[0] = 1;
-    for (int i = 1; i < 1e6 + 1; i++)
+    for (int i = 1; i < 1e3 + 1; i++)
     {
         /* code */
         Factorials[i] = (((Factorials[i - 1] % mod) * (i % mod) % mod));
@@ -207,7 +207,7 @@ void PreComputing_Factorials()
     // cout << Factorials[10] << endl;
 }
 
-void PreComputing_InversesofFactorials() // so we find the factorials first then find their inverse using Little 's fermat rule
+void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
     for (int i = 1; i < 1e6 + 1; i++)
@@ -289,42 +289,32 @@ ll CountDigitsofNumber(ll n)
 
 //     return memo[i][j] = ans;
 // }
-ll n, number;
-vector<ll> arr(1e6);
 
-void rec(ll i)
-{
-    if (i == n)
-    {
-        return;
-    }
-    if (arr[i] == number)
-    {
-        cout << i << " ";
-    }
-    rec(i + 1);
-}
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    cin >> number;
-    // sci(number);
-    rec(0);
-    cout << endl;
+    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+
+   sci(n,l);
+   vector
 }
 int main()
 {
+    // PreComputing_Factorials();
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int t;
+    cin >> t;
+    int cnt = 1;
+    while (t--)
+    {
+        goog(cnt);
+        cnt++;
+
+        solve();
+    }
 
     return 0;
 }

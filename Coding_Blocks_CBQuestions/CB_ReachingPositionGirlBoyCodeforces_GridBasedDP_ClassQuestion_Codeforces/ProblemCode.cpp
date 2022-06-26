@@ -207,7 +207,7 @@ void PreComputing_Factorials()
     // cout << Factorials[10] << endl;
 }
 
-void PreComputing_InversesofFactorials() // so we find the factorials first then find their inverse using Little 's fermat rule
+void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
     for (int i = 1; i < 1e6 + 1; i++)
@@ -289,36 +289,28 @@ ll CountDigitsofNumber(ll n)
 
 //     return memo[i][j] = ans;
 // }
-ll n, number;
-vector<ll> arr(1e6);
 
-void rec(ll i)
-{
-    if (i == n)
-    {
-        return;
-    }
-    if (arr[i] == number)
-    {
-        cout << i << " ";
-    }
-    rec(i + 1);
-}
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    cin >> number;
-    // sci(number);
-    rec(0);
-    cout << endl;
+    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
 }
+
+int CreatingCostArray(int *CaloryArray, int *dp[][], int n, int m, int StartX, int StartY, int EndX, int EndY)
+{
+    if (StartX == EndX && StartY == EndY)
+    {
+    }
+    if (dp[StartX][StartY] != -1)
+    {
+        return dp[StartX][StartY];
+    }
+    dp[StartX][StartY] = CaloryArray[StartX][StartY] + max(CreatingCostArray(CaloryArray, dp, n, m, StartX - 1, StartY, EndX, EndY), CreatingCostArray(CaloryArray, dp, n, m, StartX, StartY + 1, EndX, EndY));
+    return dp[StartX][StartY];
+}
+
 int main()
 {
     ios::sync_with_stdio(false);

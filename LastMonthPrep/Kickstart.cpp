@@ -207,7 +207,7 @@ void PreComputing_Factorials()
     // cout << Factorials[10] << endl;
 }
 
-void PreComputing_InversesofFactorials() // so we find the factorials first then find their inverse using Little 's fermat rule
+void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
     for (int i = 1; i < 1e6 + 1; i++)
@@ -289,42 +289,93 @@ ll CountDigitsofNumber(ll n)
 
 //     return memo[i][j] = ans;
 // }
-ll n, number;
-vector<ll> arr(1e6);
 
-void rec(ll i)
+long long cps[1000][1000];
+long long countPS(string str)
 {
-    if (i == n)
+    long long N = str.length();
+
+    // create a 2D array to store the count of palindromic
+    // subsequence
+
+    // palindromic subsequence of length 1
+    for (long long i = 0; i < N; i++)
+        cps[i][i] = 1;
+
+    // check subsequence of length L is palindrome or not
+    for (int L = 2; L <= N; L++)
     {
-        return;
+        for (int i = 0; i <= N - L; i++)
+        {
+            int k = L + i - 1;
+            if (str[i] == str[k])
+                cps[i][k] = cps[i][k - 1] + cps[i + 1][k] + 1;
+            else
+                cps[i][k] = cps[i][k - 1] + cps[i + 1][k] - cps[i + 1][k - 1];
+        }
     }
-    if (arr[i] == number)
-    {
-        cout << i << " ";
-    }
-    rec(i + 1);
+
+    // return total palindromic subsequence
+    return cps[0][N - 1];
 }
+
+bool isPalindrome(string S)
+{
+    // Stores the reverse of the
+    // string S
+    string P = S;
+
+    // Reverse the string P
+    reverse(P.begin(), P.end());
+
+    // If S is equal to P
+    if (S == P)
+    {
+        // Return "Yes"
+        return true;
+    }
+    // Otherwise
+    else
+    {
+        // return "No"
+        return false;
+    }
+}
+
 void solve()
 {
-    // SOLUTION STARTS
-
-    // sci(n);
-    cin >> n;
-    for (int i = 0; i < n; i++)
+    memset(cps, 0, sizeof(cps));
+    sci(num);
+    scs(s);
+    bool what = isPalindrome(s);
+    long long CountofPalindromes = countPS(s);
+    if (what)
     {
-        cin >> arr[i];
+        CountofPalindromes -= Factorials[num];
     }
-    cin >> number;
-    // sci(number);
-    rec(0);
-    cout << endl;
+    CountofPalindromes += Factorials[num];
+    cout << CountofPalindromes << endl;
+    long long denominator = InverseofFactorials[num];
+    cout << denominator << endl;
+    long long ans = (CountofPalindromes % mod) * (denominator % mod) % mod;
+    cout << ans << endl;
 }
 int main()
 {
+    PreComputing_Factorials();
+    PreComputing_InversesofFactorials();
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int t;
+    cin >> t;
+    int cnt = 1;
+    while (t--)
+    {
+        goog(cnt);
+        cnt++;
+
+        solve();
+    }
 
     return 0;
 }

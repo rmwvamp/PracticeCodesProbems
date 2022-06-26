@@ -207,7 +207,7 @@ void PreComputing_Factorials()
     // cout << Factorials[10] << endl;
 }
 
-void PreComputing_InversesofFactorials() // so we find the factorials first then find their inverse using Little 's fermat rule
+void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
     for (int i = 1; i < 1e6 + 1; i++)
@@ -289,35 +289,66 @@ ll CountDigitsofNumber(ll n)
 
 //     return memo[i][j] = ans;
 // }
-ll n, number;
-vector<ll> arr(1e6);
 
-void rec(ll i)
+int n;
+int arr[501];
+int PrefixSum[501];
+
+int dp[501][501];
+
+int rec(int l, int r)
 {
-    if (i == n)
+    // Base Conditions
+    if (l == r)
     {
-        return;
+        return 0;
     }
-    if (arr[i] == number)
+    // Check
+    if (dp[l][r] != -1)
     {
-        cout << i << " ";
+        return dp[l][r];
     }
-    rec(i + 1);
+
+    // Main Recursive Call
+    int SumofInterval = 0;
+    int ans = INT_MAX;
+    for (int mid = l; mid < r + 1; mid++)
+    {
+        SumofInterval += arr[mid];
+        if (!l)
+            ans = min(ans, rec(l, mid) + rec(mid + 1, r) + ((SumofInterval % 100) * (((PrefixSum[r] - PrefixSum[l - 1] - SumofInterval)) % 100)));
+        else
+        {
+            ans = min(ans, rec(l, mid) + rec(mid + 1, r) + ((SumofInterval % 100) * (((PrefixSum[r] - SumofInterval)) % 100)));
+        }
+    }
+
+    return dp[l][r] = ans;
 }
+
+// My dp table stores the minimum cost of merging elements form l to r
+
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
+    // vector<ll> arr(n);
+    memset(dp, -1, sizeof(dp));
     cin >> n;
     for (int i = 0; i < n; i++)
     {
         cin >> arr[i];
     }
-    cin >> number;
-    // sci(number);
-    rec(0);
-    cout << endl;
+    PrefixSum[0] = arr[0];
+    // int n = sizeof(arr) / sizeof(int);
+    for (int i = 1; i < n; i++)
+    {
+        /* code */
+        PrefixSum[i] = PrefixSum[i - 1] + arr[i];
+    }
+    int res = rec(0, n - 1);
+    cout << res << endl;
 }
 int main()
 {

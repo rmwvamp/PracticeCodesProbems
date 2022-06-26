@@ -35,16 +35,19 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void solve()
+bool RatinaMaze()
 {
-    // SOLUTION STARTS
 }
+
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int n = 5, m = 4;
+    char Maze[5][5] = { "0000",
+                        "00XX",
+                        "0000",
+                        "0000",
+                        "0XX0",
+    }
 
     return 0;
 }

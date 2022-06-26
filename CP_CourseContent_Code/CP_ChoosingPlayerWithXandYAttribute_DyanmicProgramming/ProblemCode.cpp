@@ -207,7 +207,7 @@ void PreComputing_Factorials()
     // cout << Factorials[10] << endl;
 }
 
-void PreComputing_InversesofFactorials() // so we find the factorials first then find their inverse using Little 's fermat rule
+void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
     for (int i = 1; i < 1e6 + 1; i++)
@@ -289,35 +289,91 @@ ll CountDigitsofNumber(ll n)
 
 //     return memo[i][j] = ans;
 // }
-ll n, number;
-vector<ll> arr(1e6);
 
-void rec(ll i)
+int dp3[100][100][100];
+int dp2[1000][1000];
+
+int ChoosingPlayer_CubicSolution(int i, int a, int b)
 {
-    if (i == n)
+    // if it's not sorted
+    // Base case
+    if (i == Player.size())
     {
-        return;
+        return 0;
     }
-    if (arr[i] == number)
+    // not choosing()
+    if (a == 0 && b == 0)
     {
-        cout << i << " ";
+        return dp3[i][a][b] = 0;
     }
-    rec(i + 1);
+    // Recursive Case
+
+    int op1, op2, op3;
+    if (dp3[i][a][b] != -1)
+    {
+        return dp3[i][i][b];
+    }
+     //  choosing for  x
+    op1 = Player[i].first + ChoosingPlayer_CubicSolution(i + 1, a - 1, b);
+    // choosing for y
+    op2 = Player[i].second + ChoosingPlayer_CubicSolution(i + 1, a, b - 1);
+
+    // no selection
+
+    op3 = ChoosingPlayer_CubicSolution(i + 1, a, b);
+
+    int ans = max(op1, max(op2, op3));
+    return dp3[i][a][b] = ans;
 }
+
+bool cmp(pair<int, int> a, pair<int, int> b)
+{
+    return a.second > b.second;
+}
+vector<pair<int, int>> Player;
+int A, B;
+int ChoosingPlayer_QuadraticSolution(int i, int a)
+{
+    // Base case
+    if (i == Player.size())
+    {
+        return 0;
+    }
+    // not choosing()
+    if (a == 0)
+    {
+        return dp2[i][a] = 0;
+    }
+    // Recursive Case
+    int b = max(0, B - (i - (A - a)));
+    if (b == 0)
+    {
+        return dp2[i][a] = 0;
+    }
+    int op1, op2;
+    if (dp2[i][a] != -1)
+    {
+        return dp2[i][i];
+    }
+    //  choosing for  x
+    op1 = Player[i].first + ChoosingPlayer_QuadraticSolution(i + 1, a - 1);
+    // choosing for y
+    op2 = Player[i].second + ChoosingPlayer_QuadraticSolution(i + 1, a);
+
+    int ans = max(op1, op2);
+    return dp2[i][a] = ans;
+}
+
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    cin >> number;
-    // sci(number);
-    rec(0);
-    cout << endl;
+    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    vector<pair<int, int>>;
+    memset(dp3, -1, sizeof dp3);
+    memset(dp2, -1, sizeof dp2);
+    sort(Player.begin(), Player.end(), cmp);
 }
 int main()
 {

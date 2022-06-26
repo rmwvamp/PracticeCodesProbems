@@ -207,7 +207,7 @@ void PreComputing_Factorials()
     // cout << Factorials[10] << endl;
 }
 
-void PreComputing_InversesofFactorials() // so we find the factorials first then find their inverse using Little 's fermat rule
+void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
     for (int i = 1; i < 1e6 + 1; i++)
@@ -220,23 +220,6 @@ void PreComputing_InversesofFactorials() // so we find the factorials first then
     // cout << InverseofFactorials[10] << endl;
     // }
 }
-
-void ReversetheArray(vector<ll> &arr, int start, int end)
-{
-    int mid = (end - start + 1) / 2;
-    for (int i = start; i < start + mid; i++)
-    {
-        swap(arr[i], arr[end - i + start]);
-    }
-}
-
-void RotatetheVector(vector<ll> &arr, int no_of_rotations)
-{
-    ReversetheArray(arr, arr.size() - no_of_rotations, arr.size() - 1);
-    ReversetheArray(arr, 0, arr.size() - no_of_rotations - 1);
-    ReversetheArray(arr, 0, arr.size() - 1);
-}
-
 ll CountDigitsofNumber(ll n)
 {
     ll count = 0;
@@ -248,83 +231,130 @@ ll CountDigitsofNumber(ll n)
     return count;
 }
 
-// Code for 1 state dp
-
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-// if(i<0)
-// {
-//     return 0;
-// }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
-
-// Code for 2 states dp
-
-// string n, m;
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
-
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
-
-//     return memo[i][j] = ans;
-// }
-ll n, number;
-vector<ll> arr(1e6);
-
-void rec(ll i)
-{
-    if (i == n)
-    {
-        return;
-    }
-    if (arr[i] == number)
-    {
-        cout << i << " ";
-    }
-    rec(i + 1);
-}
 void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    cin >> n;
-    for (int i = 0; i < n; i++)
+    // sci(n);vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    // int count = 1;
+    // vector<int> nums;
+    // for (int i = 1; i <= 9; i++)
+    // {
+    //     nums.pb(i);
+    // }
+    sci(n);
+    vector<int> ans;
+    int sum = 0;
+    int PrevDigit = -1;
+    if (n > 9)
     {
-        cin >> arr[i];
+        while (sum <= n)
+        {
+            cout << "Hello" << endl;
+            for (int i = 9; i >= 1; i--)
+            {
+                cout << "Hello1" << endl;
+                /* code */
+                if (sum + i <= n && i != PrevDigit)
+                {
+                    PrevDigit = i;
+                    ans.pb(i);
+                    sum += i;
+                    // dbg(sum);
+                    // dbg(ans);
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            if (sum == n)
+            {
+                break;
+            }
+        }
+        for (int i = 0; i < ans.size(); i++)
+        {
+            cout << ans[i];
+        }
+
+        cout << endl;
     }
-    cin >> number;
-    // sci(number);
-    rec(0);
-    cout << endl;
+    else
+    {
+        cout << n << endl;
+    }
 }
+
+void SecondSolve()
+{
+    sci(n);
+    vector<int> nums;
+    for (int i = 1; i <= 9; i++)
+    {
+        /* code */
+        nums.pb(i);
+    }
+    vector<vector<int>> ans;
+    for (int mask = 0; mask < (1 << 9); mask++)
+    {
+        /* code */
+        vector<int> temp;
+        for (int j = 0; j < 9; j++)
+        {
+            if (mask & (1 << j))
+            {
+                temp.pb(nums[j]);
+            }
+        }
+
+        ll sum = 0;
+        for (int i = 0; i < temp.size(); i++)
+        {
+            sum += temp[i];
+        }
+        if (sum == n)
+        {
+
+            ans.pb(temp);
+        }
+    }
+    dbgm(ans);
+    vector<int> Finalnums;
+    for (int i = 0; i < ans.size(); i++)
+    {
+        ll res = 0;
+        for (int j = 0; j < ans[i].size(); j++)
+        {
+
+            res += BinaryExponentiation_Binpow(10, j) * res + ans[i][j];
+        }
+        Finalnums.pb(res);
+    }
+    sort(all(Finalnums), greater<int>());
+    dbgm(Finalnums);
+    cout << Finalnums[0] << endl;
+}
+
+
+
+
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    // int t;cin >> t;while (t--)
-    solve();
+    int n = 5;
+    vector<int> dp(n + 1);
+    for (int i = 0; i <= n + 1; i++)
+    {
+        dp[i] = (i * (i + 1)) / 2;
+        if (i)
+        {
+            dp[i] += dp[i - 1];
+        }
+    }
+    cout << dp[2] << endl;
+
+
 
     return 0;
 }

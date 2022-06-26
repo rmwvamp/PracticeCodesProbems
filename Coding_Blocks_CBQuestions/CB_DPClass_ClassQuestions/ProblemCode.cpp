@@ -207,7 +207,7 @@ void PreComputing_Factorials()
     // cout << Factorials[10] << endl;
 }
 
-void PreComputing_InversesofFactorials() // so we find the factorials first then find their inverse using Little 's fermat rule
+void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
     for (int i = 1; i < 1e6 + 1; i++)
@@ -250,24 +250,59 @@ ll CountDigitsofNumber(ll n)
 
 // Code for 1 state dp
 
-// ll n;
-// vector<ll> memo(1e6, -1);
-// ll dp(ll i)
-// {
-//     // base case
-// if(i<0)
-// {
-//     return 0;
-// }
-//     //
-// if (memo[i] != -1)
-// {
-//     return memo[i];
-// }
-//     ll ans = 0;
-//     return memo[i] = ans;
-// }
+ll n;
+vector<ll> memo(1e6, -1);
+ll dp(ll i)
+{
+    // base case
+    if (i < 0)
+    {
+        return 0;
+    }
+    //
+    if (memo[i] != -1)
+    {
+        return memo[i];
+    }
+    // int ans = dp(i - 1) + 1;
+    // int ans = n % 2 == 0 ? dp(n / 2) + 1 : n % 3 == 0 ? dp(n / 3) + 1
+    //                                                   : dp(n - 1) + 1;
 
+    ll ans = dp(n - 1) + 1;
+    if (!(n % 3))
+    {
+
+        ans = min(ans, dp(n / 3) + 1);
+    }
+    if (!(n % 2))
+    {
+
+        ans = min(ans, dp(n / 2) + 1);
+    }
+    return memo[i] = ans;
+}
+
+int MinimumStepto1Bottomup(int n)
+{
+    vector<int> dp(n + 1, INT_MAX);
+    dp[0] = -1;
+    dp[1] = 0;
+    for (int i = 1; i < n + 1; i++)
+    {
+        if (3 * i <= n)
+        {
+
+            dp[i * 3] = min(dp[i * 3], dp[i] + 1);
+        }
+        if (2 * i <= n)
+        {
+
+            dp[i * 2] = min(dp[i * 2], dp[i] + 1);
+        }
+        dp[i + 1] = min(dp[i + 1], dp[i + 1] + 1);
+    }
+    return dp[n];
+}
 // Code for 2 states dp
 
 // string n, m;
@@ -289,35 +324,108 @@ ll CountDigitsofNumber(ll n)
 
 //     return memo[i][j] = ans;
 // }
-ll n, number;
-vector<ll> arr(1e6);
 
-void rec(ll i)
+int Recursive_MinimumStepsto1_ClassRevise(int n)
 {
-    if (i == n)
+    if (n == 1)
     {
-        return;
+        return 0;
     }
-    if (arr[i] == number)
+    int ans = Recursive_MinimumStepsto1_ClassRevise(n - 1) + 1;
+    if (!(n % 3))
     {
-        cout << i << " ";
+        ans = min(ans, Recursive_MinimumStepsto1_ClassRevise(n / 3) + 1);
     }
-    rec(i + 1);
+    if (!(n % 2))
+    {
+        ans = min(ans, Recursive_MinimumStepsto1_ClassRevise(n / 2) + 1);
+    }
+    return ans;
 }
+
+int TopDown_MinimumStepsto1_ClassRevise(int n, vector<int> dp = vector<int>(1e6, -1))
+{
+    if (n == 1)
+    {
+        return dp[n] = 0;
+    }
+    int ans = Recursive_MinimumStepsto1_ClassRevise(n - 1) + 1;
+    if (!(n % 3))
+    {
+        ans = min(ans, Recursive_MinimumStepsto1_ClassRevise(n / 3) + 1);
+    }
+    if (!(n % 2))
+    {
+        ans = min(ans, Recursive_MinimumStepsto1_ClassRevise(n / 2) + 1);
+    }
+    return dp[n] = ans;
+}
+
+int BottomUp_MinimumStepsto1_ClassRevise(int n)
+{
+    int *dp = new int[n + 1];
+    dp[0] = 0;
+    dp[1] = 1;
+    for (int i = 2; i < n + 1; i++)
+    {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}
+
+int Recursive_CurrencyExchange_ClassRevise(int Amount, vector<int> Denominations)
+{
+    if (n == 0)
+    {
+        return 0;
+    }
+    int ans = INT_MAX;
+    for (int currency : Denominations)
+    {
+        if (Amount >= currency)
+        {
+            int NextAmount = Amount - currency;
+            int SmallerAns = Recursive_CurrencyExchange_ClassRevise(NextAmount, Denominations);
+            if (SmallerAns != INT_MAX)
+            {
+
+                ans = min(ans, SmallerAns + 1);
+            }
+        }
+    }
+    return ans;
+}
+
+int BottomDown_CurrencyExchange_ClassRevise(int Amount, vector<int> Denominations)
+{
+    int *dp = new int[n + 1];
+    dp[0] = 0;
+    for (int i = 1; i < Amount + 1; i++)
+    {
+        int ans = INT_MAX;
+        for (int currency : Denominations)
+        {
+            if (Amount >= currency)
+            {
+                int NextAmount = Amount - currency;
+                int SmallerAns = Recursive_CurrencyExchange_ClassRevise(NextAmount, Denominations);
+                if (SmallerAns != INT_MAX)
+                {
+
+                    ans = min(ans, SmallerAns + 1);
+                }
+            }
+        }
+        dp[i] = ans;
+    }
+}
+
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    cin >> number;
-    // sci(number);
-    rec(0);
-    cout << endl;
+    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
 }
 int main()
 {

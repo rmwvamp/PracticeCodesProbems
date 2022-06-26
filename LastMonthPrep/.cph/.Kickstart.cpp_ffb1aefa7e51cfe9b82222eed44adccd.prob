@@ -1,0 +1,1 @@
+{"name":"Local: Kickstart","url":"c:\\Users\\User\\Desktop\\Code\\CP_Course\\LastMonthPrep\\Kickstart.cpp","tests":[{"id":1653220836129,"input":"2\n2\nab\n3\naba\n","output":"Case #1: 2\nCase #2: 333333338\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\User\\Desktop\\Code\\CP_Course\\LastMonthPrep\\Kickstart.cpp","group":"local","local":true}
