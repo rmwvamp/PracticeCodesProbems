@@ -332,6 +332,7 @@ void solve()
     s.push(6);
     s.pop();
     PrintStack(s);
+     PrintStack(s);
 }
 int main()
 {

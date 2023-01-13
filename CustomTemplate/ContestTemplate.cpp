@@ -169,15 +169,15 @@ ll BinaryExponentiation_Binpow_WithoutMod(ll base, ll exponent)
     return ans;
 }
 
-ll gcd(ll a, ll b)
-{
-    if (a == 0 || b == 0)
-        return a ^ b;
-    else
-    {
-        return __gcd(a, b);
-    }
-}
+// ll gcd(ll a, ll b)
+// {
+//     if (a == 0 || b == 0)
+//         return a ^ b;
+//     else
+//     {
+//         return __gcd(a, b);
+//     }
+// }
 vector<ll> is_prime(1000100, 1);
 void Sieve_of_Eratosthenes(ll n)
 {
@@ -247,6 +247,20 @@ ll CountDigitsofNumber(ll n)
     }
     return count;
 }
+ll SquareRoot_LL(ll x)
+{
+    ll left = 0, right = 2000000123;
+    while (right > left)
+    {
+        ll mid = (left + right) / 2;
+
+        if (mid * mid > x)
+            right = mid;
+        else
+            left = mid + 1;
+    }
+    return left - 1;
+}
 
 // Code for 1 state dp
 
@@ -297,20 +311,29 @@ void solve()
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
 }
+void TestCaseGenerator()
+{
+    for (int i = 0; i < 100; i++)
+    {
+        ll n = rand();
+        vector<ll> test;
+        for (ll j = 0; j < n; j++)
+        {
+            test.push_back(rand());
+        }
+        // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
+        dbgm(n, test);
+    }
+    // if (checksolve(test) != optimisedsol(test)){dbgm(test, n, checksolve(test), optimisedsol(test));}
+}
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int t;
-    cin >> t;
-    int cnt = 1;
-    while (t--)
-    {
-        goog(cnt);
-        cnt++;
+    int t = 1;
+    // cin >> t;while (t--)
 
-        solve();
-    }
+    solve();
 
     return 0;
 }

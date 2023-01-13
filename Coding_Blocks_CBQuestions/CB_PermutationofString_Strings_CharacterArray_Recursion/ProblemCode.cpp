@@ -35,28 +35,46 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void Permutation_of_String(string &str, char *output, int i)
+void Permutation_of_String(string &str, int i)
 {
     if (i == str.size())
     {
-        // output[i] = '\0';
         cout << str << endl;
         return;
     }
-    for (int j = i; str[j] != '\0'; j++)
+    for (int j = i; j != str.size(); j++)
     {
         swap(str[i], str[j]);
-        Permutation_of_String(str, output, i + 1);
+        Permutation_of_String(str, i + 1);
         swap(str[i], str[j]);
     }
 }
+
+vector<vector<int>> ans;
+void Array(vector<int> &nums, int i)
+{
+    if (i == nums.size())
+        ans.push_back(nums);
+    for (int j = i; j < nums.size(); j++)
+    {
+        swap(nums[i], nums[j]);
+        Array(nums, i + 1);
+        swap(nums[i], nums[j]);
+    }
+}
+
+
+
+// Time Complexity -> O(n! * n)
+// Auxilary Space Complexity -> O(n) used by recursion stack
+// Answer Space Complexity ->  O(n!) for storing all answers
+
 void solve()
 {
 
     // SOLUTION STARTS
     scs(str);
-    char output[100] = {'0'};
-    Permutation_of_String(str, output, 0);
+    Permutation_of_String(str, 0);
 }
 int main()
 {

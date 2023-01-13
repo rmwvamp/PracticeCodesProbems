@@ -35,46 +35,42 @@ const int md = 0;
     string s;  \
     cin >> s
 
-void solve()
+bool isPerfectSquare(long long x)
 {
-    // SOLUTION STARTS
-    sci(n);
-    ll target;
-    cin >> target;
-    vector<int> arr(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    } 
-    ll ans = LONG_MAX;
-    for (int j = 1; j < n - 1; j++)
-    {
-        int i = 0, k = n - 1;
+    long long s = sqrt(x);
+    return (s * s == x);
+}
 
-        while (i < j && k > j)
-        {
-            ans = min(ans, abs((arr[i] + arr[j] + arr[k]) - target));
+bool isFibonacci(long long n)
+{
 
-            if (target < arr[i] + arr[k] + arr[j])
-            {
-                k--;
-            }
-            else if (target > arr[i] + arr[k] + arr[j])
-            {
-                i++;
-            }
-        }
+    return isPerfectSquare(5 * n * n + 4) ||
+           isPerfectSquare(5 * n * n - 4);
+}
+
+vector<bool> solution(vector<long long> a)
+{
+    vector<bool> ans;
+    for (auto x : a)
+    {
+        ans.push_back(isFibonacci(x));
     }
-    cout << ans << endl;
+    return ans;
 }
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    int n;cin>>n;
+    vector<long long>array(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin>>array[i];
+    }
+    for(auto x: solution(array))
+    {
+        if(x)cout<<"YES"<<" ";
+        else cout<<"NO ";
+    }
+    
 
     return 0;
 }

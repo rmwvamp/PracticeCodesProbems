@@ -259,6 +259,8 @@ void solve()
     {
         cin >> arr[i];
     }
+
+    // {3, 4, 5,6, 7, 8, 9, 10}
     map<int, pair<int, int>> PositionstoValue;
     for (int i = 0; i < n; i++)
     {

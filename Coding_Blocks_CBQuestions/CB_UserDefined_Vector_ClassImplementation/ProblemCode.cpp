@@ -241,7 +241,7 @@ ll CountDigitsofNumber(ll n)
 {
     ll count = 0;
     while (n)
-    {
+    {   
         count++;
         n = n & (n - 1);
     }

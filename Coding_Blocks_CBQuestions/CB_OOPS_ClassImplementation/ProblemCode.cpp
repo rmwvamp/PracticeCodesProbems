@@ -44,21 +44,23 @@ public:
     }
 
     // 5. Copy Assignment Operator
-    // void operator=(Car X) {
-    // 	cout << "Inside Copy Assignment operator" << endl;
-    // 	strcpy(name, "Ferrari");
-    // 	price = X.price;
-    // 	seats = X.seats + 100;
-    // 	mileage = X.mileage;
-    // }
+     void operator=(Car X)
+    {
+        cout << "Inside Copy Assignment operator" << endl;
+        strcpy(name, "Ferrari");
+        price = X.price;
+        seats = X.seats + 100;
+        mileage = X.mileage;
+    }
 
-    /// Operator Overloading : D += C
-    // void operator += (Car X) {
-    // 	strcat(name, X.name);
-    // 	price += X.price;
-    // 	mileage += X.mileage;
-    // 	seats += X.seats;
-    // }
+    // / Operator Overloading : D += C
+     void operator+=(Car X)
+    {
+        strcat(name, X.name);
+        price += X.price;
+        mileage += X.mileage;
+        seats += X.seats;
+    }
 
     bool operator>(Car X)
     {

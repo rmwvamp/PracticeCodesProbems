@@ -158,14 +158,11 @@ int Solve()
 
 void Generator()
 {
-    int n = 5, k;
+    int n = rand();
     vector<int> test = {0, 9, 2, 1, 4, 3};
-    // while(1){
-    k = 1 + (rand() % n);
-    random_shuffle(test.begin() + 1, test.end());
-    dbgm(n, k, test);
 
-    // }
+    shuffle(test.begin() + 1, test.end(), rand());
+    dbgm(n, k, test);
 }
 
 int main()

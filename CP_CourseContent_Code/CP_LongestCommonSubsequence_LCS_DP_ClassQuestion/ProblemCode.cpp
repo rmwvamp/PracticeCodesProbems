@@ -269,6 +269,7 @@ ll CountDigitsofNumber(ll n)
 
 string n, m;
 vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
+string ansstring;
 ll dp(ll i, ll j)
 {
     // base case
@@ -286,6 +287,7 @@ ll dp(ll i, ll j)
     if (n[i] == m[j])
     {
         ans = dp(i - 1, j - 1) + 1;
+        // ansstring += n[i];
     }
     else
     {
@@ -294,6 +296,37 @@ ll dp(ll i, ll j)
     return memo[i][j] = ans;
 }
 
+void printlcs(int ans)
+{
+    ansstring = "";
+    for (int i = 0; i < ans; i++)
+    {
+        ansstring += '$';
+    }
+
+    int index = ans - 1;
+    int i = n.size() - 1;
+    int j = m.size() - 1;
+    while (i >= 0 && j >= 0)
+    {
+        if (n[i - 1] == m[j - 1])
+        {
+            ansstring[index] = n[i - 1];
+            index--;
+            i--;
+            j--;
+        }
+        else if (memo[i - 1][j] > memo[i][j - 1])
+            i--;
+        else
+            j--;
+    }
+    for (auto x : ansstring)
+    {
+        cout << x;
+    }
+    cout << endl;
+}
 void solve()
 {
     // SOLUTION STARTS
@@ -301,8 +334,10 @@ void solve()
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     cin >> n >> m;
+    // ansstring = "";
     ll res = dp(n.size() - 1, m.size() - 1);
     cout << res << endl;
+    printlcs(res);
 }
 int main()
 {

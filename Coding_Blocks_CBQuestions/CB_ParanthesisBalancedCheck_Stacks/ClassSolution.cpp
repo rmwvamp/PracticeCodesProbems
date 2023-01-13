@@ -251,7 +251,7 @@ ll CountDigitsofNumber(ll n)
 bool CheckBalanced(char *a)
 {
     int n = sizeof(a) / sizeof(char);
-    stack<char> s;
+    stack<char> s; 
     cout << n << endl;
     for (int i = 0; a[i] != '\0'; i++)
     {
@@ -298,7 +298,7 @@ bool CheckBalanced(char *a)
         default:
             break;
         }
-        cout << i << endl;
+        // cout << i << endl;
     }
     return s.empty();
 }

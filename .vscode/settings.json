@@ -97,5 +97,6 @@
         "xtr1common": "cpp"
     },
     "cph.general.defaultLanguage": "cpp",
-    "cph.general.defaultLanguageTemplateFileLocation": "C:\\Users\\User\\Desktop\\Code\\CP_Course\\CustomTemplate\\ContestTemplate.cpp"
+    "cph.general.defaultLanguageTemplateFileLocation": "C:\\Users\\User\\Desktop\\Code\\CP_Course\\CustomTemplate\\ContestTemplate.cpp",
+    // "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jre1.8.0_51\\bin"
 }

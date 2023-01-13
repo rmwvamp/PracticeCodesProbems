@@ -12,6 +12,8 @@ using namespace std;
 #define prDouble(x) cout << fixed << setprecision(10) << x
 #define triplet pair<ll, pair<ll, ll>>
 #define goog(tno) cout << "Case #" << tno << ": "
+#define mod 100000
+
 typedef long long ll;
 typedef pair<int, int> ii;
 typedef pair<ii, int> iii;
@@ -63,14 +65,14 @@ void solve()
     cout << endl;
     for (int i = 0; i < n; i++)
     {
-        if (i % 2)
+        if (i % 2) // odd
         {
             for (int j = n - 1; j >= 0; j--)
             {
                 cout << arr[i][j] << "\t";
             }
         }
-        else
+        else // even
         {
             for (int j = 0; j < n; j++)
             {

@@ -237,7 +237,7 @@ void RotatetheVector(vector<ll> &arr, int no_of_rotations)
     ReversetheArray(arr, 0, arr.size() - 1);
 }
 
-ll CountDigitsofNumber(ll n)
+ll CountSetBitsDigitsofNumber(ll n)
 {
     ll count = 0;
     while (n)
@@ -247,6 +247,9 @@ ll CountDigitsofNumber(ll n)
     }
     return count;
 }
+
+// 2 1  0
+// 1 1 1
 
 // Code for 1 state dp
 
@@ -328,5 +331,5 @@ int main()
     int key = 5;
     BinarySearch_Recursion(0, n - 1, key, arr);
 
-    return 0;
+      return 0;
 }

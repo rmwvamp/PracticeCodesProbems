@@ -322,3 +322,14 @@ int main()
 
     return 0;
 }
+
+vector<ll> Factorials(int(1e6 + 1));
+void PreComputing_Factorials()
+{
+    Factorials[0] = 1;
+    for (int i = 1; i < 1e6 + 1; i++)
+    {
+
+        Factorials[i] = ((Factorials[i - 1]) * (i));
+    }
+}

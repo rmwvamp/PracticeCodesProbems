@@ -23,7 +23,7 @@ int MovementsinY[] = {0, 0, 1, -1};
 
 void BFS(pair<int, int> Point)
 {
-    queue<pair<int, int>> q;
+    lete<pair<int, int>> q;
     Distance = vector<vector<int>>(n, vector<int>(m, 1e9));
     Parent = vector<vector<pair<int, int>>>(n, vector<pair<int, int>>(m, make_pair(-1, -1)));
 
