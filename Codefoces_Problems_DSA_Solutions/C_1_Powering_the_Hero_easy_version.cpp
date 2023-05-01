@@ -363,12 +363,157 @@ void solve()
 {
     // SOLUTION STARTS
 
+    sci(n);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    deque<ll> temp;
+    ll ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+        dbgm(temp);
+        if (arr[i] > 0)
+        {
+
+            if (temp.size() > 0)
+            {
+                if (temp.back() > arr[i])
+                {
+                    ll check = 0;
+                    if (temp.front() > arr[i] && temp.size() > 1)
+                    {
+
+                        temp.push_front(arr[i]);
+                        swap(temp.at(0), temp.at(1));
+                    }
+                    else
+                    {
+                        temp.push_front(arr[i]);
+                    }
+                }
+                else
+                    temp.push_back(arr[i]);
+            }
+            else
+            {
+                temp.push_back(arr[i]);
+            }
+        }
+        else
+        {
+            if (temp.size() > 0)
+            {
+                if (temp.back() >= temp.front())
+                {
+                    // cout << temp.back() << " ";
+                    ans += temp.back();
+                    temp.pop_back();
+                }
+                else
+                {
+                    // cout << temp.front() << " ";
+
+                    ans += temp.front();
+                    temp.pop_front();
+                }
+            }
+        }
+    }
+    cout << ans << endl;
+
+    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+}
+ll checksolve(ll n, vector<ll> arr)
+{
+    // SOLUTION STARTS
+
     // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    // vector<ll> arr(n);
+    // for (int i = 0; i < n; i++)
+    // {
+    //     cin >> arr[i];
+    // }
+    deque<ll> temp;
+    ll ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] > 0)
+        {
+
+            if (temp.size() > 0)
+            {
+                if (temp.back() > arr[i])
+                    temp.push_front(arr[i]);
+                else
+                    temp.push_back(arr[i]);
+            }
+            else
+            {
+                temp.push_back(arr[i]);
+            }
+        }
+        else
+        {
+            if (temp.size() > 0)
+            {
+                if (temp.back() >= temp.front())
+                {
+
+                    ans += temp.back();
+                    temp.pop_back();
+                }
+                else
+                {
+                    ans += temp.front();
+                    temp.pop_front();
+                }
+            }
+        }
+    }
+    return ans;
+
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
 {
+    sci(n);
+    vector<ll> arr(n);
+    ll ans = 0;
+    map<ll, ll> mmp;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        /* code */
+        // dbgm(mmp);
+        if (arr[i] > 0)
+            mmp[arr[i]]++;
+        else
+        {
+            if (mmp.size() > 0)
+            {
+
+                ans += mmp.rbegin()->first;
+                ll val = mmp.rbegin()->second;
+
+                mmp.rbegin()->second -= 1;
+
+                if (mmp.rbegin()->second == 0)
+                {
+                    auto it = mmp.end();
+                    it--;
+                    mmp.erase(it);
+                }
+            }
+        }
+    }
+    cout << ans << endl;
+
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
@@ -379,13 +524,24 @@ void TestCaseGenerator()
     {
         ll n = rand() % 15 + 1;
         vector<ll> test;
+
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            ll check = rand() % 2;
+            if (check == 0)
+                test.push_back(0);
+            else
+                test.push_back(rand() % 50 + 1);
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
-        dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
+        ll sol1 = checksolve(n, test);
+        // ll sol2 = brutesolve(n, test);
+        // if (sol1 != sol2)
+        // {
+        //     dbgm(test, n, sol1, sol2);
+        // }
+        dbgm(n, test, sol1);
+        // dbgm()
     }
 }
 int main()
@@ -393,10 +549,11 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
+        // solve();
+        anothersolve();
     // TestCaseGenerator();
     return 0;
 }

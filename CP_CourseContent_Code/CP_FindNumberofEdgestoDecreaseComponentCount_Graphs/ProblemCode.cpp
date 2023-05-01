@@ -11,7 +11,7 @@ void dfs(int node, int ComponentCounter)
     for (auto v : Graph[node])
     {
         if (Visited[v] == 0)
-        {
+        
             dfs(v, ComponentCounter);
         }
     }

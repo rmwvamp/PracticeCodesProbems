@@ -359,13 +359,101 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 //     return memo[i][j] = ans;
 // }
 
+ll ssolve(string s, ll count, char mc)
+{
+
+    ll n = s.size();
+    string temp = s;
+    string ans;
+    for (ll i = 0; i < count; i++)
+    {
+        /* code */
+        ans += mc;
+    }
+    // dbgm(mc, count, mmp);
+    ll res = 0;
+    while (temp != ans && temp.size() > 0)
+    {
+        ll lastidx = -2;
+        string newtemp;
+
+        for (ll i = 0; i < temp.size(); i++)
+        {
+            /* code */
+            if (temp[i] != mc && lastidx != i - 1)
+            {
+                lastidx = i;
+            }
+            else
+            {
+                newtemp += temp[i];
+            }
+        }
+        // dbgm(newtemp);
+        res++;
+        temp = newtemp;
+        // dbgm(temp);
+        if (res > n)
+            return INT_MAX;
+    }
+    return res;
+}
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+    scs(s);
+    ll n = s.size();
+    if (n == 1)
+    {
+        cout << 0 << endl;
+        return;
+    }
+    map<char, vector<ll>> mmp;
+    for (ll i = 0; i < n; i++)
+    {
+        mmp[s[i]].pb(i);
+    }
+    if (n == 2)
+    {
+        if (mmp.size() > 1)
+        {
+            cout << 1 << endl;
+            return;
+        }
+        else
+        {
+            cout << 0 << endl;
+            return;
+        }
+    }
+    char mc = 'A';
+    ll count = 0;
+    for (auto x : mmp)
+    {
+        if (x.second.size() > count)
+        {
+
+            count = x.second.size();
+            mc = x.first;
+        }
+    }
+    vector<char> selectedchar;
+    for (ll i = 0; i < 26; i++)
+    {
+        /* code */
+        if (mmp.find('a' + i) != mmp.end())
+            selectedchar.pb('a' + i);
+    }
+
+    ll smallans = INT_MAX;
+    for (auto c : selectedchar)
+    {
+
+        smallans = min(smallans, ssolve(s, count, c));
+    }
+    cout << smallans << endl;
 }
 void anothersolve()
 {
@@ -393,9 +481,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

@@ -363,25 +363,44 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    sciii(a, b, c);
+    sci(d);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
-}
-void anothersolve()
-{
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+    ll ans = 0;
+    if (a == 0)
+    {
+        if (b > 0 || c > 0 || d > 0)
+        {
+            ans = 1;
+        }
+        else
+        {
+
+            ans = 0;
+        }
+    }
+    else
+    {
+        ans += a;
+        if (b > c)
+            swap(b, c);
+        ans += 2 * b;
+        c -= b;
+        // still got a with us, and it is +ve
+        ans += min(a + 1, c + d);
+    }
+    cout << ans << endl;
 }
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand() % 15;
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand() % 50);
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
         dbgm(n, test);
@@ -393,10 +412,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
+        solve();
     // TestCaseGenerator();
     return 0;
 }

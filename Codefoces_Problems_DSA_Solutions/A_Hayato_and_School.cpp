@@ -363,25 +363,51 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
-}
-void anothersolve()
-{
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sci(n);
+    vector<ll> odd, even;
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        if (arr[i] % 2)
+            odd.pb(i + 1);
+        else
+            even.pb(i + 1);
+    }
+    if (odd.size() == 0)
+
+    {
+        cout << "NO" << endl;
+        return;
+    }
+    else if (odd.size() >= 3)
+    {
+        cout << "YES" << endl;
+        cout << odd[0] << " " << odd[1] << " " << odd[2] << endl;
+    }
+    else if (odd.size() >= 1 && even.size() >= 2)
+    {
+        cout << "YES" << endl;
+        cout << odd[0] << " " << even[0] << " " << even[1] << endl;
+    }
+    else if (even.size() == 1)
+    {
+        cout << "NO" << endl;
+    }
+    else
+        cout << "NO" << endl;
+
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand() % 15;
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand() % 50);
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
         dbgm(n, test);
@@ -393,10 +419,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
+        solve();
     // TestCaseGenerator();
     return 0;
 }

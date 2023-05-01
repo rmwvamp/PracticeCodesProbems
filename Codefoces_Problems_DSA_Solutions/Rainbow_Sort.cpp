@@ -363,8 +363,58 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sci(n);
+    vector<ll> arr(n);
+    map<int, int> tempcount;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        tempcount[arr[i]]++;
+    }
+
+    map<int, int> mmp;
+    bool flag = false;
+    int col = 1;
+    int row = -1;
+    int x = 0;
+    for (int j = 0; j < n; j++)
+    {
+        int k = j;
+        if (mmp.find(arr[j]) != mmp.end())
+        {
+            x++;
+            flag = true;
+            tempcount[x]++;
+        }
+        while (k < n && arr[k] == arr[j])
+        {
+            k++;
+            row++;
+        }
+        k--;
+        j = k;
+        row = min(j, col);
+        mmp[arr[j]] = col++;
+    }
+    if (flag)
+    {
+        cout << "IMPOSSIBLE" << endl;
+    }
+    else
+    {
+        for (int j = 0; j < n; j++)
+        {
+            int k = j;
+            while (k < n && arr[k] == arr[j])
+            {
+                k++;
+            }
+            k--;
+            j = k;
+            cout << arr[j] << " ";
+        }
+        cout << endl;
+    }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
@@ -393,10 +443,21 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    int cnt = 1;
+    map<int, int> x20;
+    for (int i = 0; i < 120; i++)
+    {
+        x20[i] = i;
+        /* code */
+    }
 
-    solve();
-    // anothersolve();
-    // TestCaseGenerator();
+    while (t--)
+    {
+        goog(cnt);
+        solve();
+        cnt++;
+    }
+
     return 0;
 }

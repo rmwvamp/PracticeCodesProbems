@@ -363,29 +363,157 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    sci(n);
+    ll q = n / 4;
+    ll a = q + 4 * q * q;
+    ll b = q + 4 * q * q;
+    ll rem = n % 4;
+
+    if (rem >= 1)
+    {
+        a += q * 4 + 1;
+    }
+    else if (rem >= 2)
+    {
+
+        b += q * 4 + 2;
+    }
+    else if (rem == 3)
+    {
+        a += q * 4 + 3;
+    }
+    cout << a << " " << b << " " << endl;
+
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
 {
+    sci(n);
+    if (n == 0)
+        cout << "0 0" << endl;
+    n--;
+    ll a = 1, b = 0;
+    int count = 2;
+    ll alice = 0, bob = 1;
+    /*
+    A B B A A B B A A*/
+    while (n > 0 && n - count >= 0)
+    {
+        if (bob)
+        {
+            b += count;
+            n -= count;
+            count++;
+            if (n > 0 && n - count >= 0)
+            {
+                b += count;
+                n -= count;
+                count++;
+            }
+            else
+                break;
+            bob = bob ^ 0 ^ 1; 
+            alice = alice ^ 0 ^ 1;
+        }
+        else
+        {
+            a += count;
+            n -= count;
+            count++;
+            if (n > 0 && n - count >= 0)
+            {
+                a += count;
+                n -= count;
+                count++;
+            }
+            else
+                break;
+            bob = bob ^ 0 ^ 1;
+            alice = alice ^ 0 ^ 1;
+        }
+    }
+    if (n > 0)
+    {
+        if (bob)
+            b += n;
+        else
+            a += n;
+    }
+    cout << a << " " << b << " " << endl;
+    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+}
+pair<ll, ll> checkanothersolve(ll n)
+{
     // sci(n);
+    n--;
+    ll a = 1, b = 0;
+    int count = 2;
+    ll alice = 0, bob = 1;
+    while (n > 0 && n - count >= 0)
+    {
+        if (bob)
+        {
+            b += count;
+            n -= count;
+            count++;
+            if (n > 0 && n - count >= 0)
+            {
+                b += count;
+                n -= count;
+                count++;
+            }
+            else
+                break;
+            bob = bob ^ 0 ^ 1;
+            alice = alice ^ 0 ^ 1;
+        }
+        else
+        {
+            a += count;
+            n -= count;
+            count++;
+            if (n > 0 && n - count >= 0)
+            {
+                a += count;
+                n -= count;
+                count++;
+            }
+            bob = bob ^ 0 ^ 1;
+            alice = alice ^ 0 ^ 1;
+        }
+    }
+    if (n > 0)
+    {
+        if (bob)
+            b += n;
+        else
+            a += n;
+    }
+    // cout << a << " " << b << " " << endl;
+    return mp(a, b);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void TestCaseGenerator()
 {
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 1000; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand() % (int)1e6 + 2;
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand());
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
-        dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
+        pair<ll, ll> sol1 = checkanothersolve(n);
+
+        if (sol1.first + sol1.second != n)
+        {
+            dbgm(n, checkanothersolve(n));
+            // dbgm(test, n, sol1, sol2);
+        }
     }
 }
 int main()
@@ -393,10 +521,11 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
+        // solve();
+        anothersolve();
     // TestCaseGenerator();
     return 0;
 }

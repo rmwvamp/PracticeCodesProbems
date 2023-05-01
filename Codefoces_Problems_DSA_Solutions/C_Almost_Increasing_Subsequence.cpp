@@ -363,7 +363,7 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    scii(n,q);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
@@ -393,7 +393,7 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;while (t--)
 
     solve();
     // anothersolve();

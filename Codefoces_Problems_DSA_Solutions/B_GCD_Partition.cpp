@@ -359,29 +359,98 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 //     return memo[i][j] = ans;
 // }
 
+ll check(ll x, ll n, vector<ll> &arr)
+{
+    ll ans = 0;
+    ll last = -1;
+    for (int i = 0; i < n; i++)
+    {
+        /* code */
+        ans += arr[i];
+        if (ans == x)
+        {
+            ans = 0;
+        }
+        else if (ans > x)
+            return false;
+    }
+    if (ans == 0)
+        return true;
+    else
+        return false;
+}
 void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sci(n);
+    vector<ll> arr(n);
+    for (ll i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    ll lo = 0;
+    ll hi = 1e18;
+    ll ans = 1;
+    // sort(all(arr));
+    while (lo <= hi)
+    {
+        /* code */
+        ll mid = (lo + hi) / 2;
+        if (check(mid, n, arr))
+        {
+            ans = mid;
+            lo = mid + 1;
+        }
+        else
+        {
+            hi = mid - 1;
+        }
+    }
+    cout << ans << endl;
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
+
 void anothersolve()
 {
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+    sci(n);
+    vector<ll> arr(n);
+    for (ll i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    vector<ll> prefix(n), suffix(n);
+    prefix[0] = arr[0];
+    for (int i = 1; i < n; i++)
+    {
+        /* code */
+        prefix[i] += prefix[i - 1] + arr[i];
+    }
+    suffix[n - 1] = arr[n - 1];
+    for (int i = n - 2; i >= 0; i--)
+    {
+        /* code */
+        suffix[i] += suffix[i + 1] + arr[i];
+    }
+    ll ans = 1;
+    for (int i = 0; i < n - 1; i++)
+    {
+        /* code */
+        ans = max(ans, gcd(prefix[i], suffix[i + 1]));
+    }
+    cout << ans << endl;
 }
+/*----------------------------------------------------------------
+it had a simple observation that had to ben taken care of, that whatevr the gcd we can find in greater elements could also be found when segements is of length 2*/
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand() % 15;
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand() % 50);
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
         dbgm(n, test);
@@ -393,10 +462,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
+        anothersolve();
     // TestCaseGenerator();
     return 0;
 }

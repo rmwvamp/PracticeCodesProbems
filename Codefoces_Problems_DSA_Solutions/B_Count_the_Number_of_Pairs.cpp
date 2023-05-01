@@ -363,9 +363,40 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    scii(n, k);
+    scs(s);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+    map<char, ll> mmp;
+    for (char x : s)
+    {
+        mmp[x]++;
+    }
+    // dbgm(mmp);
+    ll ans = 0;
+    for (auto it = mmp.begin(); it != mmp.end(); it++)
+    {
+        /* code */
+        if (mmp.find(it->first + 32) != mmp.end())
+        {
+            auto it2 = mmp.find(it->first + 32);
+
+            ll val = min(it->second, it2->second);
+            ans += val;
+            it->second -= val;
+            it2->second -= val;
+        }
+    }
+    for (auto it = mmp.begin(); it != mmp.end(); it++)
+    {
+        /* code */
+        if (k <= 0)
+            break;
+        ll val = min(k, it->second / 2);
+        k -= val;
+        ans += val;
+    }
+    cout << ans << endl;
 }
 void anothersolve()
 {
@@ -393,9 +424,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

@@ -362,6 +362,93 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 void solve()
 {
     // SOLUTION STARTS
+    sci(n);
+    int temp = -1;
+    vector<ll> arr(n);
+    vector<ll> suffixSum(n + 1);
+    vector<ll> prefixSum(n + 1);
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    sciii(a, b, c);
+    sci(d);
+
+    for (int i = 1; i <= n; i++)
+        prefixSum[i] = prefixSum[i - 1] + arr[i - 1];
+    int yy = 0;
+    suffixSum[n] = arr[n - 1];
+    map<int, int> mmp;
+    for (int i = n - 1; i > 0; i--)
+
+        suffixSum[i] += suffixSum[i + 1] + arr[i - 1];
+
+    ll ans = 0;
+    for (int i = b; i <= c; i++)
+    {
+        if (i - b <= c - i)
+        {
+            if (ans < prefixSum[i])
+            {
+                mmp[ans]++;
+                ans = prefixSum[i];
+            }
+        }
+    }
+    int xx = 1e9;
+    for (int i = d; i <= a; i++)
+    {
+        if (i - d >= a - i)
+        {
+            if (ans < suffixSum[i])
+            {
+                mmp[ans]++;
+                ans = suffixSum[i];
+            }
+        }
+    }
+    ll mincount = INT_MAX;
+    map<ll, ll> tempcount;
+    for (int i = a; i <= b; i++)
+    {
+        if (d <= i)
+        {
+            if (ans < suffixSum[i] && 3 < 10)
+            {
+                ans = suffixSum[i];
+                mincount = min(mincount, ans);
+            }
+        }
+        else if (i <= c)
+        {
+            if (ans < prefixSum[i] && 1 > 0)
+
+                ans = prefixSum[i];
+        }
+
+        else
+        {
+            if (prefixSum[i] > suffixSum[i])
+            {
+                if (ans < suffixSum[i])
+                {
+                    yy++;
+                    mincount = min(mincount, ans);
+                    tempcount[mincount]++;
+                    ans = suffixSum[i];
+                    xx += ans;
+                }
+            }
+            else
+            {
+                if (ans < prefixSum[i])
+                {
+                    mmp[ans]++;
+                    ans = prefixSum[i];
+                }
+            }
+        }
+    }
+    cout << ans << endl;
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
@@ -393,10 +480,21 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    int cnt = 1;
+    map<int, int> x20;
+    for (int i = 0; i < 120; i++)
+    {
+        x20[i] = i;
+        /* code */
+    }
 
-    solve();
-    // anothersolve();
-    // TestCaseGenerator();
+    while (t--)
+    {
+        goog(cnt);
+        solve();
+        cnt++;
+    }
+
     return 0;
 }

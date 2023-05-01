@@ -363,25 +363,123 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sci(n);
+    vector<ll> arr(n), v;
+
+    map<ll, ll> mmp;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        mmp[arr[i]] = i;
+    }
+    v = arr;
+    sort(all(v));
+    ll mid = (n) / 2;
+    int i = mid;
+    int j = mid + 1;
+    ll ans = 0;
+    while (i >= 1 && j <= n)
+    {
+        while ((i - 1 == mmp[i] || mmp[i] == 0) && i >= 1)
+        {
+            i--;
+        }
+        // add further condition
+
+        if (i <= 0)
+            break;
+        while ((j - 1 == mmp[j] || mmp[j] == n - 1) && j <= n)
+        {
+            j++;
+        }
+
+        if (j > n)
+            break;
+        swap(arr[mmp[i]], arr[mmp[j]]);
+        ll x = mmp[i];
+        mmp[i] = mmp[j];
+        mmp[j] = x;
+        ans++;
+    }
+    while (i >= 1)
+    {
+        if (i - 1 == mmp[i] || mmp[i] == 0)
+        {
+            i--;
+        }
+        else
+        {
+            ans++;
+            i--;
+        }
+    }
+    while (i <= n)
+    {
+
+        if (i - 1 == mmp[i] || mmp[i] == n - 1)
+        {
+            i++;
+        }
+        else
+        {
+            ans++;
+            i++;
+        }
+    }
+
+    cout << ans << endl;
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+}
+ll check(ll x, vector<ll> &arr)
+{
+    ll num = x + 1;
+    ll n = arr.size();
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (arr[i] == num)
+            num++;
+    }
+
+    if (num >= n - x + 1)
+        return 1;
+    else
+        return 0;
 }
 void anothersolve()
 {
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+    sci(n);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    ll lo = 0;
+    ll hi = (n + 1) / 2;
+    ll ans = (n + 1) / 2;
+    while (lo <= hi)
+    {
+        ll mid = (hi + lo) / 2;
+        if (check(mid, arr))
+        {
+            ans = mid;
+            hi = mid - 1;
+        }
+        else
+        {
+            lo = mid + 1;
+        }
+    }
+    cout << ans << endl;
 }
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand() % 15;
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand() % 50);
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
         dbgm(n, test);
@@ -393,10 +491,11 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
+        // solve();
+        anothersolve();
     // TestCaseGenerator();
     return 0;
 }

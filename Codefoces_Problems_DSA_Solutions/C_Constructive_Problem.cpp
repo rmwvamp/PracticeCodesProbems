@@ -363,8 +363,76 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sci(n);
+    vector<ll> arr(n);
+    map<int, vector<int>> mp;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        mp[arr[i]].push_back(i);
+    }
+    // dbgm(mp);
+    int mex = 0;
+    vector<ll> copyarr = arr;
+    sort(all(copyarr));
+    for (int i = 0; i < n; i++)
+    {
+        if (copyarr[i] == mex)
+            mex++;
+        else
+            break;
+    }
+    // dbgm(mex);
+    if (n == 1 && arr[0] == 1)
+    {
+        cout << "Yes" << endl;
+        return;
+    }
+
+    if (mex == n)
+    {
+        cout << "No" << endl;
+        return;
+    }
+    vector<int> check;
+    if (mp.find(mex + 1) != mp.end())
+    {
+        check = mp[mex + 1];
+    }
+    if (check.size() == 0)
+    {
+        cout << "Yes" << endl;
+        return;
+    }
+    map<int, int> checkmp;
+    sort(all(check));
+    for (int i = 0; i < check[0]; i++)
+    {
+        /* code */
+        checkmp[arr[i]]++;
+    }
+    for (int i = check[check.size() - 1] + 1; i < arr.size(); i++)
+    {
+        /* code */
+        checkmp[arr[i]]++;
+    }
+    // dbgm(checkmp);
+    for (int i = check[0]; i <= check[check.size() - 1]; i++)
+    {
+        /* code */
+        if (arr[i] >= mex + 1)
+            continue;
+        else if (arr[i] < mex + 1 && checkmp.find(arr[i]) != checkmp.end())
+            continue;
+        else
+        {
+            cout << "No" << endl;
+            return;
+        }
+    }
+
+    cout << "Yes" << endl;
+
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
@@ -373,6 +441,76 @@ void anothersolve()
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
+// vector<ll> checksolve(int n, vector<ll> arr)
+// {
+//     map<int, vector<int>> mp;
+//     for (int i = 0; i < n; i++)
+//     {
+//         cin >> arr[i];
+//         mp[arr[i]].push_back(i);
+//     }
+//     // dbgm(mp);
+//     int mex = 0;
+//     vector<ll> copyarr = arr;
+//     sort(all(copyarr));
+//     for (int i = 0; i < n; i++)
+//     {
+//         if (copyarr[i] == mex)
+//             mex++;
+//         else
+//             break;
+//     }
+//     // dbgm(mex);
+
+//     if (n == 1 && arr[0] == 1)
+//     {
+//         cout << "Yes" << endl;
+//         return;
+//     }
+//     if (mex == n)
+//     {
+//         cout << "No" << endl;
+//         return;
+//     }
+//     vector<int> check;
+//     if (mp.find(mex + 1) != mp.end())
+//     {
+//         check = mp[mex + 1];
+//     }
+//     if (check.size() == 0)
+//     {
+//         cout << "Yes" << endl;
+//         return;
+//     }
+//     map<int, int> checkmp;
+//     sort(all(check));
+//     for (int i = 0; i < check[0]; i++)
+//     {
+//         /* code */
+//         checkmp[arr[i]]++;
+//     }
+//     for (int i = check[check.size() - 1] + 1; i < arr.size(); i++)
+//     {
+//         /* code */
+//         checkmp[arr[i]]++;
+//     }
+//     // dbgm(checkmp);
+//     for (int i = check[0]; i <= check[check.size() - 1]; i++)
+//     {
+//         /* code */
+//         if (arr[i] >= mex)
+//             continue;
+//         else if (arr[i] < mex && checkmp.find(arr[i]) != checkmp.end())
+//             continue;
+//         else
+//         {
+//             cout << "No" << endl;
+//             return;
+//         }
+//     }
+
+//     cout << "Yes" << endl;
+// }
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
@@ -393,9 +531,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

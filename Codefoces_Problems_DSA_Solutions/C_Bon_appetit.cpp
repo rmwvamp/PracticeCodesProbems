@@ -359,29 +359,83 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 //     return memo[i][j] = ans;
 // }
 
+bool cmp(pair<ll, ll> &a,
+         pair<ll, ll> &b)
+{
+    return a.second < b.second;
+}
+
+// Function to sort the map according
+// to value in a (key-value) pairs
+void sortmmp(map<ll, ll> &M)
+{
+
+    // Declare vector of pairs
+    vector<pair<ll, ll>> A;
+
+    // Copy key-value pair from Map
+    // to vector of pairs
+    for (auto &it : M)
+    {
+        A.push_back(it);
+    }
+
+    // Sort using comparator function
+    sort(A.begin(), A.end(), cmp);
+}
 void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
-}
-void anothersolve()
-{
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    scii(n, m);
+    map<ll, ll> mmp;
+    vector<ll>
+        arr(n);
+    vector<ll> seats(m);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        mmp[arr[i]]++;
+    }
+    for (int i = 0; i < m; i++)
+    {
+        cin >> seats[i];
+    }
+    sort(all(seats), greater<ll>());
+    sortmmp(mmp);
+    dbgm(mmp, seats);
+    ll ans = 0;
+    int i = 0;
+    for (auto it = mmp.begin(); it != mmp.end(); it++)
+    {
+        if (i == m)
+            break;
+        if (seats[i] >= it->second)
+        {
+            ans += it->second;
+            i++;
+        }
+        else
+        {
+            ans += seats[i];
+            it->second = it->second - seats[i];
+            i++;
+            it--;
+        }
+    }
+    cout << ans << endl;
+
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand() % 15;
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand() % 50);
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
         dbgm(n, test);
@@ -393,10 +447,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
+        solve();
     // TestCaseGenerator();
     return 0;
 }

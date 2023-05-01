@@ -365,8 +365,69 @@ void solve()
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+
+    sciii(m, r, n);
+    map<int, int> mmp;
+    vector<pair<ll, ll>> arr;
+    vector<pair<int, int>> ans;
+    vector<int> idxfreq;
+    int checkres = INT_MIN;
+    for (int j = 0; j < n; j++)
+    {
+        sci(x);
+        mmp[x]++;
+        arr.push_back({max(0LL, x - r), min(m, x + r)});
+        idxfreq.push_back(max(0LL, x - r));
+    }
+    ll l = 0;
+    bool checkfll = false;
+    int xx = -1;
+    int yy = 0;
+    for (int j = 0; j < n; j++)
+    {
+        if (arr[j].first <= l)
+        {
+
+            int k = j;
+            while (k < n && arr[k].first <= l)
+            {
+                k++;
+                xx++;
+            }
+            k--;
+            yy--;
+            l = arr[k].second;
+            checkres = max(checkres, yy);
+            int temp = k;
+            ans.push_back(arr[k]);
+            j = temp;
+            if (l == m)
+                break;
+        }
+        else
+        {
+            checkfll = true;
+            break;
+        }
+    }
+    if (ans.size() == 0 || ans[ans.size() - 1].second < m)
+    {
+        cout << "IMPOSSIBLE" << endl;
+        return;
+    }
+    int xll = ans.size();
+
+    if (checkfll)
+    {
+        cout << "IMPOSSIBLE" << endl;
+    }
+    else
+    {
+        cout << xll << endl;
+    }
 }
+// vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+
 void anothersolve()
 {
     // sci(n);
@@ -393,10 +454,21 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    int cnt = 1;
+    map<int, int> x20;
+    for (int i = 0; i < 120; i++)
+    {
+        x20[i] = i;
+        /* code */
+    }
 
-    solve();
-    // anothersolve();
-    // TestCaseGenerator();
+    while (t--)
+    {
+        goog(cnt);
+        solve();
+        cnt++;
+    }
+
     return 0;
 }

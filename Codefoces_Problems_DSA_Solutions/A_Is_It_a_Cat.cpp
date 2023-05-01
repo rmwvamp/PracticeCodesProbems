@@ -358,14 +358,54 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 
 //     return memo[i][j] = ans;
 // }
-
+#include <cctype>
 void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    sci(n);
+
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+
+    scs(s);
+
+    for (auto &c : s)
+    {
+        c = tolower(c);
+    }
+    // cout << s << endl;
+
+    // check if the i-th character is the same as the i-1th character
+    for (int i = 1; i < s.size(); i++)
+    {
+        /* code */
+        if (i > 0 && s[i] == s[i - 1])
+        {
+            // remove the i-th character
+            s.erase(i, 1);
+            i--;
+        }
+    }
+
+    // dbgm(s);
+    string check = "meow";
+    if (s == check)
+    {
+        cout << "YES" << endl;
+    }
+    else
+    {
+        cout << "NO" << endl;
+    }
+    // if (s.find("meow") != std::string::npos && s[s.size() - 1] == 'w' && s[0] == 'm')
+    // {
+    //     cout << "YES" << endl;
+    // }
+    // else
+    // {
+    //     cout << "NO" << endl;
+    // }
 }
 void anothersolve()
 {
@@ -393,9 +433,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

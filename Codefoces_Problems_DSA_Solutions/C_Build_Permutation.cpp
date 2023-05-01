@@ -1,5 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+// #include <tr1/unordered_set>
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
+// using namespace __gnu_pbds;
+
 #define endl "\n"
 #define mp make_pair
 #define pb push_back
@@ -309,16 +315,36 @@ void solve()
     // SOLUTION STARTS
 
     sci(n);
-    vector<ll> perfectsquare;
-    for (int i = 0; i * i <= 2 * n; i++)
+    vector<ll> ans(n);
+    for (int i = n - 1; i >= 0;)
     {
         /* code */
-        perfectsquare.push_back(i * i);
+        for (int k = 0; k <= i; k++)
+        {
+            ll k1 = k, i1 = i;
+            if (SquareRoot_LL(k1 + i1) * SquareRoot_LL(k1 + i1) == k1 + i1)
+            {
+                while (k1 <= i1)
+                {
+                    ans[i1] = k1;
+                    ans[k1] = i1;
+                    i1--;
+                    k1++;
+                }
+                i = k - 1;
+                break;
+            }
+        }
     }
-    dbgm(perfectsquare);
+    for (auto x : ans)
+        cout << x << " ";
+    cout << endl;
 
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
 }
+/*
+    there is a pattern we create wheen we see.. so we divide the numbers till n-1, and find the first number from starting that addded give a perfect square.. then we know fo 
+*/
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)

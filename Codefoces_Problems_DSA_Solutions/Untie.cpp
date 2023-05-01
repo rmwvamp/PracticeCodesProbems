@@ -363,13 +363,59 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    scs(s);
+    ll finalans = 0;
+    int n = s.length();
+    vector<int> arr;
+    int cnt = 0;
+    int xx = -1;
+    int yy = 0;
+    vector<int> idx;
+    for (int j = 0; j < n; j++)
+    {
+        int cnt = 0;
+        int k = j;
+
+        while (k < n && s[j] == s[k])
+        {
+            yy = max(yy, xx - yy);
+            k++;
+            cnt++;
+        }
+        idx.pb(j);
+        k--;
+        arr.pb(cnt);
+        j = k;
+    }
+    int m = arr.size();
+    if (m > 1 && s[0] == s[n - 1] && 1 > 0)
+    {
+        int x = arr[0] + arr[m - 1];
+        arr.pop_back();
+        xx--;
+        arr.pb(x);
+        for (int k = 1; k < m; k++)
+        {
+            finalans += arr[k] / 2;
+        }
+    }
+    else if (m == 1)
+        finalans += (arr[0] + 1) / 2;
+
+    else
+    {
+        for (int o = 0; o < m; o++)
+            finalans += arr[o] / 2;
+    }
+    cout << finalans << endl;
+
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
 {
     // sci(n);
+
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
@@ -393,10 +439,21 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    int cnt = 1;
+    map<int, int> x20;
+    for (int i = 0; i < 120; i++)
+    {
+        x20[i] = i;
+        /* code */
+    }
 
-    solve();
-    // anothersolve();
-    // TestCaseGenerator();
+    while (t--)
+    {
+        goog(cnt);
+        solve();
+        cnt++;
+    }
+
     return 0;
 }

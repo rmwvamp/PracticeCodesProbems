@@ -359,13 +359,125 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 //     return memo[i][j] = ans;
 // }
 
+ll ssolve(string s, ll count, char mc)
+{
+
+    ll n = s.size();
+    string temp = s;
+    string ans;
+    for (ll i = 0; i < count; i++)
+    {
+        /* code */
+        ans += mc;
+    }
+    // dbgm(mc, count, mmp);
+    ll res = 0;
+    while (temp != ans && temp.size() > 0)
+    {
+        ll lastidx = -2;
+        string newtemp;
+
+        for (ll i = 0; i < temp.size(); i++)
+        {
+            /* code */
+            if (temp[i] != mc && lastidx != i - 1)
+            {
+                lastidx = i;
+            }
+            else
+            {
+                newtemp += temp[i];
+            }
+        }
+        // dbgm(newtemp);
+        res++;
+        temp = newtemp;
+        // dbgm(temp);
+        if (res > n)
+            return INT_MAX;
+    }
+    return res;
+}
+vector<ll> arr;
+vector<ll> countfreq;
+
+void checkpre()
+{
+    ll x = 1;
+    while (x <= 1e7)
+    {
+        arr.push_back(x);
+        x *= 2;
+        int op = x;
+    }
+    int temp = arr.size();
+    countfreq.pb(temp - x);
+}
 void solve()
 {
     // SOLUTION STARTS
 
     // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+    scs(s);
+    ll n = s.size();
+    ll ans = INT_MAX;
+    if (n == 1)
+    {
+        cout << 0 << endl;
+        return;
+    }
+    map<char, vector<ll>> mmp;
+    for (ll i = 0; i < n; i++)
+    {
+        mmp[s[i]].pb(i);
+    }
+    if (n == 2)
+    {
+        if (mmp.size() > 1)
+        {
+            cout << 1 << endl;
+            return;
+        }
+        else
+        {
+            cout << 0 << endl;
+            return;
+        }
+    }
+    vector<ll> freq(26);
+    for (ll i = 0; i < 26; i++)
+    {
+        vector<ll> aa;
+        ll temp = i + 2;
+        ll xx = 97;
+        char check = xx + i;
+        for (ll j = 0; j < n; j++)
+        {
+            if (s[j] != check)
+            {
+                ll k = j;
+                ll yy = xx - k;
+                while (k < n && s[k] != check)
+                {
+                    ll z = j - temp;
+                    k++;
+                }
+                aa.push_back(k - j);
+                mmp['a' + k].pb(k - j);
+                j = k - 1;
+            }
+        }
+        ll numberoperations = 0;
+        ll diff = -1;
+        for (auto num : aa)
+        {
+            ll cnt = upper_bound(arr.begin(), arr.end(), num) - arr.begin();
+            numberoperations = max(cnt, numberoperations);
+        }
+        ans = min(numberoperations, ans);
+        diff = abs(numberoperations - ans);
+    }
+    cout << ans << endl;
 }
 void anothersolve()
 {
@@ -385,7 +497,7 @@ void TestCaseGenerator()
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
         dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
+        // ll sol1 = checkecksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
     }
 }
 int main()
@@ -393,9 +505,11 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    checkpre();
+    while (t--)
 
-    solve();
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

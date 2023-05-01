@@ -363,25 +363,63 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
-}
-void anothersolve()
-{
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sci(n);
+    vector<ll> arr(n);
+    vector<ll> v;
+    ll zero, pos, neg;
+    zero = pos = neg = 0;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        if (arr[i] || !zero)
+        {
+            v.pb(arr[i]);
+        }
+        if (arr[i] > 0)
+            pos++;
+        else if (arr[i] == 0)
+            zero++;
+        else
+            neg++;
+    }
+    if (neg > 2 || pos > 2)
+    {
+        cout << "NO" << endl;
+        return;
+    }
+    sort(all(v));
+    for (int i = 0; i < v.size(); i++)
+    {
+        /* code */
+        for (int j = i + 1; j < v.size(); j++)
+        {
+            /* code */
+            for (int k = j + 1; k < v.size(); k++)
+            {
+                /* code */
+                if (find(all(v), v[i] + v[j] + v[k]) == v.end())
+                {
+                    cout << "NO" << endl;
+                    return;
+                }
+            }
+        }
+    }
+    cout << "YES" << endl;
+    /*
+    it had a observation.. would make sure from ahead that if the time constraints doesn't match then i should look for observation.. and found out.. what i can.. this was one of the code that i found wiht new approach*/
+
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand() % 15;
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand() % 50);
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
         dbgm(n, test);
@@ -393,10 +431,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
+        solve();
     // TestCaseGenerator();
     return 0;
 }

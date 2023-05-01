@@ -363,6 +363,324 @@ void solve()
 {
     // SOLUTION STARTS
 
+    sci(n);
+    if (n == 0)
+        cout << "0 0" << endl;
+    n--;
+    ll aw = 1, ab = 0, bw = 0, bb = 0;
+    int count = 2;
+    ll alice = 0, bob = 1;
+    ll black = 1, white = 0;
+    while (n > 0 && n - count >= 0)
+    {
+        if (bob)
+        {
+            bb += count / 2;
+            bw += count / 2;
+            if (count % 2)
+            {
+                // if (black)
+                // {
+                bb++;
+                black = black ^ 0 ^ 1;
+                white = white ^ 0 ^ 1;
+                // }
+                // else
+                // {
+                //     bw += count % 2 ? 1 : 0;
+                //     black = black ^ 0 ^ 1;
+                //     white = white ^ 0 ^ 1;
+                // }
+            }
+
+            n -= count;
+            count++;
+            if (n > 0 && n - count >= 0)
+            {
+                bb += count / 2;
+                bw += count / 2;
+                if (count % 2)
+                {
+                    // if (black)
+                    // {
+                    bb++;
+                    black = black ^ 0 ^ 1;
+                    white = white ^ 0 ^ 1;
+                    // }
+                    // else
+                    // {
+                    //     bw += count % 2 ? 1 : 0;
+                    //     black = black ^ 0 ^ 1;
+                    //     white = white ^ 0 ^ 1;
+                    // }
+                }
+                n -= count;
+                count++;
+            }
+            else
+                break;
+            bob = bob ^ 0 ^ 1;
+            alice = alice ^ 0 ^ 1;
+        }
+        else
+        {
+            ab += count / 2;
+            aw += count / 2;
+            if (count % 2)
+            {
+                // if (black)
+                // {
+                //     ab += count % 2 ? 1 : 0;
+                //     black = black ^ 0 ^ 1;
+                //     white = white ^ 0 ^ 1;
+                // }
+                // else
+                // {
+                aw++;
+                black = black ^ 0 ^ 1;
+                white = white ^ 0 ^ 1;
+                // }
+            }
+            n -= count;
+            count++;
+            if (n > 0 && n - count >= 0)
+            {
+                ab += count / 2;
+                aw += count / 2;
+                if (count % 2)
+                {
+                    // if (black)
+                    // {
+                    //     ab += count % 2 ? 1 : 0;
+                    //     black = black ^ 0 ^ 1;
+                    //     white = white ^ 0 ^ 1;
+                    // }
+                    // else
+                    // {
+                    aw++;
+                    black = black ^ 0 ^ 1;
+                    white = white ^ 0 ^ 1;
+                    // }
+                }
+                n -= count;
+                count++;
+            }
+            else
+                break;
+            bob = bob ^ 0 ^ 1;
+            alice = alice ^ 0 ^ 1;
+        }
+    }
+    if (n > 0)
+    {
+        if (bob)
+        {
+            bb += n / 2;
+            bw += n / 2;
+            if (n % 2)
+            {
+                // if (black)
+                // {
+                bb++;
+                black = black ^ 0 ^ 1;
+                white = white ^ 0 ^ 1;
+                // }
+                // else
+                // {
+                //     bw += count % 2 ? 1 : 0;
+                //     black = black ^ 0 ^ 1;
+                //     white = white ^ 0 ^ 1;
+                // }
+            }
+        }
+
+        else
+        {
+            ab += n / 2;
+            aw += n / 2;
+            if (n % 2)
+            {
+                // if (black)
+                // {
+                //     ab += count % 2 ? 1 : 0;
+                //     black = black ^ 0 ^ 1;
+                //     white = white ^ 0 ^ 1;
+                // }
+                // else
+                // {
+                aw++;
+                black = black ^ 0 ^ 1;
+                white = white ^ 0 ^ 1;
+                // }
+            }
+        }
+    }
+    cout << aw << " " << ab << " " << bw << " " << bb << " " << endl;
+
+    // sci(n);
+    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+}
+
+vector<ll> checksolve(ll n)
+{
+    // SOLUTION STARTS
+
+    // sci(n);
+    if (n == 0)
+        cout << "0 0" << endl;
+    n--;
+    ll aw = 1, ab = 0, bw = 0, bb = 0;
+    int count = 2;
+    ll alice = 0, bob = 1;
+    ll black = 1, white = 0;
+    while (n > 0 && n - count >= 0)
+    {
+        if (bob)
+        {
+            bb += count / 2;
+            bw += count / 2;
+            if (count % 2)
+            {
+                // if (black)
+                // {
+                bb++;
+                black = black ^ 0 ^ 1;
+                white = white ^ 0 ^ 1;
+                // }
+                // else
+                // {
+                //     bw += count % 2 ? 1 : 0;
+                //     black = black ^ 0 ^ 1;
+                //     white = white ^ 0 ^ 1;
+                // }
+            }
+
+            n -= count;
+            count++;
+            if (n > 0 && n - count >= 0)
+            {
+                bb += count / 2;
+                bw += count / 2;
+                if (count % 2)
+                {
+                    // if (black)
+                    // {
+                    bb++;
+                    black = black ^ 0 ^ 1;
+                    white = white ^ 0 ^ 1;
+                    // }
+                    // else
+                    // {
+                    //     bw += count % 2 ? 1 : 0;
+                    //     black = black ^ 0 ^ 1;
+                    //     white = white ^ 0 ^ 1;
+                    // }
+                }
+                n -= count;
+                count++;
+            }
+            else
+                break;
+            bob = bob ^ 0 ^ 1;
+            alice = alice ^ 0 ^ 1;
+        }
+        else
+        {
+            ab += count / 2;
+            aw += count / 2;
+            if (count % 2)
+            {
+                // if (black)
+                // {
+                //     ab += count % 2 ? 1 : 0;
+                //     black = black ^ 0 ^ 1;
+                //     white = white ^ 0 ^ 1;
+                // }
+                // else
+                // {
+                aw++;
+                black = black ^ 0 ^ 1;
+                white = white ^ 0 ^ 1;
+                // }
+            }
+            n -= count;
+            count++;
+            if (n > 0 && n - count >= 0)
+            {
+                ab += count / 2;
+                aw += count / 2;
+                if (count % 2)
+                {
+                    // if (black)
+                    // {
+                    //     ab += count % 2 ? 1 : 0;
+                    //     black = black ^ 0 ^ 1;
+                    //     white = white ^ 0 ^ 1;
+                    // }
+                    // else
+                    // {
+                    aw++;
+                    black = black ^ 0 ^ 1;
+                    white = white ^ 0 ^ 1;
+                    // }
+                }
+                n -= count;
+                count++;
+            }
+            else
+                break;
+            bob = bob ^ 0 ^ 1;
+            alice = alice ^ 0 ^ 1;
+        }
+    }
+    if (n > 0)
+    {
+        if (bob)
+        {
+            bb += n / 2;
+            bw += n / 2;
+            if (n % 2)
+            {
+                // if (black)
+                // {
+                bb++;
+                black = black ^ 0 ^ 1;
+                white = white ^ 0 ^ 1;
+                // }
+                // else
+                // {
+                //     bw += count % 2 ? 1 : 0;
+                //     black = black ^ 0 ^ 1;
+                //     white = white ^ 0 ^ 1;
+                // }
+            }
+        }
+
+        else
+        {
+            ab += n / 2;
+            aw += n / 2;
+            if (n % 2)
+            {
+                // if (black)
+                // {
+                //     ab += count % 2 ? 1 : 0;
+                //     black = black ^ 0 ^ 1;
+                //     white = white ^ 0 ^ 1;
+                // }
+                // else
+                // {
+                aw++;
+                black = black ^ 0 ^ 1;
+                white = white ^ 0 ^ 1;
+                // }
+            }
+        }
+    }
+    return {aw, ab, bw, bb};
+    // cout << aw << " " << ab << " " << bw << " " << bb << " " << endl;
+
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
@@ -375,17 +693,25 @@ void anothersolve()
 }
 void TestCaseGenerator()
 {
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 1000; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand() % 15;
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand() % 50);
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
-        dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
+        // dbgm(n, test);
+        vector<ll> sol1 = checksolve(n);
+        ll sum = 0;
+        for (auto x : sol1)
+            sum += x;
+
+        if (sum != n)
+        {
+            dbgm(n, sol1);
+        }
     }
 }
 int main()
@@ -393,9 +719,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

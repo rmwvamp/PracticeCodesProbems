@@ -393,9 +393,14 @@ int main()
     cin.tie(NULL);
     int t = 1;
     cin >> t;
-    while (t--)
+    int cnt = 1;
 
+    while (t--)
+    {
+        goog(cnt);
         solve();
+        cnt++;
+    }
 
     return 0;
 }

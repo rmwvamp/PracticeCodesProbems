@@ -359,20 +359,261 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 //     return memo[i][j] = ans;
 // }
 
-void solve()
-{
-    // SOLUTION STARTS
+// void solve()
+// {
+//     // SOLUTION STARTS
+//     sci(n);
+//     vector<int> arr(n);
+//     map<int, int> tempcount;
+//     map<int, int> mmmp1;
+//     int findmex = 0;
+//     for (int i = 0; i < n; i++)
+//     {
+//         cin >> arr[i];
+//         if (mmmp1.find(arr[i]) != mmp1.end())
+//             tempcount[arr[i]] = arr[i];
+//         mmp1[arr[i]]++;
+//     }
+//     for (auto val : mmp1)
+//     {
+//         if (findmex == val.first)
+//             findmex++;
+//     }
+//     int r = -1;
+//     int lo = -1;
+//     int xx = INT_MAX;
+//     for (int i = 0; i < n; i++)
+//     {
+//         if (arr[i] == findmex + 1)
+//         {
+//             xx = i;
+//             lo = i;
+//             break;
+//         }
+//         else
+//             continue;
+//     }
+//     for (int i = n - 1; i >= 0; i--)
+//     {
+//         if (arr[i] == findmex + 1)
+//         {
+//             r = i;
+//             break;
+//         }
+//     }
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
-}
+//     int nindmex = 0;
+//     int yy = INT_MIN;
+
+//     bool checkpossible = true;
+//     if (lo != -1 && r != -1)
+//     {
+//         for (int i = lo; i <= r; i++)
+//         {
+//             arr[i] = findmex;
+//             yy = findmex;
+//         }
+//     }
+//     else
+//         checkpossible = false;
+
+//     if (checkpossible == true)
+//     {
+//         for (auto elem : mmp1)
+//         {
+//             if (elem.second > 1)
+//             {
+//                 cout << "Yes" << endl;
+//                 return;
+//             }
+//         }
+//     }
+//     int count = 0;
+//     sort(all(arr));
+//     for (int i = 0; i < n; i++)
+//     {
+//         if (arr[i] == nindmex)
+//         {
+//             nindmex++;
+//         }
+//         count = max(count, nindmex);
+//     }
+//     if (xx == yy)
+//         count = xx;
+//     if (nindmex == findmex + 1)
+//     {
+//         cout << "Yes" << endl;
+//         return;
+//     }
+//     cout << "No" << endl;
+
+//     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+// }
 void anothersolve()
 {
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+    sci(n);
+    vector<int> arr(n);
+    map<int, int> mmp1;
+    int MEX = 0;
+    map<int, int> tempmmp;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        mmp1[arr[i]]++;
+        if (tempmmp.find(arr[i]) != tempmmp.end())
+            tempmmp[arr[i]]++;
+    }
+    for (auto al : mmp1)
+    {
+        if (MEX == al.first)
+            MEX++;
+        else
+            continue;
+    }
+    int l = -1;
+    int r = -1;
+    int xx = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == MEX + 1)
+        {
+            l = i;
+            xx = i;
+            break;
+        }
+        else
+        {
+            continue;
+        }
+    }
+    int yy = 0;
+    bool check = true;
+    for (int i = n - 1; i >= 0; i--)
+    {
+        if (arr[i] == MEX + 1)
+        {
+            r = i;
+            yy = i;
+            break;
+        }
+        else
+        {
+            continue;
+        }
+    }
+    int tcount = 0;
+    if (l != -1 && r != -1)
+    {
+        for (int i = l; i <= r; i++)
+        {
+            arr[i] = MEX;
+            tcount++;
+        }
+    }
+    else
+    {
+        check = false;
+    }
+    if (!check)
+    {
+        for (auto p : mmp1)
+        {
+            if (p.second > 1)
+            {
+                cout << "Yes" << endl;
+                return;
+            }
+        }
+    }
+    sort(all(arr));
+    int nMEX = 0;
+    int val = MEX;
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == nMEX)
+            nMEX++;
+        else
+            continue;
+    }
+    if (xx == yy)
+        tcount = xx;
+    if (nMEX == MEX + 1)
+    {
+        cout << "Yes" << endl;
+        return;
+    }
+    cout << "No" << endl;
 }
+// vector<ll> checksolve(int n, vector<ll> arr)
+// {
+//     map<int, vector<int>> mp;
+//     for (int i = 0; i < n; i++)
+//     {
+//         cin >> arr[i];
+//         mp[arr[i]].push_back(i);
+//     }
+//     // dbgm(mp);
+//     int mex = 0;
+//     vector<ll> copyarr = arr;
+//     sort(all(copyarr));
+//     for (int i = 0; i < n; i++)
+//     {
+//         if (copyarr[i] == mex)
+//             mex++;
+//         else
+//             break;
+//     }
+//     // dbgm(mex);
+
+//     if (n == 1 && arr[0] == 1)
+//     {
+//         cout << "Yes" << endl;
+//         return;
+//     }
+//     if (mex == n)
+//     {
+//         cout << "No" << endl;
+//         return;
+//     }
+//     vector<int> check;
+//     if (mp.find(mex + 1) != mp.end())
+//     {
+//         check = mp[mex + 1];
+//     }
+//     if (check.size() == 0)
+//     {
+//         cout << "Yes" << endl;
+//         return;
+//     }
+//     map<int, int> checkmp;
+//     sort(all(check));
+//     for (int i = 0; i < check[0]; i++)
+//     {
+//         /* code */
+//         checkmp[arr[i]]++;
+//     }
+//     for (int i = check[check.size() - 1] + 1; i < arr.size(); i++)
+//     {
+//         /* code */
+//         checkmp[arr[i]]++;
+//     }
+//     // dbgm(checkmp);
+//     for (int i = check[0]; i <= check[check.size() - 1]; i++)
+//     {
+//         /* code */
+//         if (arr[i] >= mex)
+//             continue;
+//         else if (arr[i] < mex && checkmp.find(arr[i]) != checkmp.end())
+//             continue;
+//         else
+//         {
+//             cout << "No" << endl;
+//             return;
+//         }
+//     }
+
+//     cout << "Yes" << endl;
+// }
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
@@ -393,9 +634,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
+        anothersolve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

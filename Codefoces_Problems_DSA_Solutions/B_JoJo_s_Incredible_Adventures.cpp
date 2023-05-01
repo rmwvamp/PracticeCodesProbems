@@ -216,7 +216,7 @@ void PreComputing_Factorials()
 void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
-    for (int i = 1; i < 1e6 + 2; i++)
+    for (int i = 1; i < 1e2 + 2; i++)
     {
         /* code */
         InverseofFactorials[i] = BinaryExponentiation_Binpow(Factorials[i], mod - 2);
@@ -393,9 +393,18 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    PreComputing_InversesofFactorials();
+    map<int, int> mp;
+    for (int i = 0; i < 120; i++)
+    {
+        mp[i] = i;
+    }
+    int x = 1e5;
+    int infxx = INT_MAX;
+    cin >> t;
+    while (t--)
 
-    solve();
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

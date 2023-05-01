@@ -363,8 +363,67 @@ void solve()
 {
     // SOLUTION STARTS
 
+    sci(n);
+    vector<ll> arr(n);
+    ll total = 0;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        // total *= arr[i];
+        if (arr[i] == 2)
+            total++;
+    }
+    ll check = 0;
+    for (int i = 0; i < n - 1; i++)
+    {
+        /* code */
+        if (arr[i] == 2)
+        {
+            check++;
+            total--;
+        }
+        if (check == total)
+        {
+            cout << i + 1 << endl;
+            return;
+        }
+    }
+    cout << "-1" << endl;
+
+    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+}
+ll checksolve(ll n, vector<ll> arr)
+{
+    // SOLUTION STARTS
+
     // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    // vector<ll> arr(n);
+    ll total = 0;
+    for (int i = 0; i < n; i++)
+    {
+        // cin >> arr[i];
+        // total *= arr[i];
+        if (arr[i] == 2)
+            total++;
+    }
+    ll check = 0;
+    for (int i = 0; i < n - 1; i++)
+    {
+        /* code */
+        if (arr[i] == 2)
+        {
+            check++;
+            total--;
+        }
+
+        if (check == total)
+        {
+            // cout << i + 1 << endl;
+            return i + 1;
+        }
+    }
+    return -1;
+
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
@@ -375,17 +434,22 @@ void anothersolve()
 }
 void TestCaseGenerator()
 {
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 10; i++)
     {
         ll n = rand() % 15 + 1;
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand() % 2 + 1);
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
-        dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
+        ll sol1 = checksolve(n, test);
+        dbgm(n, test, sol1);
+        // ll sol2 = brutesolve(n, test);
+        // if (sol1 != sol2)
+        // {
+        //     dbgm(test, n, sol1, sol2);
+        // }
     }
 }
 int main()
@@ -393,10 +457,11 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
-    // TestCaseGenerator();
+        solve();
+        // anothersolve();
+        // TestCaseGenerator();
     return 0;
 }

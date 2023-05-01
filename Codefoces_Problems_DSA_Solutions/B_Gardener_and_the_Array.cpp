@@ -1,11 +1,7 @@
 #include <bits/stdc++.h>
-using namespace std;
-
 // #include <tr1/unordered_set>
-// #include <ext/pb_ds/assoc_container.hpp>
-// #include <ext/pb_ds/tree_policy.hpp>
-// using namespace __gnu_pbds;
 
+using namespace std;
 #define endl "\n"
 #define mp make_pair
 #define pb push_back
@@ -131,14 +127,14 @@ void dbgm(Heads H, Tails... T)
     dbgm(__VA_ARGS__);                    \
     cout << endl
 
-vector<int> DivisorsCount[int(1e5 + 2)];
+vector<int> DivisorsCount[int(1e5 + 1)];
 
 void PreComputing_DivisorsofNumber()
 {
     // doing it till 1e5
-    for (int i = 1; i < 1e5 + 2; i++) // Putting factors/divisors at the number ith array position in the vector
+    for (int i = 1; i < 1e5 + 1; i++) // Putting factors/divisors at the number ith array position in the vector
     {
-        for (int j = i; j < 1e5 + 2; j += i)
+        for (int j = i; j < 1e5 + 1; j += i)
         {
             DivisorsCount[j].push_back(i);
         }
@@ -184,7 +180,7 @@ ll BinaryExponentiation_Binpow_WithoutMod(ll base, ll exponent)
 //         return __gcd(a, b);
 //     }
 // }
-vector<ll> is_prime(ll(1e5 + 100), 1);
+vector<ll> is_prime(1000100, 1);
 void Sieve_of_Eratosthenes(ll n)
 {
     for (ll i = 2; i <= n; i++)
@@ -199,12 +195,12 @@ void Sieve_of_Eratosthenes(ll n)
     }
 }
 
-vector<ll> Factorials(int(1e6 + 2));
-vector<ll> InverseofFactorials(int(1e6 + 2));
+vector<ll> Factorials(int(1e6 + 1));
+vector<ll> InverseofFactorials(int(1e6 + 1));
 void PreComputing_Factorials()
 {
     Factorials[0] = 1;
-    for (int i = 1; i < 1e6 + 2; i++)
+    for (int i = 1; i < 1e6 + 1; i++)
     {
         /* code */
         Factorials[i] = (((Factorials[i - 1] % mod) * (i % mod) % mod));
@@ -216,7 +212,7 @@ void PreComputing_Factorials()
 void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
-    for (int i = 1; i < 1e6 + 2; i++)
+    for (int i = 1; i < 1e6 + 1; i++)
     {
         /* code */
         InverseofFactorials[i] = BinaryExponentiation_Binpow(Factorials[i], mod - 2);
@@ -267,56 +263,6 @@ ll SquareRoot_LL(ll x)
     }
     return left - 1;
 }
-/*
-Segment Tree Code
-struct sgtnode
-{// create structure
-    sgtnode()
-    {
-    }
-};
-sgtnode merge(sgtnode &a, sgtnode &b)// designing in O(1) for having sgt in O(log(n))
-{
-    // condition for returning
-}
-void build(ll index, ll l, ll r, vector<ll> &arr, vector<sgtnode> &t)
-{
-    if (l == r)
-    {
-        // update this condition too
-        t[index] = arr[l];
-        return;
-    }
-    ll mid = (l + r) / 2;
-    build(2 * index, l, mid, arr, t);
-    build(2 * index + 1, mid + 1, r, arr, t);
-    t[index] = merge(t[2 * index], t[2 * index + 1]);
-}
-void update(ll index, ll l, ll r, ll pos, ll val, vector<ll> &arr, vector<sgtnode> &t)
-{
-    if (pos < l || pos > r)
-        return;
-    if (l == r)
-    {
-        // update this condition
-        t[index] = ;
-        return;
-    }
-    ll mid = (l + r) / 2;
-    update(2 * index, l, mid, pos, val, arr, t);
-    update(2 * index + 1, mid + 1, r, pos, val, arr, t);
-    t[index] = merge(t[2 * index], t[2 * index + 1]);
-}
-sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnode> &t)
-{
-    if (l > rq || lq < r)
-        return 0;
-    if (lq <= l && r <= rq)
-        return t[index];
-    ll mid = (l + r) / 2;
-    return merge(query(2*index,l, mid, lq, rq, arr, t), query(2*index+1,mid+1, r, lq, rq, arr, t));
-}
-*/
 
 // Code for 1 state dp
 
@@ -340,6 +286,7 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 
 // Code for 2 states dp
 
+// string n, m;
 // vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
 // ll dp(ll i, ll j)
 // {
@@ -363,40 +310,117 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    sci(n);
+    vector<ll> count(1e5 + 1);
+    unordered_map<ll, ll> mmp;
+    for (int i = 0; i < n; i++)
+    {
+        sci(x);
+        for (int j = 0; j < x; j++)
+        {
+            sci(y);
+            mmp[y]++;
+        }
+    }
+    // dbgm(mmp);
+    int last = 0;
+    for (auto num : mmp)
+    {
+        if (num.second == 1)
+        {
+            last = 1;
+            // cout << "No" << endl;
+            // return;
+        }
+        else
+        {
+            last = 0;
+            break;
+        }
+    }
+    if (last)
+    {
+        cout << "No" << endl;
+    }
+    else
+        cout << "Yes" << endl;
+    // for (int i = 1; i <= n; i++)
+    // {
+    //     /* code */
+    //     if (count[i] > 1)
+    //     {
+    //         cout << "Yes" << endl;
+    //         return;
+    //     }
+    // }
+    // cout << "Yes" << endl;
+
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
-void anothersolve()
+void nextsolve()
 {
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+    sci(n);
+    vector<vector<ll>> arr(n);
+    unordered_map<ll,ll>mmp;
+    // map<ll, ll> mmp;
+    for (int i = 0; i < n; i++)
+    {
+        sci(x);
+        for (int j = 0; j < x; j++)
+        {
+            sci(y);
+            arr[i].push_back(y);
+            mmp[y]++;
+        }
+    }
+    bool flag = false;
+    for (int i = 0; i < n; i++)
+    {
+        flag = false; // for each number let's check if all the bits are more than one.. in every number than yes or else we can't remove any number in that manner and would have to leave
+        for (int j = 0; j < arr[i].size(); j++)
+        {
+            /* code */
+            if (mmp[arr[i][j]] == 1)
+            {
+                flag = true;
+                break;
+            }
+        }
+        if (flag == false)
+        {
+            cout << "Yes" << endl;
+            return;
+            // numberexist = true;
+            // break;
+        }
+    }
+
+    cout << "No" << endl;
 }
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand();
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand());
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
         dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
     }
+    // if (checksolve(test) != optimisedsol(test)){dbgm(test, n, checksolve(test), optimisedsol(test));}
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
-    // TestCaseGenerator();
+        nextsolve();
+
     return 0;
 }

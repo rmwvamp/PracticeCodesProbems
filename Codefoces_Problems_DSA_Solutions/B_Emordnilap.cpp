@@ -131,14 +131,14 @@ void dbgm(Heads H, Tails... T)
     dbgm(__VA_ARGS__);                    \
     cout << endl
 
-vector<int> DivisorsCount[int(1e5 + 2)];
+vector<int> DivisorsCount[int(1e5 + 1)];
 
 void PreComputing_DivisorsofNumber()
 {
     // doing it till 1e5
-    for (int i = 1; i < 1e5 + 2; i++) // Putting factors/divisors at the number ith array position in the vector
+    for (int i = 1; i < 1e5 + 1; i++) // Putting factors/divisors at the number ith array position in the vector
     {
-        for (int j = i; j < 1e5 + 2; j += i)
+        for (int j = i; j < 1e5 + 1; j += i)
         {
             DivisorsCount[j].push_back(i);
         }
@@ -184,7 +184,7 @@ ll BinaryExponentiation_Binpow_WithoutMod(ll base, ll exponent)
 //         return __gcd(a, b);
 //     }
 // }
-vector<ll> is_prime(ll(1e5 + 100), 1);
+vector<ll> is_prime(1000100, 1);
 void Sieve_of_Eratosthenes(ll n)
 {
     for (ll i = 2; i <= n; i++)
@@ -199,12 +199,12 @@ void Sieve_of_Eratosthenes(ll n)
     }
 }
 
-vector<ll> Factorials(int(1e6 + 2));
-vector<ll> InverseofFactorials(int(1e6 + 2));
+vector<ll> Factorials(ll(1e6 + 1));
+vector<ll> InverseofFactorials(int(1e6 + 1));
 void PreComputing_Factorials()
 {
     Factorials[0] = 1;
-    for (int i = 1; i < 1e6 + 2; i++)
+    for (int i = 1; i < 1e6 + 1; i++)
     {
         /* code */
         Factorials[i] = (((Factorials[i - 1] % mod) * (i % mod) % mod));
@@ -216,7 +216,7 @@ void PreComputing_Factorials()
 void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
-    for (int i = 1; i < 1e6 + 2; i++)
+    for (int i = 1; i < 1e6 + 1; i++)
     {
         /* code */
         InverseofFactorials[i] = BinaryExponentiation_Binpow(Factorials[i], mod - 2);
@@ -340,6 +340,7 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 
 // Code for 2 states dp
 
+// string n, m;
 // vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
 // ll dp(ll i, ll j)
 // {
@@ -358,34 +359,134 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 
 //     return memo[i][j] = ans;
 // }
+void display(vector<ll> a, int n)
+{
+    vector<ll> temp = a;
+    reverse(all(temp));
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << a[i] << " ";
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cout << temp[i] << " ";
+    }
+    cout << endl;
+}
+
+// Function to find the permutations
+ll getNumOfInversions(vector<ll> &A)
+{
+    int N = A.size();
+    if (N <= 1)
+    {
+        return 0;
+    }
+
+    vector<pair<int, int>> sortList;
+    int result = 0;
+
+    // Heapsort, O(N*log(N))
+    for (int i = 0; i < N; i++)
+    {
+        sortList.emplace_back(A[i], i);
+        push_heap(sortList.begin(), sortList.end());
+    }
+
+    // Create a sorted list of indexes
+    vector<int> x;
+    while (!sortList.empty())
+    {
+        // O(log(N))
+        pair<int, int> v = sortList.front();
+        pop_heap(sortList.begin(), sortList.end());
+        sortList.pop_back();
+
+        // Find the current minimum's index
+        // the index y can represent how many minimums on the left
+        int y = lower_bound(x.begin(), x.end(), v.second) - x.begin();
+
+        // i can represent how many elements on the left
+        // i - y can find how many bigger nums on the left
+        result += v.second - y;
+
+        x.insert(lower_bound(x.begin(), x.end(), v.second), v.second);
+    }
+
+    return result;
+}
+
+ll findPermutations(ll n)
+{
+
+    vector<ll> a;
+    for (int i = 1; i <= n; i++)
+    {
+        /* code */
+        a.push_back(i);
+    }
+
+    // Find all possible permutations
+    ll ans = 0;
+    // cout << "Possible permutations are:\n";
+    do
+    {
+        // display(a, n);
+        ans = (ans + getNumOfInversions(a)) % mod;
+    } while (next_permutation(a.begin(), a.begin() + n));
+    return ans;
+}
 
 void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    sci(n);
+
+    // findPermutations(2);
+    // findPermutations(3);
+    // cout << findPermutations(10) << endl;
+
+    ll ans = ((Factorials[n] % mod) * (n % mod * (n - 1) % mod) % mod) % mod;
+    cout << ans << endl;
+
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
-void anothersolve()
+ll checksolve(ll n)
 {
+    // SOLUTION STARTS
+
     // sci(n);
+
+    // findPermutations(2);
+    // findPermutations(3);
+    // findPermutations(4);
+
+    ll ans = ((Factorials[n] % mod) * (n * (n - 1)) % mod) % mod;
+    return ans;
+    // cout << ans << endl;
+
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void TestCaseGenerator()
 {
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 1; i++)
     {
-        ll n = rand() % 15 + 1;
-        vector<ll> test;
-        for (ll j = 0; j < n; j++)
-        {
-            test.push_back(rand() % 50 + 1);
-        }
+        ll n = rand() % 30;
+        // vector<ll> test;
+        // for (ll j = 0; j < n; j++)
+        // {
+        //     test.push_back(rand());
+        // }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
-        dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
+        dbgm(n);
+        ll sol1 = checksolve(11);
+        ll sol2 = findPermutations(11);
+        if (sol1 != sol2)
+        {
+            dbgm(n, sol1, sol2);
+        }
     }
 }
 int main()
@@ -393,10 +494,12 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    PreComputing_Factorials();
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
+        solve();
     // TestCaseGenerator();
+
     return 0;
 }

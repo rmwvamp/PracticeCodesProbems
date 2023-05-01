@@ -363,8 +363,49 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    scii(n, k);
+    string check;
+    map<ll, string> mmp;
+    map<ll, string> temp;
+    int ans = 1;
+    vector<string> sa(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> sa[i];
+    }
+    for (int i = 0; i < n; i++)
+    {
+        /* code */
+        string s = sa[i];
+        if (i)
+            mmp[i + 1] = s;
+
+        else
+            check = s;
+    }
+    int m = check.size();
+    for (int i = 0; i < m; i++)
+    {
+        for (auto &p : mmp)
+        {
+            if (p.second != "")
+            {
+                if (p.second[i] != check[i])
+                    p.second = "";
+                ll x = p.second.size();
+            }
+        }
+    }
+    ll y = -1;
+
+    for (auto p : mmp)
+    {
+        if (p.second != "")
+            ans++;
+        y -= p.second.size();
+    }
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    cout << ans << endl;
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
@@ -393,10 +434,57 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    map<ll, ll> temp;
+    for (int i = 0; i < 25; i++)
+    {
+        /* code */
+        temp[i]++;
+    }
 
-    solve();
+    cin >> t;
+    while (t--)
+
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;
 }
+class Solution
+{
+public:
+    long long countOperationsToEmptyArray(vector<int> &nums)
+    {
+        int n = nums.size();
+        map<int, int> cnt;
+        for (auto x : nums)
+            cnt[x]++;
+        deque<int> mina;
+        for (auto x : cnt)
+            mina.push_back(x.first);
+
+        deque<int> dq(nums.begin(), nums.end());
+
+        int count = 0;
+        while (!dq.empty())
+        {
+            int minValue = mina.front();
+            if (dq.front() == minValue)
+            {
+                dq.pop_front();
+                n--;
+                if (dq.size() > 0)
+                {
+                    mina.pop_front();
+                }
+            }
+            else
+            {
+                dq.push_back(dq.front());
+                dq.pop_front();
+            }
+            count++;
+        }
+
+        return count;
+    }
+};

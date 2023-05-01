@@ -216,7 +216,7 @@ void PreComputing_Factorials()
 void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
-    for (int i = 1; i < 1e6 + 2; i++)
+    for (int i = 1; i < 1e2 + 2; i++)
     {
         /* code */
         InverseofFactorials[i] = BinaryExponentiation_Binpow(Factorials[i], mod - 2);
@@ -362,6 +362,46 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 void solve()
 {
     // SOLUTION STARTS
+    string ans = "";
+    scs(str);
+    int n = str.size();
+    int temp = 0;
+    int count = INT_MIN;
+    int mincount = INT_MAX;
+    for (int i = 0; i < n; i++)
+    {
+        if (str[i] == '^')
+        {
+            ans += str[i];
+            temp++;
+        }
+        else
+        {
+            if (ans.size() > 0 && ans.back() == '^')
+            {
+                count = max(count, temp);
+                ans += str[i];
+            }
+            else
+            {
+                ans += '^';
+                temp++;
+                ans += str[i];
+            }
+            if (i == str.size() - 1)
+            {
+                mincount = i;
+                ans += '^';
+            }
+        }
+    }
+    if (ans.size() == 1)
+        ans += '^';
+    int res = ans.size();
+    if (mincount == count)
+        temp = count;
+    res -= str.size();
+    cout << res << endl;
 
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
@@ -392,10 +432,20 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int t = 1;
-    // cin >> t;while (t--)
+    PreComputing_InversesofFactorials();
+    map<int, int> mp;
+    for (int i = 0; i < 120; i++)
+    {
+        mp[i] = i;
+    }
 
-    solve();
+    int t = 1;
+    cin >> t;
+    int x = 1e5;
+    int infxx = INT_MAX;
+    while (t--)
+
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

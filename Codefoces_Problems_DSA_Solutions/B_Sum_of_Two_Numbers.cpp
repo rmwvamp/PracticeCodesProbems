@@ -253,6 +253,17 @@ ll CountDigitsofNumber(ll n)
     }
     return count;
 }
+ll sumdigit(ll n)
+{
+    ll count = 0;
+    while (n)
+    {
+        ll rem = n % 10;
+        count += rem;
+        n /= 10;
+    }
+    return count;
+}
 ll SquareRoot_LL(ll x)
 {
     ll left = 0, right = 2000000123;
@@ -363,29 +374,106 @@ void solve()
 {
     // SOLUTION STARTS
 
+    sci(n);
+    ll x, y;
+    if (n % 2)
+    {
+        ll z = 9;
+        x = (n + z) / 2;
+        y = (n - z) / 2;
+        // y = n - x;
+    }
+    else
+    {
+        x = n / 2;
+        y = n / 2;
+    }
+    cout << x << " " << y << endl;
+    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+}
+pair<ll, ll> checksolve(ll n)
+{
+    // SOLUTION STARTS
+
     // sci(n);
+    ll x, y;
+    if (n % 2)
+    {
+        // vector<ll> rest = {11, 111};
+        // for (auto z : rest)
+        // {
+        //     if (z > n)
+        //         break;
+        //     x = (n + z) / 2;
+        //     y = (n - z) / 2;
+        //     if (abs(sumdigit(x) - sumdigit(y)) <= 1)
+        //         break;
+        // }
+        x = ((n - 1) / 11) * 11;
+        y = n - x;
+
+        // y = n - x;
+    }
+    else
+    {
+        x = n / 2;
+        y = n / 2;
+    }
+    return mp(x, y);
+    // cout << a << " " << a << endl;
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
 {
+    sci(n);
+    ll x = n + 1 / 2;
+    ll y = n - x;
+    ll cnt = 0;
+    while (abs(sumdigit(x) - sumdigit(y)) > 1)
+    {
+        cnt += 11;
+        x += cnt;
+        y = n - x;
+    }
+    // if (sumdigit(x) == sumdigit(y))
+    // {
+
+    //     cout << x << " " << y << endl;
+    // }
+    // else
+    // {
+
+    //     cout << x << " " << y << endl;
+    // }
+    cout << x << " " << y << endl;
     // sci(n);
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void TestCaseGenerator()
 {
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 400; i++)
     {
-        ll n = rand() % 15 + 1;
-        vector<ll> test;
-        for (ll j = 0; j < n; j++)
-        {
-            test.push_back(rand() % 50 + 1);
-        }
+        ll n = rand() % (ll)1e9 + 1;
+        // vector<ll> test;
+        // for (ll j = 0; j < n; j++)
+        // {
+        //     test.push_back(rand() % 50 + 1);
+        // }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
-        dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
+        // dbgm(n, test);
+        auto sol1 = checksolve(n);
+        // ll sol2 = brutesolve(n, test);
+        // if (abs(sol1.first - sol1.second) > 1)
+        // {
+        //     dbgm(n, sol1.first, sol1.second);
+        // }
+        if (sol1.first + sol1.second != n || abs(sumdigit(sol1.first) - sumdigit(sol1.second)) > 1)
+        {
+            dbgm(n, sumdigit(n), sol1.first + sol1.second, sol1.first, sol1.second);
+        }
     }
 }
 int main()
@@ -393,10 +481,11 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
-    // anothersolve();
-    // TestCaseGenerator();
+        // solve();
+        // anothersolve();
+        TestCaseGenerator();
     return 0;
 }

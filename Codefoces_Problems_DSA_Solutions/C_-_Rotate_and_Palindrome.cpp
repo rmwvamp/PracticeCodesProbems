@@ -131,14 +131,14 @@ void dbgm(Heads H, Tails... T)
     dbgm(__VA_ARGS__);                    \
     cout << endl
 
-vector<int> DivisorsCount[int(1e5 + 2)];
+vector<int> DivisorsCount[int(1e5 + 1)];
 
 void PreComputing_DivisorsofNumber()
 {
     // doing it till 1e5
-    for (int i = 1; i < 1e5 + 2; i++) // Putting factors/divisors at the number ith array position in the vector
+    for (int i = 1; i < 1e5 + 1; i++) // Putting factors/divisors at the number ith array position in the vector
     {
-        for (int j = i; j < 1e5 + 2; j += i)
+        for (int j = i; j < 1e5 + 1; j += i)
         {
             DivisorsCount[j].push_back(i);
         }
@@ -184,7 +184,7 @@ ll BinaryExponentiation_Binpow_WithoutMod(ll base, ll exponent)
 //         return __gcd(a, b);
 //     }
 // }
-vector<ll> is_prime(ll(1e5 + 100), 1);
+vector<ll> is_prime(1000100, 1);
 void Sieve_of_Eratosthenes(ll n)
 {
     for (ll i = 2; i <= n; i++)
@@ -199,12 +199,12 @@ void Sieve_of_Eratosthenes(ll n)
     }
 }
 
-vector<ll> Factorials(int(1e6 + 2));
-vector<ll> InverseofFactorials(int(1e6 + 2));
+vector<ll> Factorials(int(1e6 + 1));
+vector<ll> InverseofFactorials(int(1e6 + 1));
 void PreComputing_Factorials()
 {
     Factorials[0] = 1;
-    for (int i = 1; i < 1e6 + 2; i++)
+    for (int i = 1; i < 1e6 + 1; i++)
     {
         /* code */
         Factorials[i] = (((Factorials[i - 1] % mod) * (i % mod) % mod));
@@ -216,7 +216,7 @@ void PreComputing_Factorials()
 void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
-    for (int i = 1; i < 1e6 + 2; i++)
+    for (int i = 1; i < 1e6 + 1; i++)
     {
         /* code */
         InverseofFactorials[i] = BinaryExponentiation_Binpow(Factorials[i], mod - 2);
@@ -340,52 +340,116 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 
 // Code for 2 states dp
 
-// vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
-// ll dp(ll i, ll j)
-// {
-//     // base case
-//     if (i < 0 || j < 0)
-//     {
-//         return 0;
-//     }
+// string n, m;
+ll dp(ll i, ll j, ll a, ll b, ll n, string s, vector<vector<ll>> &memo)
+{
+    // base case
+    if (i < 0 || j < 0)
+    {
+        return 0;
+    }
 
-//     //
-//     if (memo[i][j] != -1)
-//     {
-//         return memo[i][j];
-//     }
-//     ll ans = 0;
+    if (i > j)
+    {
+        return 0;
+    }
 
-//     return memo[i][j] = ans;
-// }
+    //
+    if (memo[i][j] != -1)
+    {
+        return memo[i][j];
+    }
+    ll ans;
+    ll op1, op2, op3;
+    op1 = op2 = op3 = 1e12;
+
+    if (s[i] == s[j])
+    {
+        op1 = dp(i + 1, j - 1, a, b, n, s, memo);
+    }
+    else
+    {
+        string s2 = s;
+        s.push_back(s.front());
+        s.erase(s.begin());
+        op2 = dp(i, j, a, b, n, s, memo) + a;
+        s = s2;
+        op3 = dp(i + 1, j - 1, a, b, n, s, memo) + b;
+    }
+    ans = min(op1, min(op2, op3));
+
+    return memo[i][j] = ans;
+}
 
 void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
+    sciii(n, a, b);
+    scs(s);
+    vector<vector<ll>> memo(5 * 1e3 + 3, vector<ll>(5 * 1e3 + 3, -1));
+    cout << dp(0, n - 1, a, b, n, s, memo) << endl;
+
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
-void anothersolve()
+ll checksolve(ll n, ll a, ll b, string &s)
 {
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+
+    vector<vector<ll>> memo(5 * 1e3 + 3, vector<ll>(5 * 1e3 + 3, -1));
+    return dp(0, n - 1, a, b, n, s, memo);
 }
+ll rec(ll i, ll j, ll a, ll b, string &s)
+{
+    if (i > j)
+        return 0;
+    ll ans;
+    ll op1, op2, op3;
+    op1 = op2 = op3 = 1e12;
+
+    if (s[i] == s[j])
+    {
+
+        op1 = rec(i + 1, j - 1, a, b, s);
+    }
+    else
+    {
+        string s2 = s;
+
+        s.push_back(s.front());
+        s.erase(s.begin());
+
+        op2 = rec(i, j, a, b, s) + a;
+        s = s2;
+        op3 = rec(i + 1, j - 1, a, b, s);
+    }
+    return ans = min(op1, min(op2, op3));
+}
+ll brutesolve(ll n, ll a, ll b, string &s)
+{
+
+    return rec(0, n - 1, a, b, s);
+}
+
 void TestCaseGenerator()
 {
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 10; i++)
     {
-        ll n = rand() % 15 + 1;
-        vector<ll> test;
+        ll n = rand() % 15;
+        ll a = rand() % 10 + 1;
+        ll b = rand() % 10 + 1;
+
+        string test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test += 'a' + (rand() % 26);
         }
-        // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
-        dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
+        dbgm(n, a, b, test);
+        ll sol1 = checksolve(n, a, b, test);
+        ll sol2 = brutesolve(n, a, b, test);
+        if (sol1 != sol2)
+        {
+            dbgm(n, a, b, test, sol1, sol2);
+        }
     }
 }
 int main()
@@ -396,7 +460,7 @@ int main()
     // cin >> t;while (t--)
 
     solve();
-    // anothersolve();
     // TestCaseGenerator();
+
     return 0;
 }

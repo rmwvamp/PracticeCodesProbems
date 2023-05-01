@@ -363,8 +363,62 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sci(n);
+    vector<ll> arr(n), a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    int l = -1, r = -1;
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] != a[i])
+        {
+            l = i;
+            break;
+        }
+    }
+    int templ = l;
+    for (int i = l; i >= 0; i--)
+    {
+        /* code */
+        if (a[i] == a[templ] || (i < n - 1 && a[i] == arr[i] && a[i] <= a[i + 1]))
+            templ = i;
+        else
+            break;
+    }
+
+    for (int i = n - 1; i >= 0; i--)
+    {
+        if (arr[i] != a[i])
+        {
+            r = i;
+            break;
+        }
+    }
+    int tempr = r;
+    for (int i = r; i < n; i++)
+    {
+        /* code */
+        if (a[i] == a[tempr] || (i > 0 && a[i] == arr[i] && a[i] >= a[i - 1]))
+        {
+            // dbgm(a[i], a[i-1]);
+            // cout << "1" << endl;
+
+            tempr = i;
+            // dbgm(tempr);
+        }
+        else
+            break;
+    }
+    // dbgm(tempr);
+    l = templ;
+    r = tempr;
+    cout << l + 1 << " " << r + 1 << endl;
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
@@ -373,29 +427,162 @@ void anothersolve()
     // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
+pair<ll, ll> checksolve(vector<ll> arr, vector<ll> a)
+{
+    int n = arr.size();
+    int l = -1, r = -1;
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] != a[i])
+        {
+            l = i;
+            break;
+        }
+    }
+    int templ = l;
+    for (int i = l; i >= 0; i--)
+    {
+        /* code */
+        if (a[i] == a[templ] || (i < n - 1 && a[i] == arr[i] && a[i] <= a[i + 1]))
+            templ = i;
+        else
+            break;
+    }
+
+    for (int i = n - 1; i >= 0; i--)
+    {
+        if (arr[i] != a[i])
+        {
+            r = i;
+            break;
+        }
+    }
+    int tempr = r;
+    for (int i = r; i < n; i++)
+    {
+        /* code */
+        if (a[i] == a[tempr] || (i > 0 && a[i] == arr[i] && a[i] >= a[i - 1]))
+        {
+            // dbgm(a[i], a[i-1]);
+            // cout << "1" << endl;
+
+            tempr = i;
+            // dbgm(tempr);
+        }
+        else
+            break;
+    }
+    // dbgm(tempr);
+    l = templ;
+    r = tempr;
+    // for (int i = l; i < r; i++)
+    // {
+    //     /* code */
+    //     if (a[i] > a[i + 1])
+    //     {
+    //         cout << l + 1 << " " << l + 1 << endl;
+    //         return;
+    //         // cout << -1 << endl;
+    //     }
+    // }
+    return {l, r};
+    // cout << l + 1 << " " << r + 1 << endl;
+}
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
     {
         ll n = rand() % 15 + 1;
         vector<ll> test;
+        int l = rand() % n;
+        int r = rand() % n;
+        if (l >= r)
+            continue;
         for (ll j = 0; j < n; j++)
         {
             test.push_back(rand() % 50 + 1);
         }
+        vector<ll> arr = test;
+        sort(test.begin() + l, test.begin() + r + 1);
+        if (test == arr)
+            continue;
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
-        dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
+
+        pair<ll, ll> sol1 = checksolve(arr, test);
+        if (sol1.first != l || sol1.second != r)
+        {
+            dbgm(n, arr, test, l, r, sol1);
+        }
+
+        // ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
     }
 }
-int main()
+class Solution
+{
+public:
+    vector<int> getSubarrayBeauty(vector<int> &nums, int k, int x)
+    {
+        long long n = nums.size();
+        vector<int> res;
+        int left = 0, right = 0;
+        int cnt = 0;
+        map<long long, long long> mmp;
+        deque<int> dq;
+        int counta = 0;
+        for (long long i = 0; i < k - 1; i++)
+        {
+            mmp[nums[i]]++;
+            if (nums[i] < 0)
+                counta++;
+        }
+
+        for (long long i = k - 1; i < n; i++)
+        {
+            mmp[nums[i]]++;
+            long long y = x;
+            int xx = y - nums[i];
+            int lastval = mmp[nums[i]];
+            for (auto val1 : mmp)
+            {
+                long long num = val1.first;
+                long long cnt = val1.second;
+                long long diff = num - cnt;
+                y -= cnt;
+                if (y <= 0)
+                {
+                    if (num < 0)
+                    {
+                        res.push_back(num);
+                    }
+                    else
+                    {
+                        res.push_back(0);
+                    }
+                    break;
+                }
+            }
+            long long j = i - (k - 1);
+            xx = j - lastval;
+            mmp[nums[j]]--;
+            if (mmp[nums[j]] == 0)
+            {
+                auto it = mmp.find(nums[j]);
+                mmp.erase(it); 
+            }
+        }
+        return res;
+    }
+};
+
+long long main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int t = 1;
-    // cin >> t;while (t--)
+    long long t = 1;
+    cin >> t;
+    while (t--)
 
-    solve();
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

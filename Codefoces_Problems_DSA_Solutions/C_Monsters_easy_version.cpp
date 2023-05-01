@@ -95,7 +95,7 @@ string to_string(const A(&v), int x1, int x2, C... coords)
     {
         if (!first)
         {
-            res += ", ";
+            res += " ";
         }
         first = false;
         l_v_l_v_l++;
@@ -359,12 +359,142 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 //     return memo[i][j] = ans;
 // }
 
+bool check(ll x, vector<ll> &temp)
+{
+    vector<ll> arr = temp;
+    ll n = arr.size();
+    ll tot = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (i == 0 && arr[i] > 1)
+        {
+            tot += arr[i] - 1;
+            arr[i] = 1;
+        }
+        else
+        {
+            if (arr[i] > arr[i - 1] + 1)
+            {
+
+                tot += arr[i] - (arr[i - 1] + 1);
+                arr[i] = arr[i - 1] + 1;
+            }
+        }
+        if (tot > x)
+            return false;
+    }
+    if (tot > x)
+        return false;
+    else
+        return true;
+}
 void solve()
 {
     // SOLUTION STARTS
 
+    sci(n);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    sort(all(arr));
+    ll tot = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (i == 0)
+        {
+            if (arr[i] > 1)
+            {
+                tot += arr[i] - 1;
+                arr[i] = 1;
+            }
+        }
+        else
+        {
+            if (arr[i] == arr[i - 1] || arr[i] == arr[i - 1] + 1)
+                continue;
+            else
+            {
+
+                tot += arr[i] - (arr[i - 1] + 1);
+                arr[i] = arr[i - 1] + 1;
+            }
+        }
+    }
+
+    // ll lo = 0;
+    // ll hi = 1e9;
+    // ll ans = -1;
+    // while (lo <= hi)
+    // {
+    //     ll mid = (hi + lo) / 2;
+    //     if (check(mid, arr))
+    //     {
+    //         ans = mid;
+    //         hi = mid - 1;
+    //     }
+    //     else
+    //     {
+    //         lo = mid + 1;
+    //     }
+    // }
+    // cout << ans << endl;
+    cout << tot << endl;
+
+    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+}
+pair<ll, vector<ll>> checksolve(ll n, vector<ll> arr)
+{
+    // SOLUTION STARTS
+
     // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    // vector<ll> arr(n);
+    // for (int i = 0; i < n; i++)
+    // {
+    //     cin >> arr[i];
+    // }
+    sort(all(arr));
+    ll tot = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (i == 0 && arr[i] > 1)
+        {
+            tot += arr[i] - 1;
+            arr[i] = 1;
+        }
+        else
+        {
+            if (arr[i] > arr[i - 1] + 1)
+            {
+
+                tot += arr[i] - (arr[i - 1] + 1);
+                arr[i] = arr[i - 1] + 1;
+            }
+        }
+    }
+
+    // ll lo = 0;
+    // ll hi = 1e9;
+    // ll ans = -1;
+    // while (lo <= hi)
+    // {
+    //     ll mid = (hi + lo) / 2;
+    //     if (check(mid, arr))
+    //     {
+    //         ans = mid;
+    //         hi = mid - 1;
+    //     }
+    //     else
+    //     {
+    //         lo = mid + 1;
+    //     }
+    // }
+    // cout << ans << endl;
+    // cout << tot << endl;
+    return {tot, arr};
+
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
@@ -375,17 +505,26 @@ void anothersolve()
 }
 void TestCaseGenerator()
 {
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 1000; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand() % 20 + 1;
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
             test.push_back(rand() % 50 + 1);
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
-        dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
+        pair<ll, vector<ll>> sol1 = checksolve(n, test);
+        // ll sol2 = brutesolve(n, test);
+        if (sol1.second[n - 1] != n)
+        {
+
+            dbgm(n, test, sol1.first, sol1.second);
+        }
+        // if (sol1 != sol2)
+        // {
+        //     dbgm(test, n, sol1, sol2);
+        // }
     }
 }
 int main()
@@ -393,9 +532,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;

@@ -363,8 +363,47 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
+    sci(n);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    ll largest = n, smallest = 1;
+    ll l = 0, r = n - 1;
+    while ((arr[l] == largest || arr[l] == smallest || arr[r] == largest || arr[r] == smallest) && l < r)
+    {
+        while ((arr[l] == largest || arr[l] == smallest) && l < r)
+        {
+            if (arr[l] == largest)
+            {
+                l++;
+                largest--;
+            }
+            else
+            {
+                l++;
+                smallest++;
+            }
+        }
+        while ((arr[r] == largest || arr[r] == smallest) && l < r)
+        {
+            if (arr[r] == largest)
+            {
+                r--;
+                largest--;
+            }
+            else
+            {
+                r--;
+                smallest++;
+            }
+        }
+    }
+    if (l < r)
+        cout << l + 1 << " " << r + 1 << endl;
+    else
+        cout << "-1" << endl;
     // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
 }
 void anothersolve()
@@ -393,10 +432,29 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    while (t--)
 
-    solve();
+        solve();
     // anothersolve();
     // TestCaseGenerator();
     return 0;
+}
+vector<bool> solution(int t, vector<long long> n, vector<long long> a, vector<long long> b)
+{
+    int nn = n.size();
+    vector<bool> temp;
+    for (int i = 0; i < nn; i++)
+    {
+        int rem = n[i] % (a[i] + b[i]);
+        if (rem == 0 || rem <= a[i])
+        {
+            temp.push_back({false});
+        }
+        else
+        {
+            temp.push_back({false});
+        }
+    }
+    return temp;
 }

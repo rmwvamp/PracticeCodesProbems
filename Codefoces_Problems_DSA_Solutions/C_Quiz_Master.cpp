@@ -131,14 +131,14 @@ void dbgm(Heads H, Tails... T)
     dbgm(__VA_ARGS__);                    \
     cout << endl
 
-vector<int> DivisorsCount[int(1e5 + 2)];
+vector<int> DivisorsCount[ll(1e5 + 2)];
 
 void PreComputing_DivisorsofNumber()
 {
     // doing it till 1e5
-    for (int i = 1; i < 1e5 + 2; i++) // Putting factors/divisors at the number ith array position in the vector
+    for (int i = 1; i < 1e5 + 1; i++) // Putting factors/divisors at the number ith array position in the vector
     {
-        for (int j = i; j < 1e5 + 2; j += i)
+        for (int j = i; j < 1e5 + 1; j += i)
         {
             DivisorsCount[j].push_back(i);
         }
@@ -184,7 +184,7 @@ ll BinaryExponentiation_Binpow_WithoutMod(ll base, ll exponent)
 //         return __gcd(a, b);
 //     }
 // }
-vector<ll> is_prime(ll(1e5 + 100), 1);
+vector<ll> is_prime(1000100, 1);
 void Sieve_of_Eratosthenes(ll n)
 {
     for (ll i = 2; i <= n; i++)
@@ -199,12 +199,12 @@ void Sieve_of_Eratosthenes(ll n)
     }
 }
 
-vector<ll> Factorials(int(1e6 + 2));
-vector<ll> InverseofFactorials(int(1e6 + 2));
+vector<ll> Factorials(int(1e6 + 1));
+vector<ll> InverseofFactorials(int(1e6 + 1));
 void PreComputing_Factorials()
 {
     Factorials[0] = 1;
-    for (int i = 1; i < 1e6 + 2; i++)
+    for (int i = 1; i < 1e6 + 1; i++)
     {
         /* code */
         Factorials[i] = (((Factorials[i - 1] % mod) * (i % mod) % mod));
@@ -216,7 +216,7 @@ void PreComputing_Factorials()
 void PreComputing_InversesofFactorials()
 {
     InverseofFactorials[0] = 1;
-    for (int i = 1; i < 1e6 + 2; i++)
+    for (int i = 1; i < 1e6 + 1; i++)
     {
         /* code */
         InverseofFactorials[i] = BinaryExponentiation_Binpow(Factorials[i], mod - 2);
@@ -340,6 +340,7 @@ sgtnode query(ll index, ll l, ll r, ll lq, ll rq, vector<ll> &arr, vector<sgtnod
 
 // Code for 2 states dp
 
+// string n, m;
 // vector<vector<ll>> memo(1e3, vector<ll>(1e3, -1));
 // ll dp(ll i, ll j)
 // {
@@ -363,40 +364,98 @@ void solve()
 {
     // SOLUTION STARTS
 
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
-}
-void anothersolve()
-{
-    // sci(n);
-    // vector<ll> arr(n);for (int i = 0; i < n; i++) {cin >> arr[i]; }
-    // vector<vector<ll>> arr(n, vector<ll>(m, -1));for (int i = 0; i < n; i++){for (int j = 0; j < m; j++){cin >> arr[i][j];}}
+    scii(n, m);
+    vector<ll> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    map<ll, ll> mmp;
+    for (int i = 2; i <= m; i++)
+    {
+        mmp[i]++;
+    }
+    sort(all(arr));
+    int check = -1;
+    for (int i = 0; i < n; i++)
+    {
+        ll j = 0;
+        if (arr[i] == 1)
+            continue;
+        while (mmp.size() > 0 && j < DivisorsCount[arr[i]].size() && DivisorsCount[arr[i]][j] <= m)
+        {
+            if (mmp.find(DivisorsCount[arr[i]][j]) != mmp.end())
+            {
+                mmp.erase(mmp.find(DivisorsCount[arr[i]][j]));
+            }
+            j++;
+        }
+        if (mmp.size() == 0)
+        {
+            check = i;
+            break;
+        }
+    }
+    if (mmp.size() == 0)
+    {
+
+        if (check == -1)
+            check = arr.size();
+        vector<ll> ans(arr.begin(), arr.begin() + check);
+        // ans.assign(arr.begin(), arr.begin() + check);
+        // dbgm(ans);
+        for (int i = 0; i < check; i++)
+        {
+            if (arr[i] == 1)
+                continue;
+            for (int j = 2; arr[i] * j <= arr[n - 1]; j++)
+            {
+                /* code */
+                auto it = find(all(ans), arr
+                
+                
+                
+                [i] * j);
+                if (it != ans.end())
+                {
+                    ans.erase(find(all(ans), arr[i]));
+                    break;
+                }
+            }
+        }
+        // dbgm(ans);
+        cout << ans[ans.size() - 1] - ans[0] << endl;
+    }
+    else
+    {
+        cout << "-1" << endl;
+    }
 }
 void TestCaseGenerator()
 {
     for (int i = 0; i < 100; i++)
     {
-        ll n = rand() % 15 + 1;
+        ll n = rand();
         vector<ll> test;
         for (ll j = 0; j < n; j++)
         {
-            test.push_back(rand() % 50 + 1);
+            test.push_back(rand());
         }
         // vector<int> test = {0, 9, 2, 1, 4, 3};shuffle(test.begin(), test.end(), rand());
         dbgm(n, test);
-        // ll sol1 = checksolve(n, test);ll sol2 = brutesolve(n, test);if (sol1 != sol2){dbgm(test, n, sol1, sol2);}
     }
+    // if (checksolve(test) != optimisedsol(test)){dbgm(test, n, checksolve(test), optimisedsol(test));}
 }
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    // cin >> t;while (t--)
+    cin >> t;
+    PreComputing_DivisorsofNumber();
+    while (t--)
 
-    solve();
-    // anothersolve();
-    // TestCaseGenerator();
+        solve();
+
     return 0;
 }
